@@ -1,0 +1,5 @@
+site/.playwright-mcp/
+site/.superpowers/
+site/.claude/
+*.png
+*.jpg
