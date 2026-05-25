@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Prática para Advogados — Curso Gratuito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+    <style>
+        /* ── Reset & Base ── */
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+        :root {
+            --cream:   #f2ede4;
+            --cream-d: #e8e2d8;
+            --black:   #0d0d0d;
+            --black-2: #111111;
+            --black-3: #1a1a1a;
+            --black-4: #2e2e2e;
+            --red:     #e63012;
+            --red-d:   #c5240a;
+            --f-display: 'Barlow Condensed', sans-serif;
+            --f-mono:    'JetBrains Mono', monospace;
+            --f-body:    'DM Sans', -apple-system, sans-serif;
+        }
+        body {
+            font-family: var(--f-body);
+            background: var(--cream);
+            color: var(--black);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::selection { background: var(--red); color:#fff; }
+        ::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-thumb { background:#0d0d0d; }
+
+        /* ── Top bar ── */
+        .topbar {
+            background: var(--black-2);
+            border-bottom: 2px solid var(--black);
+            padding: 0 40px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top:0;
+            z-index:100;
+        }
+        .topbar-brand {
+            font-family: var(--f-display);
+            font-size: 18px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+        .topbar-brand span { color: var(--red); }
+        .topbar-right { display:flex; align-items:center; gap: 16px; }
+        .lang-btn {
+            font-family: var(--f-mono);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1px solid #444;
+            color: #888;
+            padding: 4px 10px;
+            cursor: pointer;
+            transition: all .15s;
+        }
+        .lang-btn:hover { border-color: var(--red); color: var(--red); }
+        .cta-top {
+            font-family: var(--f-display);
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--red);
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 22px;
+            border: 2px solid var(--red);
+            transition: all .15s;
+            white-space: nowrap;
+        }
+        .cta-top:hover { background: var(--red-d); border-color: var(--red-d); }
+
+        /* ── Hero ── */
+        .hero {
+            min-height: calc(100vh - 52px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 2px solid var(--black);
+        }
+        .hero-left {
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 2px solid var(--black);
+        }
+        .hero-eyebrow {
+            font-family: var(--f-mono);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            display: inline-block;
+            width: 28px;
+            height: 2px;
+            background: var(--red);
+        }
+        .hero-h1 {
+            font-family: var(--f-display);
+            font-size: clamp(52px, 7vw, 88px);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: .86;
+            letter-spacing: -2px;
+            color: var(--black);
+            margin-bottom: 28px;
+        }
+        .hero-h1 em {
+            color: var(--red);
+            font-style: normal;
+            display: block;
+        }
+        .hero-desc {
+            font-size: 16px;
+            color: #555;
+            max-width: 440px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+        .hero-cta-group { display:flex; gap:0; flex-wrap: wrap; gap: 12px; }
+        .btn-hero {
+            font-family: var(--f-display);
+            font-size: 15px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            padding: 14px 34px;
+            text-decoration: none;
+            border: 2px solid var(--black);
+            transition: all .15s;
+            display: inline-block;
+        }
+        .btn-hero-primary { background: var(--black); color: #fff; }
+        .btn-hero-primary:hover { background: var(--red); border-color: var(--red); }
+        .btn-hero-ghost { background: transparent; color: var(--black); }
+        .btn-hero-ghost:hover { background: var(--black); color: #fff; }
+
+        .hero-right {
+            background: var(--black-2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0;
+            overflow: hidden;
+        }
+        .hero-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+        }
+        .stat-block {
+            padding: 44px 36px;
+            border-right: 1.5px solid #1e1e1e;
+            border-bottom: 1.5px solid #1e1e1e;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .stat-block:nth-child(2), .stat-block:nth-child(4) { border-right: none; }
+        .stat-block:nth-child(3), .stat-block:nth-child(4) { border-bottom: none; }
+        .stat-num {
+            font-family: var(--f-mono);
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--red);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-family: var(--f-display);
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444;
+        }
+        .hero-free-badge {
+            background: var(--red);
+            padding: 20px 36px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .hero-free-badge .badge-icon {
+            font-family: var(--f-mono);
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+        .hero-free-badge .badge-text {
+            font-family: var(--f-display);
+            font-size: 13px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,.85);
+            line-height: 1.4;
+        }
+        .hero-free-badge .badge-text strong { color: #fff; font-size: 16px; display: block; }
+
+        /* ── Section wrapper ── */
+        .section { border-bottom: 2px solid var(--black); }
+        .section-inner { max-width: 1100px; margin: 0 auto; padding: 80px 40px; }
+        .section-label {
+            font-family: var(--f-mono);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::before { content:''; width:28px; height:2px; background:var(--red); display:inline-block; }
+        .section-h2 {
+            font-family: var(--f-display);
+            font-size: clamp(36px, 5vw, 58px);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: .9;
+            color: var(--black);
+            margin-bottom: 48px;
+        }
+        .section-h2 em { color: var(--red); font-style: normal; }
+
+        /* ── What you get (modules grid) ── */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 0;
+            border: 2px solid var(--black);
+        }
+        .module-item {
+            padding: 24px 26px;
+            border-right: 1.5px solid var(--black);
+            border-bottom: 1.5px solid var(--black);
+            background: #fff;
+            transition: background .15s;
+        }
+        .module-item:hover { background: var(--cream-d); }
+        .module-item:nth-child(3n) { border-right: none; }
+        .module-num {
+            font-family: var(--f-mono);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .module-item h3 {
+            font-family: var(--f-display);
+            font-size: 17px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+        .module-item p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.55;
+        }
+        .module-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--f-mono);
+            font-size: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 12px;
+            padding: 3px 8px;
+            background: var(--black);
+            color: var(--red);
+        }
+        .module-type.project { background: var(--red); color: #fff; }
+
+        /* ── Projects section ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 2px solid var(--black);
+        }
+        .project-card {
+            padding: 40px;
+            background: #fff;
+            border-right: 2px solid var(--black);
+        }
+        .project-card:last-child { border-right: none; }
+        .project-num {
+            font-family: var(--f-mono);
+            font-size: 60px;
+            font-weight: 700;
+            color: var(--cream-d);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+        .project-card h3 {
+            font-family: var(--f-display);
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .project-card h3 span { color: var(--red); }
+        .project-card p { font-size: 14px; color: #555; line-height: 1.65; margin-bottom: 20px; }
+        .project-features { list-style: none; }
+        .project-features li {
+            padding: 8px 0;
+            border-top: 1px solid var(--cream-d);
+            font-size: 13px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .project-features li::before {
+            content: '→';
+            font-family: var(--f-mono);
+            color: var(--red);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ── For who ── */
+        .forwho-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0;
+            border: 2px solid var(--black);
+        }
+        .forwho-item {
+            padding: 30px 28px;
+            border-right: 1.5px solid var(--black);
+            border-bottom: 1.5px solid var(--black);
+            background: #fff;
+        }
+        .forwho-item:hover { background: var(--cream); }
+        .forwho-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .forwho-item h3 {
+            font-family: var(--f-display);
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .forwho-item p { font-size: 13px; color: #666; }
+
+        /* ── Why free ── */
+        .why-free {
+            background: var(--black-2);
+            color: #fff;
+        }
+        .why-free .section-label { color: var(--red); }
+        .why-free .section-h2 { color: #fff; }
+        .why-free-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .why-free-text p {
+            font-size: 15px;
+            color: #aaa;
+            line-height: 1.75;
+            margin-bottom: 16px;
+        }
+        .why-free-text p strong { color: #fff; }
+        .why-free-quote {
+            border-left: 4px solid var(--red);
+            padding: 24px 28px;
+            background: rgba(230,48,18,.08);
+        }
+        .why-free-quote blockquote {
+            font-family: var(--f-display);
+            font-size: 26px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: #fff;
+            line-height: 1.15;
+        }
+        .why-free-quote cite {
+            display: block;
+            margin-top: 16px;
+            font-family: var(--f-mono);
+            font-size: 10px;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-style: normal;
+        }
+
+        /* ── Tools showcase ── */
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            border: 2px solid var(--black);
+            background: #fff;
+        }
+        .tool-chip {
+            padding: 16px 24px;
+            border-right: 1.5px solid var(--black);
+            border-bottom: 1.5px solid var(--black);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--f-display);
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--black);
+        }
+        .tool-chip img { width:20px; height:20px; flex-shrink:0; }
+
+        /* ── CTA final ── */
+        .cta-section {
+            background: var(--red);
+            border-bottom: 2px solid var(--black);
+        }
+        .cta-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 40px;
+            text-align: center;
+        }
+        .cta-inner h2 {
+            font-family: var(--f-display);
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            line-height: .88;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .cta-inner p {
+            font-size: 16px;
+            color: rgba(255,255,255,.8);
+            margin-bottom: 40px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-cta-final {
+            font-family: var(--f-display);
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 18px 48px;
+            background: #fff;
+            color: var(--red);
+            text-decoration: none;
+            border: 2px solid #fff;
+            display: inline-block;
+            transition: all .15s;
+        }
+        .btn-cta-final:hover { background: transparent; color: #fff; }
+        .cta-note {
+            margin-top: 20px;
+            font-family: var(--f-mono);
+            font-size: 10px;
+            color: rgba(255,255,255,.5);
+            letter-spacing: 1px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: var(--black-2);
+            padding: 32px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 2px solid var(--black);
+        }
+        .footer-brand {
+            font-family: var(--f-display);
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #555;
+        }
+        .footer-brand span { color: var(--red); }
+        .footer-note {
+            font-family: var(--f-mono);
+            font-size: 9px;
+            color: #333;
+            letter-spacing: 1px;
+        }
+
+        /* ── [data-lang] toggles ── */
+        [data-show="en"] { display: none; }
+        html[data-lang="en"] [data-show="pt"] { display: none; }
+        html[data-lang="en"] [data-show="en"] { display: block; }
+        html[data-lang="en"] .hero-eyebrow[data-show="en"],
+        html[data-lang="en"] .section-label[data-show="en"],
+        html[data-lang="en"] .forwho-icon { display: flex; }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left { padding: 60px 32px; border-right: none; border-bottom: 2px solid var(--black); }
+            .hero-right { min-height: 320px; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-card { border-right: none; border-bottom: 2px solid var(--black); }
+            .why-free-body { grid-template-columns: 1fr; }
+            .modules-grid { grid-template-columns: 1fr; }
+            .module-item { border-right: none; }
+            .topbar { padding: 0 20px; }
+            .section-inner { padding: 60px 24px; }
+            .footer { flex-direction: column; gap: 16px; text-align: center; }
+        }
+        @media (max-width: 540px) {
+            .hero-left { padding: 40px 24px; }
+            .stat-block { padding: 28px 20px; }
+            .stat-num { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Top Bar ── -->
+<header class="topbar">
+    <div class="topbar-brand" id="topbarBrand">IA<span>Prática</span></div>
+    <div class="topbar-right">
+        <button class="lang-btn" id="landingLangBtn">EN</button>
+        <a href="index.html" class="cta-top" data-show="pt">Começar Grátis →</a>
+        <a href="index.html" class="cta-top" data-show="en">Start for Free →</a>
+    </div>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="hero-left">
+        <div class="hero-eyebrow" data-show="pt">// Curso 100% Gratuito</div>
+        <div class="hero-eyebrow" data-show="en">// 100% Free Course</div>
+
+        <h1 class="hero-h1" data-show="pt">IA Prática para<em>Advogados</em></h1>
+        <h1 class="hero-h1" data-show="en">AI in Practice<em>for Lawyers</em></h1>
+
+        <p class="hero-desc" data-show="pt">Qualquer pessoa da área jurídica pode usar IA para criar apps, automatizar tarefas e resolver problemas do dia a dia — sem saber programar. Completamente grátis.</p>
+        <p class="hero-desc" data-show="en">Any legal professional can use AI to build apps, automate tasks, and solve everyday problems — no coding knowledge required. Completely free.</p>
+
+        <div class="hero-cta-group">
+            <a href="index.html" class="btn-hero btn-hero-primary" data-show="pt">Começar Agora →</a>
+            <a href="index.html" class="btn-hero btn-hero-primary" data-show="en">Start Now →</a>
+            <a href="#modules" class="btn-hero btn-hero-ghost" data-show="pt">Ver o Curso</a>
+            <a href="#modules" class="btn-hero btn-hero-ghost" data-show="en">See the Course</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <div class="hero-stats-grid">
+            <div class="stat-block">
+                <div class="stat-num">10</div>
+                <div class="stat-label" data-show="pt">Módulos</div>
+                <div class="stat-label" data-show="en">Modules</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-num">2</div>
+                <div class="stat-label" data-show="pt">Projetos Reais</div>
+                <div class="stat-label" data-show="en">Real Projects</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-num">0</div>
+                <div class="stat-label" data-show="pt">Código Necessário</div>
+                <div class="stat-label" data-show="en">Coding Required</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-num">∞</div>
+                <div class="stat-label" data-show="pt">Possibilidades</div>
+                <div class="stat-label" data-show="en">Possibilities</div>
+            </div>
+        </div>
+        <div class="hero-free-badge">
+            <div class="badge-icon">$0</div>
+            <div class="badge-text" data-show="pt"><strong>Completamente Gratuito</strong>Sem cartão de crédito. Sem cadastro obrigatório.</div>
+            <div class="badge-text" data-show="en"><strong>Completely Free</strong>No credit card. No mandatory signup.</div>
+        </div>
+    </div>
+</section>
+
+<!-- ── What's included (modules) ── -->
+<section class="section" id="modules">
+    <div class="section-inner">
+        <div class="section-label" data-show="pt">// O que está incluído</div>
+        <div class="section-label" data-show="en">// What's included</div>
+        <h2 class="section-h2" data-show="pt">10 Módulos,<em>2 Projetos</em></h2>
+        <h2 class="section-h2" data-show="en">10 Modules,<em>2 Projects</em></h2>
+
+        <div class="modules-grid">
+            <div class="module-item">
+                <div class="module-num">01</div>
+                <h3 data-show="pt">O Que São Assistentes Inteligentes</h3>
+                <h3 data-show="en">What Are AI Assistants</h3>
+                <p data-show="pt">Entenda o que mudou em 2025 e por que a área jurídica precisa disso agora.</p>
+                <p data-show="en">Understand what changed in 2025 and why the legal field needs this now.</p>
+                <span class="module-type" data-show="pt">Introdução · 15 min</span>
+                <span class="module-type" data-show="en">Intro · 15 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">02</div>
+                <h3 data-show="pt">Setup Rápido: Sua Primeira Ferramenta</h3>
+                <h3 data-show="en">Quick Setup: Your First Tool</h3>
+                <p data-show="pt">Claude Desktop, Cursor ou Windsurf — escolha e configure em 15 minutos.</p>
+                <p data-show="en">Claude Desktop, Cursor, or Windsurf — choose and set up in 15 minutes.</p>
+                <span class="module-type" data-show="pt">Setup · 20 min</span>
+                <span class="module-type" data-show="en">Setup · 20 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">03</div>
+                <h3 data-show="pt">O Terminal É Só Um Chat de Texto</h3>
+                <h3 data-show="en">The Terminal Is Just a Text Chat</h3>
+                <p data-show="pt">Desmistifique a linha de comando com 5 comandos que resolvem tudo.</p>
+                <p data-show="en">Demystify the command line with 5 commands that handle everything.</p>
+                <span class="module-type" data-show="pt">Conceito · 15 min</span>
+                <span class="module-type" data-show="en">Concept · 15 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">04</div>
+                <h3 data-show="pt">Ferramentas de Linha de Comando</h3>
+                <h3 data-show="en">Command-Line AI Tools</h3>
+                <p data-show="pt">Codex, Kimi CLI, Aider — ferramentas que criam projetos inteiros por texto.</p>
+                <p data-show="en">Codex, Kimi CLI, Aider — tools that build entire projects from text.</p>
+                <span class="module-type" data-show="pt">Setup · 20 min</span>
+                <span class="module-type" data-show="en">Setup · 20 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">05</div>
+                <h3 data-show="pt">Editores de Código com IA</h3>
+                <h3 data-show="en">AI-Powered Code Editors</h3>
+                <p data-show="pt">Cursor vs Windsurf vs VS Code — qual usar e como criar seu primeiro projeto.</p>
+                <p data-show="en">Cursor vs Windsurf vs VS Code — which to use and how to build your first project.</p>
+                <span class="module-type" data-show="pt">Setup · 20 min</span>
+                <span class="module-type" data-show="en">Setup · 20 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">06</div>
+                <h3 data-show="pt">Projeto 1: Seu Primeiro App</h3>
+                <h3 data-show="en">Project 1: Your First App</h3>
+                <p data-show="pt">Calculadora de prazos processuais com histórico, exportação PDF e feriados nacionais.</p>
+                <p data-show="en">Case deadline calculator with history, PDF export, and national holidays.</p>
+                <span class="module-type project" data-show="pt">Projeto · 30 min</span>
+                <span class="module-type project" data-show="en">Project · 30 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">07</div>
+                <h3 data-show="pt">Projeto 2: Assistente Automático</h3>
+                <h3 data-show="en">Project 2: Automated Assistant</h3>
+                <p data-show="pt">Um programa que lê documentos, extrai informações e gera relatórios sozinho.</p>
+                <p data-show="en">A program that reads documents, extracts information, and generates reports on its own.</p>
+                <span class="module-type project" data-show="pt">Projeto · 30 min</span>
+                <span class="module-type project" data-show="en">Project · 30 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">08</div>
+                <h3 data-show="pt">Automações no Seu Dia a Dia</h3>
+                <h3 data-show="en">Automations in Your Daily Practice</h3>
+                <p data-show="pt">n8n, Make, Zapier e Power Automate — elimine tarefas repetitivas de uma vez.</p>
+                <p data-show="en">n8n, Make, Zapier, and Power Automate — eliminate repetitive tasks for good.</p>
+                <span class="module-type" data-show="pt">Conceito · 25 min</span>
+                <span class="module-type" data-show="en">Concept · 25 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">09</div>
+                <h3 data-show="pt">Como Pedir Para a IA Criar Coisas</h3>
+                <h3 data-show="en">How to Ask AI to Build Things</h3>
+                <p data-show="pt">A estrutura PERFEITA para descrever o que você quer e obter resultados excelentes.</p>
+                <p data-show="en">The PERFECT framework for describing what you want and getting excellent results.</p>
+                <span class="module-type" data-show="pt">Conceito · 20 min</span>
+                <span class="module-type" data-show="en">Concept · 20 min</span>
+            </div>
+            <div class="module-item">
+                <div class="module-num">10</div>
+                <h3 data-show="pt">Segurança, Sigilo e LGPD</h3>
+                <h3 data-show="en">Security, Confidentiality & Data Protection</h3>
+                <p data-show="pt">O que nunca enviar para IAs online e como proteger dados de clientes.</p>
+                <p data-show="en">What never to send to online AI and how to protect client data.</p>
+                <span class="module-type" data-show="pt">Conceito · 20 min</span>
+                <span class="module-type" data-show="en">Concept · 20 min</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Projects deep-dive ── -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label" data-show="pt">// Projetos Práticos</div>
+        <div class="section-label" data-show="en">// Hands-on Projects</div>
+        <h2 class="section-h2" data-show="pt">O Que Você<em>Vai Construir</em></h2>
+        <h2 class="section-h2" data-show="en">What You'll<em>Build</em></h2>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-num">01</div>
+                <h3 data-show="pt"><span>Calculadora de</span> Prazos</h3>
+                <h3 data-show="en"><span>Deadline</span> Calculator</h3>
+                <p data-show="pt">Um app web completo que calcula prazos processuais em dias úteis, considerando feriados nacionais e fins de semana.</p>
+                <p data-show="en">A complete web app that calculates case deadlines in working days, accounting for national holidays and weekends.</p>
+                <ul class="project-features">
+                    <li data-show="pt">Date picker + seletor de prazo</li>
+                    <li data-show="en">Date picker + deadline selector</li>
+                    <li data-show="pt">Feriados nacionais pré-carregados</li>
+                    <li data-show="en">Pre-loaded national holidays</li>
+                    <li data-show="pt">Histórico de cálculos (localStorage)</li>
+                    <li data-show="en">Calculation history (localStorage)</li>
+                    <li data-show="pt">Exportação em PDF</li>
+                    <li data-show="en">PDF export</li>
+                    <li data-show="pt">Design responsivo e profissional</li>
+                    <li data-show="en">Responsive, professional design</li>
+                </ul>
+            </div>
+            <div class="project-card">
+                <div class="project-num">02</div>
+                <h3 data-show="pt"><span>Assistente de</span> Processos</h3>
+                <h3 data-show="en"><span>Case</span> Assistant</h3>
+                <p data-show="pt">Um programa Python que lê arquivos de texto, extrai informações jurídicas relevantes e gera relatórios organizados automaticamente.</p>
+                <p data-show="en">A Python program that reads text files, extracts relevant legal information, and automatically generates organized reports.</p>
+                <ul class="project-features">
+                    <li data-show="pt">Leitura automática de arquivos .txt</li>
+                    <li data-show="en">Automatic reading of .txt files</li>
+                    <li data-show="pt">Extração de partes, prazos e valores</li>
+                    <li data-show="en">Extraction of parties, deadlines, and amounts</li>
+                    <li data-show="pt">Relatórios em Markdown</li>
+                    <li data-show="en">Reports in Markdown format</li>
+                    <li data-show="pt">Menu interativo no terminal</li>
+                    <li data-show="en">Interactive terminal menu</li>
+                    <li data-show="pt">Resumo JSON com estatísticas</li>
+                    <li data-show="en">JSON summary with statistics</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── For who ── -->
+<section class="section">
+    <div class="section-inner">
+        <div class="section-label" data-show="pt">// Para quem é</div>
+        <div class="section-label" data-show="en">// Who this is for</div>
+        <h2 class="section-h2" data-show="pt">Para Qualquer<em>Jurídico</em></h2>
+        <h2 class="section-h2" data-show="en">For Every<em>Legal Professional</em></h2>
+
+        <div class="forwho-grid">
+            <div class="forwho-item">
+                <span class="forwho-icon">⚖️</span>
+                <h3 data-show="pt">Advogados</h3>
+                <h3 data-show="en">Attorneys</h3>
+                <p data-show="pt">Automatize cálculos, gere documentos e organize processos com apps próprios.</p>
+                <p data-show="en">Automate calculations, generate documents, and organize cases with your own apps.</p>
+            </div>
+            <div class="forwho-item">
+                <span class="forwho-icon">📋</span>
+                <h3 data-show="pt">Estagiários</h3>
+                <h3 data-show="en">Law Clerks</h3>
+                <p data-show="pt">Destaque-se com habilidades que 99% dos seus colegas ainda não têm.</p>
+                <p data-show="en">Stand out with skills that 99% of your peers don't have yet.</p>
+            </div>
+            <div class="forwho-item">
+                <span class="forwho-icon">🏢</span>
+                <h3 data-show="pt">Dept. Jurídico</h3>
+                <h3 data-show="en">In-House Legal</h3>
+                <p data-show="pt">Crie ferramentas internas sem depender de TI — do jeito que você precisa.</p>
+                <p data-show="en">Build internal tools without depending on IT — exactly the way you need them.</p>
+            </div>
+            <div class="forwho-item">
+                <span class="forwho-icon">📁</span>
+                <h3 data-show="pt">Secretários</h3>
+                <h3 data-show="en">Legal Secretaries</h3>
+                <p data-show="pt">Elimine tarefas repetitivas e ganhe horas no seu dia.</p>
+                <p data-show="en">Eliminate repetitive tasks and gain hours in your day.</p>
+            </div>
+            <div class="forwho-item">
+                <span class="forwho-icon">🏛️</span>
+                <h3 data-show="pt">Gestores de Escritório</h3>
+                <h3 data-show="en">Firm Managers</h3>
+                <p data-show="pt">Automatize processos administrativos e acompanhe tudo em sistemas próprios.</p>
+                <p data-show="en">Automate administrative workflows and track everything in your own systems.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Tools ── -->
+<section class="section" style="background:#fff;">
+    <div class="section-inner">
+        <div class="section-label" data-show="pt">// Ferramentas que você vai usar</div>
+        <div class="section-label" data-show="en">// Tools you'll use</div>
+        <h2 class="section-h2" data-show="pt">As Melhores<em>Ferramentas</em></h2>
+        <h2 class="section-h2" data-show="en">The Best<em>Tools</em></h2>
+        <div class="tools-row">
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/anthropic/e63012" alt="">Claude Desktop</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/openai/0d0d0d" alt="">Cursor / Codex</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/codeium/0d0d0d" alt="">Windsurf</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/github/0d0d0d" alt="">GitHub Copilot</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/python/0d0d0d" alt="">Python</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/n8n/e63012" alt="">n8n</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/make/0d0d0d" alt="">Make</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/zapier/e63012" alt="">Zapier</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/netlify/0d0d0d" alt="">Netlify</div>
+            <div class="tool-chip"><img src="https://cdn.simpleicons.org/vercel/0d0d0d" alt="">Vercel</div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Why free ── -->
+<section class="section why-free">
+    <div class="section-inner">
+        <div class="section-label" data-show="pt">// Por que é gratuito</div>
+        <div class="section-label" data-show="en">// Why it's free</div>
+        <h2 class="section-h2" data-show="pt">Conhecimento<em>Não Tem Preço</em></h2>
+        <h2 class="section-h2" data-show="en">Knowledge<em>Has No Price</em></h2>
+        <div class="why-free-body">
+            <div class="why-free-text">
+                <p data-show="pt">A IA está transformando o mercado jurídico mais rápido do que a maioria das pessoas percebe. Advogados que souberem usar essas ferramentas terão uma vantagem competitiva enorme.</p>
+                <p data-show="pt">Criamos este curso para <strong>democratizar esse conhecimento</strong>. Você não precisa de bootcamps caros nem de formação em tecnologia. Precisa de um guia claro e prático — e é isso que entregamos.</p>
+                <p data-show="pt">O curso é gratuito porque acreditamos que <strong>ferramentas de criação devem estar acessíveis a todos</strong>, especialmente para quem trabalha com acesso à justiça.</p>
+                <p data-show="en">AI is transforming the legal market faster than most people realize. Lawyers who know how to use these tools will have an enormous competitive advantage.</p>
+                <p data-show="en">We created this course to <strong>democratize this knowledge</strong>. You don't need expensive bootcamps or a technology background. You need a clear, practical guide — and that's what we deliver.</p>
+                <p data-show="en">The course is free because we believe <strong>creation tools should be accessible to everyone</strong>, especially those working in access to justice.</p>
+            </div>
+            <div class="why-free-quote">
+                <blockquote data-show="pt">"Você não vai virar programador. Vai virar alguém que cria soluções para seus próprios problemas."</blockquote>
+                <blockquote data-show="en">"You won't become a developer. You'll become someone who creates solutions to their own problems."</blockquote>
+                <cite data-show="pt">— IA Prática para Advogados</cite>
+                <cite data-show="en">— AI in Practice for Lawyers</cite>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Final CTA ── -->
+<section class="cta-section">
+    <div class="cta-inner">
+        <h2 data-show="pt">Pronto para<br>Começar?</h2>
+        <h2 data-show="en">Ready to<br>Start?</h2>
+        <p data-show="pt">10 módulos. 2 projetos reais. Zero conhecimento técnico necessário. Completamente gratuito.</p>
+        <p data-show="en">10 modules. 2 real projects. Zero technical knowledge required. Completely free.</p>
+        <a href="index.html" class="btn-cta-final" data-show="pt">Começar o Curso Agora →</a>
+        <a href="index.html" class="btn-cta-final" data-show="en">Start the Course Now →</a>
+        <div class="cta-note" data-show="pt">// sem cadastro obrigatório · sem cartão de crédito · grátis para sempre</div>
+        <div class="cta-note" data-show="en">// no signup required · no credit card · free forever</div>
+    </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+    <div class="footer-brand" id="footerBrand">IA<span>Prática</span></div>
+    <div class="footer-note" data-show="pt">// PARA_ADVOGADOS · GRATUITO · 2025</div>
+    <div class="footer-note" data-show="en">// FOR_LAWYERS · FREE · 2025</div>
+</footer>
+
+<script>
+    // Language detection & toggle
+    (function() {
+        const html = document.documentElement;
+        const btn = document.getElementById('landingLangBtn');
+
+        function getSavedLang() {
+            return localStorage.getItem('ia-pratica-lang') || null;
+        }
+        function detectLang() {
+            const saved = getSavedLang();
+            if (saved) return saved;
+            const bl = (navigator.language || navigator.languages[0] || 'pt').toLowerCase();
+            return bl.startsWith('en') ? 'en' : 'pt';
+        }
+        function setLang(l) {
+            html.setAttribute('data-lang', l);
+            html.lang = l === 'en' ? 'en' : 'pt-BR';
+            document.title = l === 'en'
+                ? 'AI in Practice for Lawyers — Free Course'
+                : 'IA Prática para Advogados — Curso Gratuito';
+            btn.textContent = l === 'en' ? 'PT' : 'EN';
+            localStorage.setItem('ia-pratica-lang', l);
+
+            // Update brand names
+            const brandEN = 'AI<span>Practice</span>';
+            const brandPT = 'IA<span>Prática</span>';
+            const tb = document.getElementById('topbarBrand');
+            const fb = document.getElementById('footerBrand');
+            if (tb) tb.innerHTML = l === 'en' ? brandEN : brandPT;
+            if (fb) fb.innerHTML = l === 'en' ? brandEN : brandPT;
+        }
+
+        setLang(detectLang());
+
+        btn.addEventListener('click', function() {
+            const current = html.getAttribute('data-lang') || 'pt';
+            setLang(current === 'en' ? 'pt' : 'en');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
+            });
+        });
+    })();
+</script>
+</body>
+</html>

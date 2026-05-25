@@ -1,0 +1,140 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: ⚖️
+      - generic [ref=e7]:
+        - heading "CLIs Agenticas" [level=1] [ref=e8]
+        - paragraph [ref=e9]: Para Jurídicos
+    - navigation [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Curso
+        - list [ref=e13]:
+          - listitem [ref=e136]:
+            - link "✓ O Que São Assistentes Inteligentes" [ref=e137] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e138]: ✓
+              - generic [ref=e139]: O Que São Assistentes Inteligentes
+          - listitem [ref=e140]:
+            - 'link "2 Setup Rápido: Sua Primeira Ferramenta" [ref=e141] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e142]: "2"
+              - generic [ref=e143]: "Setup Rápido: Sua Primeira Ferramenta"
+          - listitem [ref=e144]:
+            - link "3 O Terminal É Só Um Chat de Texto" [ref=e145] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e146]: "3"
+              - generic [ref=e147]: O Terminal É Só Um Chat de Texto
+          - listitem [ref=e148]:
+            - link "4 Ferramentas de Linha de Comando" [ref=e149] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e150]: "4"
+              - generic [ref=e151]: Ferramentas de Linha de Comando
+          - listitem [ref=e152]:
+            - link "5 Editores de Código com IA" [ref=e153] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e154]: "5"
+              - generic [ref=e155]: Editores de Código com IA
+          - listitem [ref=e156]:
+            - 'link "6 Projeto 1: Seu Primeiro App" [ref=e157] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e158]: "6"
+              - generic [ref=e159]: "Projeto 1: Seu Primeiro App"
+          - listitem [ref=e160]:
+            - 'link "7 Projeto 2: Seu Primeiro Assistente Automático" [ref=e161] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e162]: "7"
+              - generic [ref=e163]: "Projeto 2: Seu Primeiro Assistente Automático"
+          - listitem [ref=e164]:
+            - link "8 Automações no Seu Dia a Dia" [ref=e165] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e166]: "8"
+              - generic [ref=e167]: Automações no Seu Dia a Dia
+          - listitem [ref=e168]:
+            - link "9 Como Pedir Para a IA Criar Coisas" [ref=e169] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e170]: "9"
+              - generic [ref=e171]: Como Pedir Para a IA Criar Coisas
+          - listitem [ref=e172]:
+            - link "10 Segurança, Sigilo e LGPD" [ref=e173] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e174]: "10"
+              - generic [ref=e175]: Segurança, Sigilo e LGPD
+      - generic [ref=e54]:
+        - generic [ref=e55]: Recursos
+        - list [ref=e56]:
+          - listitem [ref=e57]:
+            - link "📋 Cheat Sheet" [ref=e58] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e59]:
+            - link "📖 Glossário" [ref=e60] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e61]:
+            - link "🔗 Links Úteis" [ref=e62] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]: Progresso
+        - generic [ref=e66]: 10%
+      - generic [ref=e68]: 1 de 10 módulos concluídos
+  - main [ref=e69]:
+    - generic [ref=e71]:
+      - generic [ref=e177]: Módulo 2
+      - generic [ref=e178]: /
+      - text: "Setup Rápido: Sua Primeira Ferramenta"
+    - generic [ref=e74]:
+      - 'heading "Setup Rápido: Sua Primeira Ferramenta" [level=1] [ref=e179]'
+      - paragraph [ref=e180]: Vamos instalar e configurar sua primeira ferramenta de IA. Você vai escolher uma das opções abaixo e ter ela funcionando em poucos minutos.
+      - generic [ref=e181]:
+        - button "▶" [ref=e182] [cursor=pointer]
+        - heading "Roteiro da Aula" [level=3] [ref=e183]
+        - paragraph [ref=e184]: Instalação passo a passo da ferramenta escolhida
+      - heading "Escolha Sua Primeira Ferramenta" [level=2] [ref=e185]
+      - paragraph [ref=e186]:
+        - text: Não precisa instalar tudo agora. Escolha
+        - strong [ref=e187]: uma
+        - text: das opções abaixo. Mais tarde você pode experimentar as outras.
+      - generic [ref=e188]:
+        - button "Claude Desktop" [ref=e189] [cursor=pointer]
+        - button "Cursor" [ref=e190] [cursor=pointer]
+        - button "Windsurf" [ref=e191] [cursor=pointer]
+      - generic [ref=e192]:
+        - heading "Claude Desktop (Anthropic)" [level=3] [ref=e193]
+        - paragraph [ref=e194]: O Claude Desktop é um aplicativo de chat que pode abrir programas, ler arquivos e criar projetos no seu computador. É gratuito para começar.
+        - generic [ref=e195]:
+          - generic [ref=e196]:
+            - generic [ref=e197]: "1"
+            - generic [ref=e198]:
+              - heading "Crie sua conta" [level=4] [ref=e199]
+              - paragraph [ref=e200]:
+                - text: Acesse
+                - code [ref=e201]: claude.ai
+                - text: e clique em "Sign Up". Use seu e-mail ou conta do Google. Confirme seu e-mail.
+          - generic [ref=e202]:
+            - generic [ref=e203]: "2"
+            - generic [ref=e204]:
+              - heading "Baixe o aplicativo" [level=4] [ref=e205]
+              - paragraph [ref=e206]: No mesmo site, procure por "Download for Desktop" e baixe a versão para Windows ou Mac. Instale como qualquer outro programa.
+          - generic [ref=e207]:
+            - generic [ref=e208]: "3"
+            - generic [ref=e209]:
+              - heading "Faça login" [level=4] [ref=e210]
+              - paragraph [ref=e211]: Abra o Claude Desktop e faça login com a conta que você criou.
+          - generic [ref=e212]:
+            - generic [ref=e213]: "4"
+            - generic [ref=e214]:
+              - heading "Teste" [level=4] [ref=e215]
+              - paragraph [ref=e216]: "Digite: \"Crie um arquivo chamado teste.txt na minha área de trabalho com a frase 'Olá, mundo jurídico'\"."
+      - heading "Checklist de Instalação" [level=2] [ref=e217]
+      - list [ref=e218]:
+        - listitem [ref=e219]: ○ Conta criada na ferramenta escolhida
+        - listitem [ref=e220]: ○ Aplicativo instalado e aberto
+        - listitem [ref=e221]: ○ Primeiro teste funcionando (a ferramenta criou algo)
+        - listitem [ref=e222]: ○ Explorada a interface por 5 minutos
+      - generic [ref=e223]:
+        - text: ⚠️
+        - paragraph [ref=e224]:
+          - strong [ref=e225]: "Dica importante:"
+          - text: Não se preocupe em entender tudo agora. O objetivo é ter a ferramenta aberta e funcionando. Você vai aprender a usá-la nos próximos módulos.
+    - generic [ref=e133]:
+      - button "← Anterior" [ref=e134] [cursor=pointer]
+      - button "Próximo →" [ref=e135] [cursor=pointer]

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tipografia — Brutalist Legal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@700;900&family=Oswald:wght@700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #0e0e14; color: #ccc; min-height: 100vh; padding: 32px; }
+
+  h2 { font-family:'DM Sans',sans-serif; font-size:22px; font-weight:700; color:#fff; margin-bottom:8px; }
+  .subtitle { font-size:14px; color:#666; margin-bottom:28px; }
+
+  .typo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .typo-card {
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .typo-card:hover { transform: translateY(-4px); }
+  .typo-card.selected { border-color: #e63012; }
+
+  .tc-preview {
+    background: #f2ede4;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .tc-sb {
+    width: 160px;
+    flex-shrink: 0;
+    background: #111;
+    padding: 18px 14px;
+    border-right: 2px solid #000;
+  }
+  .tc-main {
+    flex: 1;
+    padding: 20px 18px;
+    overflow: hidden;
+  }
+
+  /* --- OPÇÃO A: Bebas Neue --- */
+  .sb-a .tc-logo-name { font-family:'Bebas Neue',sans-serif; font-size:20px; color:#fff; letter-spacing:2px; line-height:1; }
+  .sb-a .tc-logo-sub  { font-family:'DM Mono',monospace; font-size:8px; color:#e63012; letter-spacing:2px; text-transform:uppercase; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid #222; margin-top:3px; }
+  .sb-a .tc-nav       { font-family:'Bebas Neue',sans-serif; font-size:13px; color:#333; letter-spacing:2px; padding:5px 0; border-bottom:1px solid #1c1c1c; }
+  .sb-a .tc-nav.act   { color:#e63012; }
+
+  .main-a .tc-eyebrow { font-family:'DM Mono',monospace; font-size:8px; color:#888; text-transform:uppercase; letter-spacing:2px; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .main-a .tc-eyebrow::before { content:''; display:inline-block; width:20px; height:1px; background:#888; }
+  .main-a .tc-h1 { font-family:'Bebas Neue',sans-serif; font-size:52px; color:#0d0d0d; line-height:0.88; letter-spacing:1px; margin-bottom:14px; }
+  .main-a .tc-h1 span { color:#e63012; display:block; }
+  .main-a .tc-body { font-family:'DM Sans',sans-serif; font-size:10px; color:#555; line-height:1.6; margin-bottom:14px; }
+  .main-a .tc-rule { height:2px; background:#111; margin:12px 0; }
+  .main-a .tc-stat-row { display:flex; gap:12px; }
+  .main-a .tc-stat { border:2px solid #111; padding:8px 12px; }
+  .main-a .tc-stat-n { font-family:'Bebas Neue',sans-serif; font-size:28px; color:#e63012; line-height:1; }
+  .main-a .tc-stat-l { font-family:'DM Mono',monospace; font-size:7px; color:#888; text-transform:uppercase; letter-spacing:1px; }
+  .main-a .tc-h2 { font-family:'Bebas Neue',sans-serif; font-size:14px; color:#0d0d0d; letter-spacing:3px; margin-top:14px; margin-bottom:6px; }
+  .main-a .tc-tag { font-family:'DM Mono',monospace; display:inline-block; background:#e63012; color:#fff; font-size:7px; padding:2px 7px; font-weight:700; margin-bottom:2px; }
+
+  /* --- OPÇÃO B: Oswald + Source Serif --- */
+  .sb-b .tc-logo-name { font-family:'Oswald',sans-serif; font-size:16px; font-weight:700; color:#fff; text-transform:uppercase; letter-spacing:1px; line-height:1.2; }
+  .sb-b .tc-logo-sub  { font-family:'Source Serif 4',serif; font-size:9px; color:#e63012; font-style:italic; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid #222; margin-top:4px; }
+  .sb-b .tc-nav       { font-family:'Oswald',sans-serif; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:#333; padding:5px 0; border-bottom:1px solid #1c1c1c; }
+  .sb-b .tc-nav.act   { color:#e63012; }
+
+  .main-b .tc-eyebrow { font-family:'Source Serif 4',serif; font-size:9px; color:#888; font-style:italic; margin-bottom:12px; }
+  .main-b .tc-h1 { font-family:'Oswald',sans-serif; font-size:34px; font-weight:700; color:#0d0d0d; line-height:1; letter-spacing:-0.5px; text-transform:uppercase; margin-bottom:12px; }
+  .main-b .tc-h1 span { color:#e63012; display:block; }
+  .main-b .tc-body { font-family:'Source Serif 4',serif; font-size:10.5px; color:#555; line-height:1.65; margin-bottom:14px; font-style:italic; }
+  .main-b .tc-rule { height:2px; background:#111; margin:12px 0; }
+  .main-b .tc-stat-row { display:flex; gap:12px; }
+  .main-b .tc-stat { border:2px solid #111; padding:8px 12px; }
+  .main-b .tc-stat-n { font-family:'Oswald',sans-serif; font-size:26px; font-weight:700; color:#e63012; line-height:1; }
+  .main-b .tc-stat-l { font-family:'Source Serif 4',serif; font-size:8px; color:#888; font-style:italic; }
+  .main-b .tc-h2 { font-family:'Oswald',sans-serif; font-size:11px; font-weight:700; color:#0d0d0d; letter-spacing:2px; text-transform:uppercase; margin-top:14px; margin-bottom:6px; }
+  .main-b .tc-tag { font-family:'Oswald',sans-serif; display:inline-block; background:#e63012; color:#fff; font-size:8px; padding:1px 7px; font-weight:700; margin-bottom:2px; text-transform:uppercase; }
+
+  /* --- OPÇÃO C: Barlow Condensed + JetBrains Mono --- */
+  .sb-c .tc-logo-name { font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:900; color:#fff; text-transform:uppercase; letter-spacing:3px; line-height:1.1; }
+  .sb-c .tc-logo-sub  { font-family:'JetBrains Mono',monospace; font-size:7.5px; color:#e63012; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid #222; margin-top:3px; }
+  .sb-c .tc-nav       { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#2e2e2e; padding:5px 0; border-bottom:1px solid #1c1c1c; }
+  .sb-c .tc-nav.act   { color:#e63012; }
+
+  .main-c .tc-eyebrow { font-family:'JetBrains Mono',monospace; font-size:8px; color:#888; text-transform:lowercase; letter-spacing:0; margin-bottom:12px; }
+  .main-c .tc-eyebrow span { color:#e63012; }
+  .main-c .tc-h1 { font-family:'Barlow Condensed',sans-serif; font-size:44px; font-weight:900; color:#0d0d0d; line-height:0.9; letter-spacing:1px; text-transform:uppercase; margin-bottom:14px; }
+  .main-c .tc-h1 span { color:#e63012; display:block; }
+  .main-c .tc-body { font-family:'DM Sans',sans-serif; font-size:9.5px; color:#555; line-height:1.6; margin-bottom:12px; }
+  .main-c .tc-rule { height:2px; background:#111; margin:12px 0; }
+  .main-c .tc-stat-row { display:flex; gap:12px; }
+  .main-c .tc-stat { border:2px solid #111; padding:8px 12px; }
+  .main-c .tc-stat-n { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:700; color:#e63012; line-height:1; }
+  .main-c .tc-stat-l { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; color:#888; text-transform:uppercase; letter-spacing:1px; }
+  .main-c .tc-h2 { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:900; color:#0d0d0d; letter-spacing:3px; text-transform:uppercase; margin-top:14px; margin-bottom:6px; }
+  .main-c .tc-tag { font-family:'JetBrains Mono',monospace; display:inline-block; background:#e63012; color:#fff; font-size:7px; padding:2px 8px; margin-bottom:2px; }
+
+  /* bottom info */
+  .tc-info { padding:14px 18px 12px; background:#161616; }
+  .tc-info h3 { font-size:14px; font-weight:700; color:#fff; margin:0 0 3px; }
+  .tc-info p  { font-size:11px; color:#666; margin:0; line-height:1.4; }
+
+  /* selection overlay */
+  .selected-overlay {
+    display: none;
+    position: absolute;
+    top: 10px; right: 10px;
+    background: #e63012;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .typo-card.selected .selected-overlay { display: block; }
+
+  /* selection indicator for helper script */
+  #selection-indicator {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #e63012; color: #fff;
+    text-align: center; padding: 10px;
+    font-size: 14px; font-weight: 700;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+    z-index: 1000;
+  }
+  #selection-indicator.show { transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<h2>Tipografia — qual combinação?</h2>
+<p class="subtitle">A tipografia define a voz do design. Três personalidades para o mesmo esquema vermelho + creme.</p>
+
+<div class="typo-grid">
+
+  <!-- OPÇÃO A: Bebas Neue -->
+  <div class="typo-card" data-choice="bebas" onclick="selectCard(this)">
+    <div class="tc-preview">
+      <div class="tc-sb sb-a">
+        <div class="tc-logo-name">CLIs<br>Agenticas</div>
+        <div class="tc-logo-sub">// jurídicos</div>
+        <div class="tc-nav act">01 — Intro</div>
+        <div class="tc-nav">02 — Setup</div>
+        <div class="tc-nav">03 — Terminal</div>
+        <div class="tc-nav">04 — CLIs</div>
+        <div class="tc-nav">05 — Editores</div>
+        <div class="tc-nav">06 — Projeto I</div>
+      </div>
+      <div class="tc-main main-a">
+        <div class="tc-eyebrow">Módulo 01 · Introdução</div>
+        <div class="tc-h1">Assistentes<span>Inteligentes</span></div>
+        <div class="tc-body">Para qualquer pessoa que trabalha com direito. Sem experiência em código. Resultados em dias.</div>
+        <div class="tc-rule"></div>
+        <div class="tc-stat-row">
+          <div class="tc-stat"><div class="tc-stat-n">10</div><div class="tc-stat-l">Módulos</div></div>
+          <div class="tc-stat"><div class="tc-stat-n">02</div><div class="tc-stat-l">Projetos</div></div>
+          <div class="tc-stat"><div class="tc-stat-n">0</div><div class="tc-stat-l">Código</div></div>
+        </div>
+        <div class="tc-h2">O Que Você Vai Aprender</div>
+        <div><span class="tc-tag">Apps</span></div>
+      </div>
+      <div class="selected-overlay">✓ Selecionado</div>
+    </div>
+    <div class="tc-info">
+      <h3>A — Bebas Neue + DM Mono</h3>
+      <p>Ultra condensada, toda caps. Máximo impacto visual. Corpo em mono para detalhes tech.</p>
+    </div>
+  </div>
+
+  <!-- OPÇÃO B: Oswald + Source Serif -->
+  <div class="typo-card" data-choice="oswald" onclick="selectCard(this)">
+    <div class="tc-preview">
+      <div class="tc-sb sb-b">
+        <div class="tc-logo-name">CLIs<br>Agenticas</div>
+        <div class="tc-logo-sub">Para Jurídicos</div>
+        <div class="tc-nav act">01 — Intro</div>
+        <div class="tc-nav">02 — Setup</div>
+        <div class="tc-nav">03 — Terminal</div>
+        <div class="tc-nav">04 — CLIs</div>
+        <div class="tc-nav">05 — Editores</div>
+        <div class="tc-nav">06 — Projeto I</div>
+      </div>
+      <div class="tc-main main-b">
+        <div class="tc-eyebrow">Módulo 01 — Introdução</div>
+        <div class="tc-h1">Assistentes<span>Inteligentes</span></div>
+        <div class="tc-body">Para qualquer pessoa que trabalha com direito. Sem experiência em código. Resultados em dias.</div>
+        <div class="tc-rule"></div>
+        <div class="tc-stat-row">
+          <div class="tc-stat"><div class="tc-stat-n">10</div><div class="tc-stat-l">Módulos</div></div>
+          <div class="tc-stat"><div class="tc-stat-n">02</div><div class="tc-stat-l">Projetos</div></div>
+          <div class="tc-stat"><div class="tc-stat-n">0</div><div class="tc-stat-l">Código</div></div>
+        </div>
+        <div class="tc-h2">O Que Você Vai Aprender</div>
+        <div><span class="tc-tag">Apps</span></div>
+      </div>
+      <div class="selected-overlay">✓ Selecionado</div>
+    </div>
+    <div class="tc-info">
+      <h3>B — Oswald + Source Serif</h3>
+      <p>Mais editorial. Títulos pesados, corpo em serif itálico. Tensão jurídico-moderno.</p>
+    </div>
+  </div>
+
+  <!-- OPÇÃO C: Barlow + JetBrains Mono -->
+  <div class="typo-card" data-choice="barlow" onclick="selectCard(this)">
+    <div class="tc-preview">
+      <div class="tc-sb sb-c">
+        <div class="tc-logo-name">CLIs<br>Agenticas</div>
+        <div class="tc-logo-sub">para_jurídicos</div>
+        <div class="tc-nav act">01 — Intro</div>
+        <div class="tc-nav">02 — Setup</div>
+        <div class="tc-nav">03 — Terminal</div>
+        <div class="tc-nav">04 — CLIs</div>
+        <div class="tc-nav">05 — Editores</div>
+        <div class="tc-nav">06 — Projeto I</div>
+      </div>
+      <div class="tc-main main-c">
+        <div class="tc-eyebrow">$ mod_01 <span>// intro</span></div>
+        <div class="tc-h1">Assistentes<span>Inteligentes</span></div>
+        <div class="tc-body">Para qualquer pessoa que trabalha com direito. Sem experiência em código. Resultados em dias.</div>
+        <div class="tc-rule"></div>
+        <div class="tc-stat-row">
+          <div class="tc-stat"><div class="tc-stat-n">10</div><div class="tc-stat-l">Módulos</div></div>
+          <div class="tc-stat"><div class="tc-stat-n">02</div><div class="tc-stat-l">Projetos</div></div>
+          <div class="tc-stat"><div class="tc-stat-n">0</div><div class="tc-stat-l">Código</div></div>
+        </div>
+        <div class="tc-h2">O Que Você Vai Aprender</div>
+        <div><span class="tc-tag">_apps</span></div>
+      </div>
+      <div class="selected-overlay">✓ Selecionado</div>
+    </div>
+    <div class="tc-info">
+      <h3>C — Barlow Condensed + JetBrains Mono</h3>
+      <p>Títulos super-pesados + mono nos detalhes. Referência CLI explícita. Terminal meets law.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function selectCard(el) {
+  document.querySelectorAll('.typo-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  // fire event for helper script
+  if (window.__companion) window.__companion.select(el.dataset.choice, el.querySelector('h3').textContent);
+}
+</script>
+</body>
+</html>

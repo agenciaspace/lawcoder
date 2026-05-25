@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "name": "curso-cli-agenticas-juridico",
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/curso", "destination": "/curso.html" },
+    { "source": "/landing", "destination": "/landing.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: ⚖️
+      - generic [ref=e7]:
+        - heading "CLIs Agenticas" [level=1] [ref=e8]
+        - paragraph [ref=e9]: Para Jurídicos
+    - navigation [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Curso
+        - list [ref=e13]:
+          - listitem [ref=e226]:
+            - link "✓ O Que São Assistentes Inteligentes" [ref=e227] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e228]: ✓
+              - generic [ref=e229]: O Que São Assistentes Inteligentes
+          - listitem [ref=e230]:
+            - 'link "✓ Setup Rápido: Sua Primeira Ferramenta" [ref=e231] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e232]: ✓
+              - generic [ref=e233]: "Setup Rápido: Sua Primeira Ferramenta"
+          - listitem [ref=e234]:
+            - link "3 O Terminal É Só Um Chat de Texto" [ref=e235] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e236]: "3"
+              - generic [ref=e237]: O Terminal É Só Um Chat de Texto
+          - listitem [ref=e238]:
+            - link "4 Ferramentas de Linha de Comando" [ref=e239] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e240]: "4"
+              - generic [ref=e241]: Ferramentas de Linha de Comando
+          - listitem [ref=e242]:
+            - link "5 Editores de Código com IA" [ref=e243] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e244]: "5"
+              - generic [ref=e245]: Editores de Código com IA
+          - listitem [ref=e246]:
+            - 'link "6 Projeto 1: Seu Primeiro App" [ref=e247] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e248]: "6"
+              - generic [ref=e249]: "Projeto 1: Seu Primeiro App"
+          - listitem [ref=e250]:
+            - 'link "7 Projeto 2: Seu Primeiro Assistente Automático" [ref=e251] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e252]: "7"
+              - generic [ref=e253]: "Projeto 2: Seu Primeiro Assistente Automático"
+          - listitem [ref=e254]:
+            - link "8 Automações no Seu Dia a Dia" [ref=e255] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e256]: "8"
+              - generic [ref=e257]: Automações no Seu Dia a Dia
+          - listitem [ref=e258]:
+            - link "9 Como Pedir Para a IA Criar Coisas" [ref=e259] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e260]: "9"
+              - generic [ref=e261]: Como Pedir Para a IA Criar Coisas
+          - listitem [ref=e262]:
+            - link "10 Segurança, Sigilo e LGPD" [ref=e263] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e264]: "10"
+              - generic [ref=e265]: Segurança, Sigilo e LGPD
+      - generic [ref=e54]:
+        - generic [ref=e55]: Recursos
+        - list [ref=e56]:
+          - listitem [ref=e57]:
+            - link "📋 Cheat Sheet" [ref=e58] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e59]:
+            - link "📖 Glossário" [ref=e60] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e61]:
+            - link "🔗 Links Úteis" [ref=e62] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]: Progresso
+        - generic [ref=e66]: 20%
+      - generic [ref=e68]: 2 de 10 módulos concluídos
+  - main [ref=e69]:
+    - generic [ref=e71]:
+      - generic [ref=e266]: Módulo 4
+      - generic [ref=e267]: /
+      - text: Ferramentas de Linha de Comando
+    - generic [ref=e74]:
+      - heading "Ferramentas de Linha de Comando" [level=1] [ref=e268]
+      - paragraph [ref=e269]:
+        - text: CLIs (Command Line Interfaces) são programas que você instala e usa pelo terminal. Eles são
+        - strong [ref=e270]: assistentes de criação direto
+        - text: ": você digita um pedido, eles criam ou fazem algo."
+      - generic [ref=e271]:
+        - button "▶" [ref=e272] [cursor=pointer]
+        - heading "Roteiro da Aula" [level=3] [ref=e273]
+        - paragraph [ref=e274]: Instalando e usando uma CLI de IA pela primeira vez
+      - heading "O Que São CLIs de IA" [level=2] [ref=e275]
+      - paragraph [ref=e276]: Imagine um aplicativo que não tem botões, só um campo de texto. Você digita "crie um site de calculadora de honorários" e ele cria todos os arquivos sozinho. Isso é uma CLI de IA.
+      - generic [ref=e277]:
+        - text: ℹ️
+        - paragraph [ref=e278]:
+          - strong [ref=e279]: "Diferença clave:"
+          - text: ferramentas de chat (como Claude Desktop) conversam com você. CLIs
+          - strong [ref=e280]: executam direto
+          - text: — você dá o comando e ela cria o projeto sem ficar perguntando.
+      - heading "As Principais Opções" [level=2] [ref=e281]
+      - paragraph [ref=e282]: Você não precisa instalar todas. Conheça as opções e escolha uma para começar.
+      - table [ref=e283]:
+        - rowgroup [ref=e284]:
+          - row "Ferramenta Para que serve Grátis?" [ref=e285]:
+            - columnheader "Ferramenta" [ref=e286]
+            - columnheader "Para que serve" [ref=e287]
+            - columnheader "Grátis?" [ref=e288]
+          - row "Codex (OpenAI) Criar apps e automações rapidamente Tem créditos grátis" [ref=e289]:
+            - cell "Codex (OpenAI)" [ref=e290]:
+              - strong [ref=e291]: Codex
+              - text: (OpenAI)
+            - cell "Criar apps e automações rapidamente" [ref=e292]
+            - cell "Tem créditos grátis" [ref=e293]
+          - row "Kimi CLI Assistente de código completo Tem plano grátis" [ref=e294]:
+            - cell "Kimi CLI" [ref=e295]:
+              - strong [ref=e296]: Kimi CLI
+            - cell "Assistente de código completo" [ref=e297]
+            - cell "Tem plano grátis" [ref=e298]
+          - row "Aider Editar projetos existentes com IA Sim (open source)" [ref=e299]:
+            - cell "Aider" [ref=e300]:
+              - strong [ref=e301]: Aider
+            - cell "Editar projetos existentes com IA" [ref=e302]
+            - cell "Sim (open source)" [ref=e303]
+          - row "Claude Code Ferramenta oficial da Anthropic para criar Pago" [ref=e304]:
+            - cell "Claude Code" [ref=e305]:
+              - strong [ref=e306]: Claude Code
+            - cell "Ferramenta oficial da Anthropic para criar" [ref=e307]
+            - cell "Pago" [ref=e308]
+      - heading "Instalando Sua Primeira CLI" [level=2] [ref=e309]
+      - paragraph [ref=e310]:
+        - text: Vamos instalar o
+        - strong [ref=e311]: Kimi CLI
+        - text: como exemplo. Ele é brasileiro-friendly, tem plano gratuito e é fácil de instalar.
+      - 'heading "Passo 1: Instale o Python" [level=3] [ref=e312]'
+      - paragraph [ref=e313]: "A maioria das CLIs precisa do Python instalado. É rápido:"
+      - list [ref=e314]:
+        - listitem [ref=e315]:
+          - text: Acesse
+          - code [ref=e316]: python.org
+        - listitem [ref=e317]: Clique em "Downloads" e baixe a versão mais recente
+        - listitem [ref=e318]: Instale clicando em "Next" até terminar
+      - 'heading "Passo 2: Instale o Kimi CLI" [level=3] [ref=e319]'
+      - paragraph [ref=e320]: "Abra o terminal e digite:"
+      - generic [ref=e321]:
+        - generic [ref=e322]:
+          - generic [ref=e323]: Terminal
+          - button "Copiar" [ref=e324] [cursor=pointer]
+        - code [ref=e326]: "# Instalar o Kimi CLI pip install kimi-cli # Ou usando o gerenciador moderno uv pip install uv uv tool install kimi-cli"
+      - 'heading "Passo 3: Configure sua chave de API" [level=3] [ref=e327]'
+      - paragraph [ref=e328]: "A ferramenta precisa de uma \"chave\" para se conectar à inteligência artificial:"
+      - list [ref=e329]:
+        - listitem [ref=e330]:
+          - text: Acesse
+          - code [ref=e331]: platform.moonshot.cn
+          - text: (site da Moonshot AI)
+        - listitem [ref=e332]: Crie uma conta
+        - listitem [ref=e333]: Vá em "API Keys" e crie uma nova chave
+        - listitem [ref=e334]: Copie a chave
+        - listitem [ref=e335]:
+          - text: "No terminal, digite:"
+          - code [ref=e336]: kimi config set api_key SUA_CHAVE_AQUI
+      - generic [ref=e337]:
+        - text: ⚠️
+        - paragraph [ref=e338]:
+          - strong [ref=e339]: Nunca compartilhe sua chave de API.
+          - text: Ela é como uma senha. Guarde em um lugar seguro.
+      - 'heading "Passo 4: Primeiro uso" [level=3] [ref=e340]'
+      - paragraph [ref=e341]: "No terminal, entre numa pasta vazia e digite:"
+      - generic [ref=e342]:
+        - generic [ref=e343]:
+          - generic [ref=e344]: Terminal
+          - button "Copiar" [ref=e345] [cursor=pointer]
+        - code [ref=e347]: mkdir meu-primeiro-app cd meu-primeiro-app kimi "crie um app HTML simples que calcule juros compostos para honorários advocatícios"
+      - paragraph [ref=e348]:
+        - text: A ferramenta vai criar os arquivos sozinha. Para ver o resultado, abra o arquivo
+        - code [ref=e349]: index.html
+        - text: no seu navegador.
+      - heading "Comando Básico de Qualquer CLI" [level=2] [ref=e350]
+      - paragraph [ref=e351]: "Toda CLI de IA funciona mais ou menos assim:"
+      - generic [ref=e352]:
+        - generic [ref=e353]:
+          - generic [ref=e354]: Padrão Universal
+          - button "Copiar" [ref=e355] [cursor=pointer]
+        - code [ref=e357]: "# Formato geral nome-da-ferramenta \"o que você quer que ela crie ou faça\" # Exemplos reais kimi \"crie uma página de login em HTML e CSS\" codex \"crie um script que organize arquivos PDF por data\" aider \"adiciona uma função de busca neste projeto\""
+      - 'heading "Alternativa Sem Instalar Nada: Codex no Navegador" [level=2] [ref=e358]'
+      - paragraph [ref=e359]:
+        - text: Se quiser começar sem instalar nada no computador, use o
+        - strong [ref=e360]: GitHub Copilot no VS Code
+        - text: ou o
+        - strong [ref=e361]: Cursor
+        - text: que você instalou no módulo anterior. Eles fazem o mesmo trabalho, mas com interface gráfica.
+    - generic [ref=e133]:
+      - button "← Anterior" [ref=e134] [cursor=pointer]
+      - button "Próximo →" [ref=e135] [cursor=pointer]

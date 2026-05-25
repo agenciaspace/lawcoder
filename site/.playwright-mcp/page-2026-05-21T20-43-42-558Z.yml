@@ -1,0 +1,174 @@
+- generic [ref=e2]:
+  - complementary [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: ⚖️
+      - generic [ref=e7]:
+        - heading "CLIs Agenticas" [level=1] [ref=e8]
+        - paragraph [ref=e9]: Para Jurídicos
+    - navigation [ref=e10]:
+      - generic [ref=e11]:
+        - generic [ref=e12]: Curso
+        - list [ref=e13]:
+          - listitem [ref=e14]:
+            - link "1 O Que São Assistentes Inteligentes" [ref=e15] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e16]: "1"
+              - generic [ref=e17]: O Que São Assistentes Inteligentes
+          - listitem [ref=e18]:
+            - 'link "2 Setup Rápido: Sua Primeira Ferramenta" [ref=e19] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e20]: "2"
+              - generic [ref=e21]: "Setup Rápido: Sua Primeira Ferramenta"
+          - listitem [ref=e22]:
+            - link "3 O Terminal É Só Um Chat de Texto" [ref=e23] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e24]: "3"
+              - generic [ref=e25]: O Terminal É Só Um Chat de Texto
+          - listitem [ref=e26]:
+            - link "4 Ferramentas de Linha de Comando" [ref=e27] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e28]: "4"
+              - generic [ref=e29]: Ferramentas de Linha de Comando
+          - listitem [ref=e30]:
+            - link "5 Editores de Código com IA" [ref=e31] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e32]: "5"
+              - generic [ref=e33]: Editores de Código com IA
+          - listitem [ref=e34]:
+            - 'link "6 Projeto 1: Seu Primeiro App" [ref=e35] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e36]: "6"
+              - generic [ref=e37]: "Projeto 1: Seu Primeiro App"
+          - listitem [ref=e38]:
+            - 'link "7 Projeto 2: Seu Primeiro Assistente Automático" [ref=e39] [cursor=pointer]':
+              - /url: "#"
+              - generic [ref=e40]: "7"
+              - generic [ref=e41]: "Projeto 2: Seu Primeiro Assistente Automático"
+          - listitem [ref=e42]:
+            - link "8 Automações no Seu Dia a Dia" [ref=e43] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e44]: "8"
+              - generic [ref=e45]: Automações no Seu Dia a Dia
+          - listitem [ref=e46]:
+            - link "9 Como Pedir Para a IA Criar Coisas" [ref=e47] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e48]: "9"
+              - generic [ref=e49]: Como Pedir Para a IA Criar Coisas
+          - listitem [ref=e50]:
+            - link "10 Segurança, Sigilo e LGPD" [ref=e51] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e52]: "10"
+              - generic [ref=e53]: Segurança, Sigilo e LGPD
+      - generic [ref=e54]:
+        - generic [ref=e55]: Recursos
+        - list [ref=e56]:
+          - listitem [ref=e57]:
+            - link "📋 Cheat Sheet" [ref=e58] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e59]:
+            - link "📖 Glossário" [ref=e60] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e61]:
+            - link "🔗 Links Úteis" [ref=e62] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]: Progresso
+        - generic [ref=e66]: 0%
+      - generic [ref=e68]: 0 de 10 módulos concluídos
+  - main [ref=e69]:
+    - generic [ref=e71]:
+      - generic [ref=e72]: Módulo 1
+      - generic [ref=e73]: /
+      - text: O Que São Assistentes Inteligentes
+    - generic [ref=e74]:
+      - generic [ref=e75]:
+        - heading "Assistentes Inteligentes para a Área Jurídica" [level=1] [ref=e76]
+        - paragraph [ref=e77]: Como qualquer pessoa que trabalha com direito pode usar ferramentas de IA para criar apps, automatizar tarefas e resolver problemas — sem saber programar.
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - generic [ref=e80]: "10"
+            - text: Módulos
+          - generic [ref=e81]:
+            - generic [ref=e82]: "2"
+            - text: Projetos Práticos
+          - generic [ref=e83]:
+            - generic [ref=e84]: "0"
+            - text: Experiência em Código
+      - heading "O Que Você Vai Aprender" [level=2] [ref=e85]
+      - paragraph [ref=e86]:
+        - text: Este curso é para
+        - strong [ref=e87]: qualquer pessoa que trabalha na área jurídica
+        - text: ": advogados, estagiários, secretários, assistentes, gestores de escritório, departamentos jurídicos de empresas. Você não precisa saber nada de programação."
+      - paragraph [ref=e88]:
+        - text: Você vai aprender a usar ferramentas que
+        - strong [ref=e89]: criam coisas para você
+        - text: ":"
+      - list [ref=e90]:
+        - listitem [ref=e91]:
+          - strong [ref=e92]: Aplicativos
+          - text: para calcular prazos, gerar documentos, organizar processos
+        - listitem [ref=e93]:
+          - strong [ref=e94]: Assistentes automáticos
+          - text: que trabalham sozinhos enquanto você faz outra coisa
+        - listitem [ref=e95]:
+          - strong [ref=e96]: Automações
+          - text: para eliminar tarefas repetitivas do seu dia
+      - heading "O Que Mudou em 2025" [level=2] [ref=e97]
+      - paragraph [ref=e98]:
+        - text: Até pouco tempo atrás, criar um app ou automatizar uma tarefa exigia contratar um programador. Hoje, existem ferramentas onde você
+        - strong [ref=e99]: descreve o que quer em português
+        - text: e elas criam sozinhas.
+      - generic [ref=e100]:
+        - text: ℹ️
+        - paragraph [ref=e101]:
+          - strong [ref=e102]: "Pense assim:"
+          - text: antes, você ditava para um estagiário e ele escrevia a petição. Agora, você descreve para uma ferramenta de IA e ela
+          - strong [ref=e103]: cria um app inteiro
+          - text: que faz o trabalho automaticamente.
+      - heading "Três Tipos de Ferramentas Que Você Vai Conhecer" [level=2] [ref=e104]
+      - generic [ref=e105]:
+        - heading "1. Ferramentas de Chat com Superpoderes" [level=3] [ref=e106]
+        - paragraph [ref=e107]:
+          - text: Como o Claude Desktop, o ChatGPT ou o Gemini. Você conversa, mas elas podem
+          - strong [ref=e108]: usar programas no seu computador
+          - text: ", ler arquivos, navegar na internet e criar projetos completos."
+      - generic [ref=e109]:
+        - heading "2. Editores de Código com IA" [level=3] [ref=e110]
+        - paragraph [ref=e111]:
+          - text: Programas como o
+          - strong [ref=e112]: Cursor
+          - text: ","
+          - strong [ref=e113]: Windsurf
+          - text: ou o VS Code com GitHub Copilot. Eles são como um Word, mas para criar apps. A IA escreve o código enquanto você dita o que quer.
+      - generic [ref=e114]:
+        - heading "3. Ferramentas de Linha de Comando (CLIs)" [level=3] [ref=e115]
+        - paragraph [ref=e116]:
+          - text: Programas que você usa digitando no terminal. Parece assustador, mas é só um
+          - strong [ref=e117]: chat de texto mais direto
+          - text: . Você digita um comando e a ferramenta cria ou faz algo.
+      - heading "Por Que a Área Jurídica Precisa Disso" [level=2] [ref=e118]
+      - list [ref=e119]:
+        - listitem [ref=e120]:
+          - strong [ref=e121]: "Prazos processuais:"
+          - text: calculados automaticamente por um app que você criou
+        - listitem [ref=e122]:
+          - strong [ref=e123]: "Documentos repetitivos:"
+          - text: gerados em segundos com seus modelos personalizados
+        - listitem [ref=e124]:
+          - strong [ref=e125]: "Pesquisa jurisprudencial:"
+          - text: organizada e resumida automaticamente
+        - listitem [ref=e126]:
+          - strong [ref=e127]: "Controle de processos:"
+          - text: um sistema seu, do jeito que você quer
+        - listitem [ref=e128]:
+          - strong [ref=e129]: "Tarefas administrativas:"
+          - text: eliminadas com automações simples
+      - generic [ref=e130]:
+        - text: ✅
+        - paragraph [ref=e131]:
+          - strong [ref=e132]: Você não vai virar programador.
+          - text: Você vai virar alguém que sabe usar ferramentas inteligentes para criar soluções próprias. É como saber usar Excel avançado — só que para criar apps.
+    - generic [ref=e133]:
+      - button "← Anterior" [disabled] [ref=e134]
+      - button "Próximo →" [ref=e135] [cursor=pointer]
