@@ -856,6 +856,8 @@
         html[data-lang="en"] .btn-whatsapp-card[data-show="en"]{ display: block !important; }
 
         /* ── Responsive ── */
+
+        /* Tablet largo — layout principal quebra */
         @media (max-width: 960px) {
             .hero { grid-template-columns: 1fr; min-height: auto; }
             .hero-left { padding: 60px 32px; border-right: none; border-bottom: 2px solid var(--black); }
@@ -865,8 +867,10 @@
             .projects-grid { grid-template-columns: 1fr; }
             .project-card { border-right: none; border-bottom: 2px solid var(--black); }
             .why-free-body { grid-template-columns: 1fr; }
-            .modules-grid { grid-template-columns: 1fr; }
-            .module-item { border-right: none; }
+            /* Tablet: módulos em 2 colunas (melhor que 1) */
+            .modules-grid { grid-template-columns: 1fr 1fr; }
+            .module-item { border-right: 1.5px solid var(--black); }
+            .module-item:nth-child(even) { border-right: none; }
             .mentoring-inner { grid-template-columns: 1fr; }
             .mentoring-card { position: static; }
             .cta-section { grid-template-columns: 1fr; }
@@ -874,14 +878,54 @@
             .topbar { padding: 0 20px; }
             .section-inner { padding: 60px 24px; }
             .footer { flex-direction: column; gap: 16px; text-align: center; }
+            /* Forwho: 3 colunas no tablet */
+            .forwho-grid { grid-template-columns: repeat(3, 1fr); }
+            .forwho-item:nth-child(3n) { border-right: none; }
         }
+
+        /* Mobile médio — 640px */
+        @media (max-width: 640px) {
+            /* Módulos: 1 coluna */
+            .modules-grid { grid-template-columns: 1fr; }
+            .module-item { border-right: none; }
+            .module-item:nth-child(even) { border-right: none; }
+            /* Forwho: 2 colunas */
+            .forwho-grid { grid-template-columns: 1fr 1fr; }
+            .forwho-item { padding: 22px 18px; }
+            .forwho-item:nth-child(3n) { border-right: 1.5px solid var(--black); }
+            .forwho-item:nth-child(even) { border-right: none; }
+        }
+
+        /* Mobile pequeno — 540px */
         @media (max-width: 540px) {
             .hero-left { padding: 40px 24px; }
+            .hero-cta-group { flex-direction: column; }
+            .btn-hero { text-align: center; }
+            .hero-free-badge { padding: 16px 24px; gap: 12px; }
             .stat-block { padding: 28px 20px; }
             .stat-num { font-size: 40px; }
-            .pricing-col { padding: 32px 28px; }
+            .pricing-col { padding: 32px 24px; }
+            .pricing-price { font-size: 56px; }
             .mentoring-inner { padding: 48px 24px; }
-            .cta-col { padding: 60px 32px; }
+            .mentoring-price { font-size: 40px; }
+            .mentoring-card-body { padding: 24px; }
+            .cta-col { padding: 52px 24px; }
+            .tool-chip { padding: 13px 18px; font-size: 13px; }
+            .section-inner { padding: 48px 20px; }
+            .topbar { padding: 0 16px; gap: 10px; }
+            .topbar-brand { font-size: 17px; letter-spacing: 2px; }
+            .cta-top { font-size: 11px; padding: 8px 14px; letter-spacing: 1px; }
+        }
+
+        /* Mobile muito pequeno — 400px */
+        @media (max-width: 400px) {
+            .forwho-grid { grid-template-columns: 1fr; }
+            .forwho-item { border-right: none !important; }
+            .cta-top { display: none; }
+            html[data-lang="pt"] .cta-top[data-show="pt"] { display: none; }
+            html[data-lang="en"] .cta-top[data-show="en"] { display: none; }
+            .pricing-price { font-size: 48px; }
+            .mentoring-price { font-size: 36px; }
         }
     </style>
 </head>
