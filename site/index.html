@@ -529,7 +529,12 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--black);
+            text-decoration: none;
+            transition: background .15s, color .15s;
+            cursor: pointer;
         }
+        a.tool-chip:hover { background: var(--black); color: #fff; }
+        a.tool-chip:hover img { filter: invert(1); }
         .tool-chip img { width:20px; height:20px; flex-shrink:0; }
 
         /* ── Why free ── */
@@ -1260,16 +1265,17 @@
         <h2 class="section-h2" data-show="pt">As Melhores<em>Ferramentas</em></h2>
         <h2 class="section-h2" data-show="en">The Best<em>Tools</em></h2>
         <div class="tools-row">
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/anthropic/e63012" alt="">Claude Code</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/openai/0d0d0d" alt="">Cursor / Codex</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/codeium/0d0d0d" alt="">Windsurf</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/github/0d0d0d" alt="">GitHub Copilot</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/python/0d0d0d" alt="">Python</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/n8n/e63012" alt="">n8n</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/make/0d0d0d" alt="">Make</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/zapier/e63012" alt="">Zapier</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/vercel/0d0d0d" alt="">Vercel</div>
-            <div class="tool-chip"><img src="https://cdn.simpleicons.org/netlify/0d0d0d" alt="">Netlify</div>
+            <a href="https://claude.ai/download" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/anthropic/e63012" alt="Claude">Claude Code</a>
+            <a href="https://www.cursor.com/downloads" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/cursor/0d0d0d" alt="Cursor">Cursor</a>
+            <a href="https://github.com/openai/codex" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/openai/0d0d0d" alt="Codex">Codex CLI</a>
+            <a href="https://windsurf.com/download" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/codeium/0d0d0d" alt="Windsurf">Windsurf</a>
+            <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/github/0d0d0d" alt="Copilot">GitHub Copilot</a>
+            <a href="https://www.python.org/downloads/" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/python/0d0d0d" alt="Python">Python</a>
+            <a href="https://n8n.io" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/n8n/e63012" alt="n8n">n8n</a>
+            <a href="https://www.make.com/en/register" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/make/0d0d0d" alt="Make">Make</a>
+            <a href="https://zapier.com/sign-up" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/zapier/e63012" alt="Zapier">Zapier</a>
+            <a href="https://vercel.com/signup" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/vercel/0d0d0d" alt="Vercel">Vercel</a>
+            <a href="https://app.netlify.com/signup" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/netlify/0d0d0d" alt="Netlify">Netlify</a>
         </div>
     </div>
 </section>
