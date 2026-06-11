@@ -1,19 +1,8 @@
+@import url('variables.css');
+
 /* ── Reset & Base ── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
-:root {
-    --cream:   #f2ede4;
-    --cream-d: #e8e2d8;
-    --black:   #0d0d0d;
-    --black-2: #111111;
-    --black-3: #1a1a1a;
-    --black-4: #2e2e2e;
-    --red:     #e63012;
-    --red-d:   #c5240a;
-    --f-display: 'Barlow Condensed', sans-serif;
-    --f-mono:    'JetBrains Mono', monospace;
-    --f-body:    'DM Sans', -apple-system, sans-serif;
-}
 body {
     font-family: var(--f-body);
     background: var(--cream);

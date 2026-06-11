@@ -1176,6 +1176,7 @@ function postProcessContent(moduleIndex) {
             img.src = imgUrl;
             img.alt = '';
             img.className = 'vp-screenshot';
+            img.loading = 'lazy';
             vp.insertBefore(img, vp.firstChild);
         }
 
