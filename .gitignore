@@ -1,5 +1,6 @@
 site/.playwright-mcp/
 site/.superpowers/
 site/.claude/
+site/.vercel/
 *.png
 *.jpg

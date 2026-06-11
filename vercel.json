@@ -6,7 +6,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/curso", "destination": "/curso.html" },
-    { "source": "/landing", "destination": "/landing.html" }
+    { "source": "/:path*", "destination": "/index.html" }
   ],
   "headers": [
     {
