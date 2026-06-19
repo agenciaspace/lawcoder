@@ -1,0 +1,24 @@
+{
+  "_comment": "JIDs da Comunidade lawcoders no WhatsApp (uazapi). JIDs não são segredo. Token/host ficam em GitHub Secrets / .env, NUNCA aqui.",
+  "community": {
+    "canonical_parent": "120363411981813075@g.us",
+    "created": "2026-06-19",
+    "duplicate_old_parent": "120363387967393716@g.us"
+  },
+  "groups": {
+    "comece_aqui":  { "jid": "120363427808641765@g.us", "mode": "admin-only" },
+    "geral":        { "jid": "120363427485795268@g.us", "mode": "conversa" },
+    "ia_prompts":   { "jid": "120363427407418057@g.us", "mode": "conversa" },
+    "automacao":    { "jid": "120363413067468788@g.us", "mode": "conversa" },
+    "peticoes":     { "jid": "120363408391904837@g.us", "mode": "conversa" },
+    "duvidas":      { "jid": "120363408988640877@g.us", "mode": "conversa" },
+    "vagas":        { "jid": "120363425645860977@g.us", "mode": "admin-only", "role": "feed-bot-target" }
+  },
+  "job_sources_whatsapp": [
+    { "name": "Legal Ops Jobs", "jid": "120363303575608864@g.us" },
+    { "name": "CLOC Brasil - Legaltechs e Consultorias", "jid": "120363253434810476@g.us" },
+    { "name": "CLOC Brasil - Juridico Interno 2 (Legal Ops)", "jid": "120363318916001064@g.us" },
+    { "name": "CLOC Brasil - Comunidade Geral 2 (Legal Ops)", "jid": "120363192230439125@g.us" },
+    { "name": "[Lab] Automacao Juridica", "jid": "120363027220571699@g.us" }
+  ]
+}
