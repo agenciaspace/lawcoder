@@ -31,11 +31,16 @@ o outro é o **README fixo** da comunidade.
 | ⚙️ **Automação & Ferramentas** | conversa | todos | médio | Fase 2 |
 | 📄 **Petições & Contratos** | conversa | todos | médio | Fase 2 |
 | 🆘 **Dúvidas técnicas** | conversa | todos | médio | Fase 2 |
-| 💼 **Vagas & Networking** | conversa | todos | baixo | Fase 3 |
+| 💼 **Vagas** | **feed (admin-only / bot)** | bot + admin | baixo | Fase 2/3 |
 
 > **Comece aqui = admin-only com lawcoders.app fixado.** É a vitrine/bio da
 > comunidade. Pessoa entra, lê, sabe o que fazer, e vai pros grupos de conversa.
 > Não precisa permitir conversa nele — quanto mais limpo, melhor.
+
+> **Vagas = feed automático (admin-only).** Não é grupo de conversa: um bot posta
+> vagas jurídicas coletadas automaticamente (ver §11). Mantém limpo, sem
+> "alguém viu essa vaga?" no meio. O **networking** (conversa) fica no 💬 Geral —
+> não vale criar grupo separado de networking no início (vira grupo morto).
 
 ### Avisos vs. Comece aqui (a regra de ouro)
 - **Comece aqui** → conteúdo **evergreen**: o app, regras, como começar, links fixos. Muda 1x por mês no máximo.
@@ -150,11 +155,12 @@ Foco: dar as boas-vindas, manter conversa viva, fixar o lawcoders.app.
 
 **Fase 2 — Organização (~200 → ~1.000)**
 Adicione `🤖 IA & Prompts`, `⚙️ Automação`, `📄 Petições`, `🆘 Dúvidas`.
+Lance `💼 Vagas` já como feed semi-automático (§11, opção B).
 Foco: mover conteúdo do Geral pros grupos certos; recrutar moderadores.
 
 **Fase 3 — Maturidade (1.000+)**
-Adicione `💼 Vagas` e, se houver demanda, grupos por **perfil**
-(autônomo / escritório / in-house). Considere eventos recorrentes.
+Evolua o `💼 Vagas` p/ bot 100% automático (§11, opção A) e, se houver demanda,
+grupos por **perfil** (autônomo / escritório / in-house). Eventos recorrentes.
 
 ---
 
@@ -164,6 +170,60 @@ Adicione `💼 Vagas` e, se houver demanda, grupos por **perfil**
 - Nº de mensagens/dia no Geral (saúde do engajamento)
 - Nº de novos que se apresentam (onboarding funcionando?)
 - Cliques no link do lawcoders.app (conversão pro app)
+
+---
+
+## 11. Automação do feed de Vagas (jobs bot)
+
+O grupo 💼 **Vagas** é um feed automático: um bot coleta vagas jurídicas e posta no
+grupo (admin-only). É também a vitrine viva da comunidade ("a gente automatiza isso").
+
+### ⚠️ A restrição mais importante (ler antes de tudo)
+**Postar em GRUPO do WhatsApp não é suportado pela API oficial.** A WhatsApp Cloud API
+(oficial) só envia mensagens 1:1 / template — **não posta em grupos**. As opções reais:
+
+| Opção | Como funciona | Risco |
+|-------|--------------|-------|
+| **A. Biblioteca não-oficial** (whatsapp-web.js / Baileys) | um número "robô" linkado como dispositivo, admin do grupo, posta via automação | viola ToS do WhatsApp → risco de **ban do número**. Use número dedicado, volume baixo, cara de humano. |
+| **B. Semi-manual (recomendado p/ começar)** | bot monta a mensagem pronta e envia pra você (DM/Telegram/e-mail); você cola no grupo 1x/dia | zero risco, 30s de trabalho/dia |
+| **C. Telegram espelho** | feed 100% automático num canal Telegram + link fixado no WhatsApp | zero risco, mas tira do WhatsApp |
+
+> **Recomendação:** comece na **opção B** (curadoria assistida). Quando o volume justificar,
+> migre pra **A** com um número descartável e dedicado. Nunca automatize no SEU número pessoal.
+
+### Arquitetura do pipeline
+```
+[fontes] → fetch → filtrar (jurídico + relevante) → deduplicar → formatar → publicar
+                                                        (store de IDs já vistos)
+```
+
+1. **Fontes** (priorize as que permitem coleta legal):
+   - APIs/RSS oficiais quando existirem (melhor)
+   - Agregadores: Gupy, Solides, Vagas.com, Trampos, Indeed (checar ToS de cada)
+   - ⚠️ LinkedIn: ToS proíbe scraping + tem antibot forte → **evitar** ou usar via parceria/API
+   - Sites de carreira de grandes escritórios (páginas públicas)
+2. **Filtro**: termos jurídicos (advogado, jurídico, paralegal, compliance, contratos…)
+   + opcional: priorizar vagas com viés de tecnologia/automação (legal ops, legal tech).
+   Um LLM pode classificar relevância e gerar um resumo de 1 linha.
+3. **Dedup**: guarde um hash/ID de cada vaga já postada (arquivo/DB) pra não repetir.
+4. **Formato da mensagem** (padrão):
+   ```
+   💼 [Cargo] — [Empresa]
+   📍 [Local / Remoto]  ·  [Senioridade]
+   📝 [resumo de 1 linha]
+   🔗 [link]
+   #vagas #juridico
+   ```
+5. **Agendamento**: cron 1–2x/dia (ex.: 9h e 17h). Lote pequeno (5–10 vagas) pra não floodar.
+
+### MVP sugerido (Fase 2)
+- 1 ou 2 fontes confiáveis + filtro por palavra-chave + dedup em arquivo JSON
+- Saída na **opção B** (te manda o lote formatado por DM/Telegram)
+- Roda via cron (GitHub Actions / Vercel Cron / máquina local)
+- Stack natural aqui: Node ou Python; postar via Baileys/whatsapp-web.js só na evolução
+
+> Esse bot é conteúdo de marketing por si só: documente "como construímos o bot de
+> vagas" e use no grupo ⚙️ Automação e no lawcoders.app.
 
 ---
 
