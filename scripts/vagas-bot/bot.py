@@ -49,10 +49,15 @@ def format_job(j):
 
 
 def build_message(batch):
-    header = "💼 *Vagas — jurídico & legal ops* (remoto/internacional)\n"
+    header = "💼 *Vagas — Legal Ops & Legal Tech* (remoto/internacional)\n"
     body = "\n\n".join(format_job(j) for j in batch)
-    footer = ("\n\n———\n_Fontes: Remotive · Jobicy · Remote OK · Himalayas._ "
-              "_Candidate-se sempre no link oficial._ #vagas #juridico")
+    # rodapé com atribuição dinâmica (só as fontes presentes no lote)
+    srcs = []
+    for j in batch:
+        if j["source"] not in srcs:
+            srcs.append(j["source"])
+    footer = (f"\n\n———\n_Fontes: {' · '.join(srcs)}._ "
+              "_Candidate-se sempre no link oficial._ #vagas #legalops #legaltech")
     return header + "\n" + body + footer
 
 
