@@ -6,3 +6,8 @@ node_modules/
 dist/
 *.png
 *.jpg
+
+# Brand assets da lawcoders (exceção ao *.png acima)
+!site/assets/logo/*.png
+!site/assets/logo/png/
+!site/assets/logo/png/*.png

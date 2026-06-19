@@ -36,6 +36,8 @@ body {
     color: #fff;
 }
 .topbar-brand span { color: var(--red); }
+.topbar-brand { display: inline-flex; align-items: center; text-decoration: none; }
+.topbar-logo { height: 26px; width: auto; display: block; }
 .topbar-right { display:flex; align-items:center; gap: 16px; }
 .lang-btn {
     font-family: var(--f-mono);
@@ -894,6 +896,7 @@ html[data-lang="en"] .btn-whatsapp-card[data-show="en"]{ display: block !importa
     .section-inner { padding: 48px 20px; }
     .topbar { padding: 0 16px; gap: 10px; }
     .topbar-brand { font-size: 17px; letter-spacing: 2px; }
+    .topbar-logo { height: 22px; }
     .cta-top { font-size: 11px; padding: 8px 14px; letter-spacing: 1px; }
 }
 
