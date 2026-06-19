@@ -183,4 +183,20 @@ def symbol_braces(tile_fill, border, glyph, bleed=False, radius=0):
 write("alt-symbol-braces-light.svg", svg("0 0 120 120", symbol_braces(CREAM, BLACK, BLACK)))
 write("alt-symbol-braces-red.svg", svg("0 0 120 120", symbol_braces(RED, RED, CREAM, bleed=True, radius=14)))
 
+# ===== ICONES DOS GRUPOS (mesmo simbolo, cor de tile por grupo) =====
+# tile cheio (WhatsApp recorta em circulo), simbolo creme centralizado.
+GROUPS = [
+    ("avisos",       RED,        "Avisos"),
+    ("geral",        "#1a1a1a",  "Geral / Comunidade"),
+    ("comece-aqui",  "#1f7a4d",  "Comece aqui"),
+    ("ia-prompts",   "#5b3a8f",  "IA & Prompts"),
+    ("automacao",    "#2f4b7c",  "Automação & Ferramentas"),
+    ("peticoes",     "#b5651d",  "Petições & Contratos"),
+    ("duvidas",      "#1f6f6f",  "Dúvidas técnicas"),
+    ("vagas",        "#7a6a4f",  "Vagas & Networking"),
+]
+for key, color, _label in GROUPS:
+    body = symbol(color, color, CREAM, CREAM, bleed=True, radius=0)
+    write(f"group-{key}.svg", svg("0 0 120 120", body))
+
 print("done")
