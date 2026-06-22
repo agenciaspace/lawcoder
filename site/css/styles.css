@@ -719,6 +719,42 @@ body {
   .video-placeholder.featured { height: 300px; }
 }
 
+/* ─── Coming-soon video (lesson not recorded yet) ── */
+.video-placeholder.coming-soon {
+  height: 180px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-style: dashed;
+  border-color: var(--black-4);
+  background: #0d0d0d;
+}
+.video-placeholder.coming-soon::before { display: none; }
+.vp-soon {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+}
+.vp-soon-icon { font-size: 26px; opacity: .85; line-height: 1; }
+.vp-soon-title {
+  font-family: var(--f-display);
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #fff;
+}
+.vp-soon-text {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: .5px;
+  color: rgba(255, 255, 255, .45);
+}
+
 /* ─── Real screenshot inside video-placeholder ── */
 .vp-screenshot {
   position: absolute;

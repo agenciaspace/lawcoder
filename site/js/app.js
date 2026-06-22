@@ -48,6 +48,8 @@ const uiStrings = {
         celebration: '🎉 Parabéns! Você concluiu o curso IA Prática para Advogados!',
         moduleLabel: 'Módulo',
         inauguralLabel: 'Aula Inaugural',
+        soonTitle: 'Vídeo em breve',
+        soonText: 'Esta aula está sendo gravada',
         copyBtn: '_copiar',
         copiedBtn: '_copiado!',
         resources: [
@@ -67,6 +69,8 @@ const uiStrings = {
         celebration: '🎉 Congratulations! You completed the AI in Practice for Lawyers course!',
         moduleLabel: 'Module',
         inauguralLabel: 'Opening Lesson',
+        soonTitle: 'Video coming soon',
+        soonText: 'This lesson is being recorded',
         copyBtn: '_copy',
         copiedBtn: '_copied!',
         resources: [
@@ -1288,9 +1292,33 @@ function loadModule(index) {
 
 /* ===== Post-Process Content (screenshots + logos) ===== */
 function postProcessContent(moduleIndex) {
-    // 1. Inject real screenshot into .video-placeholder
+    // 1. Render .video-placeholder — only the featured (inaugural) lesson has a
+    //    recorded video; every other lesson shows a "coming soon" state.
     const imgUrl = MODULE_SCREENSHOTS[moduleIndex] || '';
     contentBody.querySelectorAll('.video-placeholder').forEach(vp => {
+        const isFeatured = vp.classList.contains('featured');
+        const playBtn = vp.querySelector('.play-btn');
+        const h3      = vp.querySelector('h3');
+        const p       = vp.querySelector('p');
+
+        if (!isFeatured) {
+            // No recorded video yet → "coming soon" placeholder
+            vp.classList.add('coming-soon');
+            if (playBtn) playBtn.remove();
+            if (h3) h3.remove();
+            if (p)  p.remove();
+
+            const soon = document.createElement('div');
+            soon.className = 'vp-soon';
+            soon.innerHTML =
+                `<span class="vp-soon-icon">🎬</span>` +
+                `<span class="vp-soon-title">${t().soonTitle}</span>` +
+                `<span class="vp-soon-text">${t().soonText}</span>`;
+            vp.appendChild(soon);
+            return;
+        }
+
+        // Featured: real poster + playable bottom info strip
         if (imgUrl) {
             const img = document.createElement('img');
             img.src = imgUrl;
@@ -1299,11 +1327,6 @@ function postProcessContent(moduleIndex) {
             img.loading = 'lazy';
             vp.insertBefore(img, vp.firstChild);
         }
-
-        // Restructure bottom info strip
-        const playBtn = vp.querySelector('.play-btn');
-        const h3      = vp.querySelector('h3');
-        const p       = vp.querySelector('p');
 
         const info = document.createElement('div');
         info.className = 'vp-info';
