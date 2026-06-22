@@ -4,7 +4,7 @@
   "scripts": {
     "build": "npm run build:css && npm run build:copy",
     "build:css": "npx postcss site/css/landing.css --use postcss-import --no-map -o site/dist/css/landing.css && npx csso-cli site/dist/css/landing.css --output site/dist/css/landing.css && npx postcss site/css/styles.css --use postcss-import --no-map -o site/dist/css/styles.css && npx csso-cli site/dist/css/styles.css --output site/dist/css/styles.css",
-    "build:copy": "cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/css/variables.css site/dist/css/variables.css",
+    "build:copy": "mkdir -p site/dist/css site/dist/js && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/css/variables.css site/dist/css/variables.css",
     "dev": "npx serve site"
   },
   "devDependencies": {
