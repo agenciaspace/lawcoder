@@ -1,7 +1,6 @@
 {
   "version": 2,
   "name": "curso-cli-agenticas-juridico",
-  "public": true,
   "buildCommand": "npm run build",
   "outputDirectory": "site/dist",
   "cleanUrls": true,

@@ -6,6 +6,8 @@
 const TOOL_LOGOS = {
     anthropic: 'https://cdn.simpleicons.org/anthropic/e63012',
     openai:    'https://cdn.simpleicons.org/openai/0d0d0d',
+    google:    'https://cdn.simpleicons.org/google/0d0d0d',
+    gemini:    'https://cdn.simpleicons.org/googlegemini/e63012',
     codeium:   'https://cdn.simpleicons.org/codeium/0d0d0d',
     github:    'https://cdn.simpleicons.org/github/0d0d0d',
     python:    'https://cdn.simpleicons.org/python/0d0d0d',
@@ -17,8 +19,10 @@ const TOOL_LOGOS = {
     microsoft: 'https://cdn.simpleicons.org/microsoft/0d0d0d',
 };
 
-/* ===== Module Screenshots — real images from company CDNs ===== */
+/* ===== Module Screenshots — real images from company CDNs =====
+   Index 0 is the inaugural lesson poster; indexes 1..N map to modules 01..N. */
 const MODULE_SCREENSHOTS = [
+    'https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/misc/asset-6f4f4348d1d7da2ab88b.jpg',
     'https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/misc/asset-6f4f4348d1d7da2ab88b.jpg',
     'https://windsurf.com/static/images/windsurf/feature-cascade.png',
     'https://windsurf.com/static/images/windsurf/feature-command-terminal.png',
@@ -43,6 +47,9 @@ const uiStrings = {
         finishBtn: '_concluir ✓',
         celebration: '🎉 Parabéns! Você concluiu o curso IA Prática para Advogados!',
         moduleLabel: 'Módulo',
+        inauguralLabel: 'Aula Inaugural',
+        soonTitle: 'Vídeo em breve',
+        soonText: 'Esta aula está sendo gravada',
         copyBtn: '_copiar',
         copiedBtn: '_copiado!',
         resources: [
@@ -61,6 +68,9 @@ const uiStrings = {
         finishBtn: '_finish ✓',
         celebration: '🎉 Congratulations! You completed the AI in Practice for Lawyers course!',
         moduleLabel: 'Module',
+        inauguralLabel: 'Opening Lesson',
+        soonTitle: 'Video coming soon',
+        soonText: 'This lesson is being recorded',
         copyBtn: '_copy',
         copiedBtn: '_copied!',
         resources: [
@@ -74,6 +84,56 @@ const uiStrings = {
 /* ===== PT Course Data ===== */
 const courseDataPT = {
     modules: [
+        {
+            id: "mod00",
+            title: "Panorama das Ferramentas de IA",
+            subtitle: "O mapa completo: web, desktop, IDEs e terminal",
+            duration: "35 min",
+            type: "inaugural",
+            content: `
+                <h1>Panorama das Ferramentas<em>de Inteligência Artificial</em></h1>
+                <p>Antes de colocar a mão na massa, vamos sobrevoar <strong>todo o cenário</strong> das ferramentas de IA que existem hoje — do navegador ao terminal. Esta é a <strong>aula inaugural</strong> do curso: o vídeo mais longo, pensado para te dar o mapa completo antes de descermos ao detalhe.</p>
+                <div class="video-placeholder featured">
+                    <button class="play-btn">▶</button>
+                    <h3>Aula Inaugural — Vídeo Completo</h3>
+                    <p>Tour guiado por todas as categorias de ferramentas de IA</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>Como assistir:</strong> não precisa instalar nada agora. O objetivo aqui é entender o <strong>mapa geral</strong>. Nos próximos módulos a gente desce ao detalhe e coloca cada ferramenta para funcionar.</p>
+                </div>
+
+                <h2>As 4 Famílias de Ferramentas</h2>
+                <p>Tudo o que existe hoje cabe, na prática, em quatro grandes famílias. Você vai conhecer todas neste vídeo:</p>
+
+                <div class="card"><h3>1. Ferramentas Web / GUI (no navegador)</h3><p>Você abre um site, conversa e copia o resultado. É o ponto de entrada de todo mundo: <strong>ChatGPT</strong> (OpenAI), <strong>Claude.ai</strong> (Anthropic), <strong data-logo-inject="gemini">Google Gemini</strong> e o <strong>Microsoft Copilot</strong>. Zero instalação, zero configuração.</p></div>
+                <div class="card"><h3>2. Apps de Desktop com Superpoderes</h3><p>Os mesmos assistentes, mas instalados no seu computador e com permissão para <strong>ler arquivos, abrir programas e criar projetos</strong>: <strong data-logo-inject="anthropic">Claude Desktop</strong> e <strong data-logo-inject="openai">ChatGPT Desktop</strong>. A ponte entre o chat e a sua máquina.</p></div>
+                <div class="card"><h3>3. Editores e IDEs com IA (exclusivos para desenvolvimento)</h3><p>Programas feitos para criar software, com a IA integrada ao código: <strong>Cursor</strong>, <strong data-logo-inject="codeium">Windsurf</strong>, <strong data-logo-inject="github">VS Code + GitHub Copilot</strong> e as ferramentas do <strong data-logo-inject="google">Google</strong> voltadas só para desenvolvimento — o <strong>Firebase Studio</strong> (antigo Project IDX), o <strong>Antigravity</strong> e o <strong>Gemini Code Assist</strong>.</p></div>
+                <div class="card"><h3>4. Ferramentas de Linha de Comando (CLIs agênticas)</h3><p>Agentes que trabalham pelo terminal e executam tarefas de ponta a ponta: <strong data-logo-inject="anthropic">Claude Code</strong> (Anthropic), <strong data-logo-inject="openai">Codex</strong> (os modelos GPT Codex da OpenAI), <strong data-logo-inject="gemini">Gemini CLI</strong> (Google) e alternativas como Aider e Kimi CLI.</p></div>
+
+                <h2>Web, Desktop, IDE ou Terminal — Quando Usar Cada Um</h2>
+                <table>
+                    <tr><th>Família</th><th>Melhor para</th><th>Exemplos</th></tr>
+                    <tr><td>Web / GUI</td><td>Tirar dúvidas, redigir e revisar textos, primeiros testes</td><td>ChatGPT, Claude.ai, Gemini</td></tr>
+                    <tr><td>Desktop</td><td>Conversar usando seus próprios arquivos e programas</td><td>Claude Desktop, ChatGPT Desktop</td></tr>
+                    <tr><td>IDE com IA</td><td>Criar apps e sistemas com acompanhamento visual</td><td>Cursor, Windsurf, Firebase Studio, Antigravity</td></tr>
+                    <tr><td>CLI agêntica</td><td>Automatizar tarefas inteiras e projetos completos</td><td>Claude Code, Codex, Gemini CLI</td></tr>
+                </table>
+
+                <h2>Os Modelos por Trás das Ferramentas</h2>
+                <p>Toda ferramenta acima é só a "casca". O cérebro são os <strong>modelos de IA</strong>. Vale conhecer os principais:</p>
+                <ul>
+                    <li><strong data-logo-inject="anthropic">Claude</strong> (Anthropic) — referência em programação e raciocínio longo. É o que move o Claude Code.</li>
+                    <li><strong data-logo-inject="openai">GPT e os modelos Codex</strong> (OpenAI) — especializados em escrever e executar código, por trás do Codex.</li>
+                    <li><strong data-logo-inject="gemini">Gemini</strong> (Google) — multimodal e integrado ao ecossistema Google, move o Antigravity e o Gemini CLI.</li>
+                </ul>
+                <div class="info-box"><p><strong>Ideia-chave:</strong> a ferramenta é a interface; o modelo é a inteligência. Trocar de modelo é como trocar o motor de um carro — a direção continua a mesma.</p></div>
+
+                <h2>O Que Vem Depois Desta Aula</h2>
+                <p>Nos próximos 10 módulos, você sai do panorama e vai para a prática: instala sua primeira ferramenta, perde o medo do terminal, cria dois projetos reais e aprende a usar tudo isso com segurança e respeito à LGPD.</p>
+                <div class="success-box"><p><strong>Guarde este mapa.</strong> Sempre que aparecer uma ferramenta nova — e aparece toda semana — ela vai cair em uma destas quatro famílias. Você nunca mais vai se sentir perdido no meio de tanta novidade.</p></div>
+            `
+        },
         {
             id: "mod01",
             title: "O Que São Assistentes Inteligentes",
@@ -554,6 +614,56 @@ Comentários em português.</code></pre>
 const courseDataEN = {
     modules: [
         {
+            id: "mod00",
+            title: "The AI Tools Landscape",
+            subtitle: "The full map: web, desktop, IDEs and terminal",
+            duration: "35 min",
+            type: "inaugural",
+            content: `
+                <h1>The Landscape of<em>AI Tools</em></h1>
+                <p>Before we roll up our sleeves, let's fly over the <strong>entire landscape</strong> of AI tools available today — from the browser to the terminal. This is the course's <strong>opening lesson</strong>: the longest video, designed to give you the full map before we dive into the details.</p>
+                <div class="video-placeholder featured">
+                    <button class="play-btn">▶</button>
+                    <h3>Opening Lesson — Full Video</h3>
+                    <p>A guided tour through every category of AI tool</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>How to watch:</strong> don't install anything yet. The goal here is to understand the <strong>big-picture map</strong>. In the next modules we go deep and get each tool running.</p>
+                </div>
+
+                <h2>The 4 Families of Tools</h2>
+                <p>In practice, everything out there fits into four big families. You'll meet all of them in this video:</p>
+
+                <div class="card"><h3>1. Web / GUI Tools (in the browser)</h3><p>You open a website, chat, and copy the result. It's everyone's entry point: <strong>ChatGPT</strong> (OpenAI), <strong>Claude.ai</strong> (Anthropic), <strong data-logo-inject="gemini">Google Gemini</strong> and <strong>Microsoft Copilot</strong>. Zero install, zero setup.</p></div>
+                <div class="card"><h3>2. Desktop Apps with Superpowers</h3><p>The same assistants, but installed on your computer and allowed to <strong>read files, open programs, and create projects</strong>: <strong data-logo-inject="anthropic">Claude Desktop</strong> and <strong data-logo-inject="openai">ChatGPT Desktop</strong>. The bridge between the chat and your machine.</p></div>
+                <div class="card"><h3>3. AI-Powered Editors and IDEs (built for development)</h3><p>Programs made to build software, with AI woven into the code: <strong>Cursor</strong>, <strong data-logo-inject="codeium">Windsurf</strong>, <strong data-logo-inject="github">VS Code + GitHub Copilot</strong> and <strong data-logo-inject="google">Google</strong>'s development-only tools — <strong>Firebase Studio</strong> (formerly Project IDX), <strong>Antigravity</strong> and <strong>Gemini Code Assist</strong>.</p></div>
+                <div class="card"><h3>4. Command-Line Tools (agentic CLIs)</h3><p>Agents that work through the terminal and carry tasks end to end: <strong data-logo-inject="anthropic">Claude Code</strong> (Anthropic), <strong data-logo-inject="openai">Codex</strong> (OpenAI's GPT Codex models), <strong data-logo-inject="gemini">Gemini CLI</strong> (Google) and alternatives like Aider and Kimi CLI.</p></div>
+
+                <h2>Web, Desktop, IDE or Terminal — When to Use Each</h2>
+                <table>
+                    <tr><th>Family</th><th>Best for</th><th>Examples</th></tr>
+                    <tr><td>Web / GUI</td><td>Quick questions, drafting and reviewing text, first tests</td><td>ChatGPT, Claude.ai, Gemini</td></tr>
+                    <tr><td>Desktop</td><td>Chatting using your own files and programs</td><td>Claude Desktop, ChatGPT Desktop</td></tr>
+                    <tr><td>AI IDE</td><td>Building apps and systems with visual feedback</td><td>Cursor, Windsurf, Firebase Studio, Antigravity</td></tr>
+                    <tr><td>Agentic CLI</td><td>Automating whole tasks and complete projects</td><td>Claude Code, Codex, Gemini CLI</td></tr>
+                </table>
+
+                <h2>The Models Behind the Tools</h2>
+                <p>Every tool above is just the "shell." The brain is the <strong>AI model</strong>. Worth knowing the main ones:</p>
+                <ul>
+                    <li><strong data-logo-inject="anthropic">Claude</strong> (Anthropic) — a benchmark for coding and long-form reasoning. It's what powers Claude Code.</li>
+                    <li><strong data-logo-inject="openai">GPT and the Codex models</strong> (OpenAI) — specialized at writing and running code, behind Codex.</li>
+                    <li><strong data-logo-inject="gemini">Gemini</strong> (Google) — multimodal and integrated into the Google ecosystem, powering Antigravity and the Gemini CLI.</li>
+                </ul>
+                <div class="info-box"><p><strong>Key idea:</strong> the tool is the interface; the model is the intelligence. Swapping models is like swapping a car's engine — the steering stays the same.</p></div>
+
+                <h2>What Comes After This Lesson</h2>
+                <p>Over the next 10 modules, you leave the overview and get hands-on: install your first tool, lose your fear of the terminal, build two real projects, and learn to use all of it safely and in line with data protection rules.</p>
+                <div class="success-box"><p><strong>Keep this map.</strong> Whenever a new tool shows up — and one does every week — it will land in one of these four families. You'll never feel lost in the flood of new releases again.</p></div>
+            `
+        },
+        {
             id: "mod01",
             title: "What Are AI Assistants",
             subtitle: "And why you need them right now",
@@ -1026,6 +1136,18 @@ let lang = 'pt';
 function getCourseData() { return lang === 'en' ? courseDataEN : courseDataPT; }
 function t() { return uiStrings[lang]; }
 
+/* Display number for a module: the inaugural lesson shows "00";
+   every other module is numbered 01..N, ignoring inaugural lessons. */
+function isInaugural(mod) { return mod && mod.type === 'inaugural'; }
+function moduleNumber(modules, idx) {
+    if (isInaugural(modules[idx])) return '00';
+    let n = 0;
+    for (let i = 0; i <= idx; i++) {
+        if (!isInaugural(modules[i])) n++;
+    }
+    return String(n).padStart(2, '0');
+}
+
 /* ===== DOM Elements ===== */
 const moduleList    = document.getElementById('moduleList');
 const contentBody   = document.getElementById('contentBody');
@@ -1122,8 +1244,8 @@ function renderModuleList() {
     moduleList.innerHTML = modules.map((mod, idx) => {
         const isActive = idx === currentModule;
         const isDone   = completedModules.has(idx);
-        const classes  = [isActive ? 'active' : '', isDone ? 'completed' : ''].filter(Boolean).join(' ');
-        const badge    = isDone ? '✓' : String(idx + 1).padStart(2, '0');
+        const classes  = [isActive ? 'active' : '', isDone ? 'completed' : '', isInaugural(mod) ? 'inaugural' : ''].filter(Boolean).join(' ');
+        const badge    = isDone ? '✓' : moduleNumber(modules, idx);
         return `
         <li>
             <a href="#" data-index="${idx}" class="${classes}">
@@ -1144,8 +1266,10 @@ function loadModule(index) {
 
     contentBody.innerHTML = mod.content;
 
-    const moduleLabel = t().moduleLabel;
-    breadcrumb.innerHTML = `<span>${moduleLabel} ${String(index + 1).padStart(2, '0')}</span><span class="breadcrumb-sep">/</span>${mod.title}`;
+    const crumbLabel = isInaugural(mod)
+        ? t().inauguralLabel
+        : `${t().moduleLabel} ${moduleNumber(modules, index)}`;
+    breadcrumb.innerHTML = `<span>${crumbLabel}</span><span class="breadcrumb-sep">/</span>${mod.title}`;
 
     prevBtn.disabled = index === 0;
     prevBtn.textContent = t().prevBtn;
@@ -1168,9 +1292,33 @@ function loadModule(index) {
 
 /* ===== Post-Process Content (screenshots + logos) ===== */
 function postProcessContent(moduleIndex) {
-    // 1. Inject real screenshot into .video-placeholder
+    // 1. Render .video-placeholder — only the featured (inaugural) lesson has a
+    //    recorded video; every other lesson shows a "coming soon" state.
     const imgUrl = MODULE_SCREENSHOTS[moduleIndex] || '';
     contentBody.querySelectorAll('.video-placeholder').forEach(vp => {
+        const isFeatured = vp.classList.contains('featured');
+        const playBtn = vp.querySelector('.play-btn');
+        const h3      = vp.querySelector('h3');
+        const p       = vp.querySelector('p');
+
+        if (!isFeatured) {
+            // No recorded video yet → "coming soon" placeholder
+            vp.classList.add('coming-soon');
+            if (playBtn) playBtn.remove();
+            if (h3) h3.remove();
+            if (p)  p.remove();
+
+            const soon = document.createElement('div');
+            soon.className = 'vp-soon';
+            soon.innerHTML =
+                `<span class="vp-soon-icon">🎬</span>` +
+                `<span class="vp-soon-title">${t().soonTitle}</span>` +
+                `<span class="vp-soon-text">${t().soonText}</span>`;
+            vp.appendChild(soon);
+            return;
+        }
+
+        // Featured: real poster + playable bottom info strip
         if (imgUrl) {
             const img = document.createElement('img');
             img.src = imgUrl;
@@ -1179,11 +1327,6 @@ function postProcessContent(moduleIndex) {
             img.loading = 'lazy';
             vp.insertBefore(img, vp.firstChild);
         }
-
-        // Restructure bottom info strip
-        const playBtn = vp.querySelector('.play-btn');
-        const h3      = vp.querySelector('h3');
-        const p       = vp.querySelector('p');
 
         const info = document.createElement('div');
         info.className = 'vp-info';
@@ -1232,9 +1375,12 @@ function postProcessContent(moduleIndex) {
 
 /* ===== Update Progress ===== */
 function updateProgress() {
-    const total     = getCourseData().modules.length;
-    const completed = completedModules.size;
-    const pct       = Math.round((completed / total) * 100);
+    const modules   = getCourseData().modules;
+    // The inaugural lesson is a bonus opener — it doesn't count toward the 10 modules.
+    const total     = modules.filter(m => !isInaugural(m)).length;
+    let completed   = 0;
+    completedModules.forEach(i => { if (modules[i] && !isInaugural(modules[i])) completed++; });
+    const pct       = total ? Math.round((completed / total) * 100) : 0;
     progressFill.style.width = `${pct}%`;
     progressText.textContent = t().progressModules(completed, total);
     if (progressPct) progressPct.textContent = `${pct}%`;
