@@ -135,6 +135,9 @@ body {
   text-align: right;
 }
 .sidebar-nav a[data-index].active .nav-num { color: var(--red); }
+/* Inaugural opening lesson — highlighted in the nav */
+.sidebar-nav a[data-index].inaugural .nav-num { color: var(--red); }
+.sidebar-nav a[data-index].inaugural .nav-title { color: #d8d8d8; }
 .nav-title { flex:1; }
 
 /* Resources links */
@@ -702,6 +705,19 @@ body {
   z-index: 3;
 }
 .play-btn:hover { background: var(--red-d); transform: scale(1.08); }
+
+/* ─── Featured (longer) video — inaugural lesson ── */
+.video-placeholder.featured {
+  height: 400px;
+  border-color: var(--red);
+}
+.video-placeholder.featured .play-btn {
+  width: 60px; height: 60px;
+  font-size: 20px;
+}
+@media (max-width: 640px) {
+  .video-placeholder.featured { height: 300px; }
+}
 
 /* ─── Real screenshot inside video-placeholder ── */
 .vp-screenshot {

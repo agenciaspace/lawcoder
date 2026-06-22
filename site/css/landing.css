@@ -412,6 +412,18 @@ body {
 }
 .module-type.project { background: var(--red); color: #fff; }
 
+/* Inaugural opening lesson — featured full-width card */
+.module-item.featured {
+    grid-column: 1 / -1;
+    background: var(--black);
+    border-right: none;
+}
+.module-item.featured:hover { background: var(--black); }
+.module-item.featured h3 { color: #fff; }
+.module-item.featured p { color: rgba(255, 255, 255, .65); }
+.module-item.featured .module-num { color: var(--red); }
+.module-type.featured { background: var(--red); color: #fff; }
+
 /* ── Projects ── */
 .projects-grid {
     display: grid;
