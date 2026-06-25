@@ -922,3 +922,56 @@ html[data-lang="en"] .btn-whatsapp-card[data-show="en"]{ display: block !importa
     .pricing-price { font-size: 48px; }
     .mentoring-price { font-size: 36px; }
 }
+
+/* ── Comunidade gratuita (CTA WhatsApp) ── */
+.cta-community {
+    font-family: var(--f-display);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #25D366;
+    text-decoration: none;
+    padding: 9px 16px;
+    border: 2px solid #25D366;
+    background: transparent;
+    transition: all .15s;
+    white-space: nowrap;
+}
+.cta-community:hover { background: #25D366; color: #0d0d0d; }
+
+.community-section { background: var(--cream); }
+.community-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.community-copy { max-width: 620px; }
+.community-desc {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.7;
+    max-width: 520px;
+    margin-top: 8px;
+}
+.community-cta { white-space: nowrap; }
+
+.footer-community {
+    font-family: var(--f-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #25D366;
+    text-decoration: none;
+    text-align: center;
+    transition: color .15s;
+}
+.footer-community:hover { color: #2ee676; }
+
+/* esconde o botão do header no mobile (redundante com seção + rodapé) */
+@media (max-width: 640px) {
+    .cta-community,
+    html[data-lang="en"] .cta-community[data-show="en"] { display: none !important; }
+}

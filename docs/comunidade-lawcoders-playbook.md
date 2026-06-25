@@ -127,7 +127,7 @@ Comunidade nova morre por **silêncio**, não por excesso. Mantenha um ritmo mí
 
 ## 7. Crescimento
 
-- **1 link de convite da Comunidade** (não dos grupos individuais) → coloque em: lawcoders.app, bio do Instagram/LinkedIn, rodapé do site lawcoder.com.br, assinatura de e-mail.
+- **Link de convite da Comunidade:** `https://chat.whatsapp.com/H5TMhJZaHRCEsPfaYlYfvv` → já está no site (header, seção dedicada, rodapé e na `curso.html`). Coloque também em: lawcoders.app, bio do Instagram/LinkedIn, assinatura de e-mail.
 - **CTA no site:** botão "Entrar na comunidade gratuita" no lawcoder.com.br e no lawcoders.app.
 - **Conteúdo isca:** ofereça algo no app (ex.: "10 prompts jurídicos") em troca da entrada.
 - **Indicação:** peça pros membros ativos convidarem 1 colega. Comunidade cresce por boca-a-boca.

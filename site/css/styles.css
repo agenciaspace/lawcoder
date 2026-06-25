@@ -1144,3 +1144,7 @@ body {
 .content-body > * {
   animation: fadeInUp .28s ease forwards;
 }
+
+/* link da comunidade na sidebar de recursos */
+.sidebar-nav-community { color: #25D366 !important; }
+.sidebar-nav-community:hover { color: #2ee676 !important; }
