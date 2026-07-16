@@ -56,6 +56,14 @@ Sem bundler ⇒ sem tree-shaking: Three.js entra inteiro (~170KB gzip). Aceitáv
 - **Three.js vendorizado** em `site/js/vendor/three.module.js`, versão pinada. Mesma origem,
   zero dependência de terceiro em runtime. `build:copy` ganha mais um `cp`.
 - **O poster de fallback é o hero atual em CSS.** Sem asset novo.
+  **Correção (Task 6):** o hero em CSS não pinta "imediato" — ele faz fade-in em
+  ~1s, porque a camada de movimento já existente põe `.hero-h1` em `opacity: 0`
+  (`landing.css:891`) e o revela com `transition-delay: .2s` (`:906`). Uma captura
+  em t=0 mostra a manchete ausente, e isso é **anterior ao 3D e por design** —
+  verificado dando `git stash` no diff do 3D e obtendo o mesmo resultado. O que a
+  regra do "primeiro frame" garante é que o 3D nunca **acrescenta** um buraco;
+  ela não faz o fade-in do CSS desaparecer. Sob `prefers-reduced-motion` a camada
+  de movimento inteira é desligada, então aí sim a manchete aparece de imediato.
 - A canvas é posicionada exatamente sobre a caixa do `h1`. Quando o 3D sobe, o `h1` vai a
   `opacity: 0` mas **continua no DOM ocupando o mesmo espaço** — leitor de tela e crawler
   seguem vendo a manchete. A canvas é `aria-hidden`. Sem layout shift, sem perda de SEO.
