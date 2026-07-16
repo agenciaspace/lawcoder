@@ -35,6 +35,7 @@ Todo task herda implicitamente estas regras:
   - `text-transform: uppercase` → renderizam em CAIXA ALTA.
 - Já existe uma camada de movimento em CSS com `.is-visible` em ancestrais agnósticos de idioma, e `landing.js` aplica parallax via `transform` inline no `.hero-h1`.
 - O dev server serve `site/` direto (`npx serve site`), **não** `site/dist/`. Por isso um arquivo esquecido no `build:copy` funciona local e quebra em produção sem erro nenhum.
+- **Armadilha de verificação (confirmada no Task 3):** este Chrome headless resolve `navigator.language` como `en-US` mesmo com `--lang=pt-BR`. Toda captura da landing sem forçar idioma mostra o hero em **inglês**, não em português. É pré-existente, não um bug do 3D. Ao verificar qualquer coisa dependente de idioma, force o estado com `localStorage.setItem('lawcoder-lang', 'pt')` e recarregue — nunca confie no default. Um teste que assume PT e recebe EN pode "passar" mostrando a coisa errada.
 
 ## File Structure
 
@@ -1179,24 +1180,44 @@ Esperado: `sintaxe ok`.
 
 - [ ] **Step 4: Testar o toggle na página real**
 
+**Armadilha confirmada no Task 3:** este Chrome headless resolve `navigator.language` como `en-US` mesmo com `--lang=pt-BR`. Sem forçar, a página já **abre em inglês**, e clicar no toggle levaria a português — o teste "passaria" mostrando o oposto do que diz verificar. Force o estado inicial via `localStorage` em vez de confiar no default.
+
 ```bash
 cd ~/agenciaspace/lawcoder
 SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
 cat > $SP/t7-toggle.html <<'EOF'
-<iframe id="f" src="http://localhost:4321/index.html" style="width:1280px;height:800px;border:0"></iframe>
+<iframe id="f" style="width:1280px;height:800px;border:0"></iframe>
 <script>
+  // Forca PT como estado inicial: o headless resolveria en-US sozinho.
   const f = document.getElementById('f');
-  f.onload = () => setTimeout(() => {
-    f.contentDocument.getElementById('landingLangBtn').click();
-  }, 5000);
+  f.src = 'http://localhost:4321/index.html';
+  f.onload = () => {
+    const w = f.contentWindow;
+    if (w.localStorage.getItem('lawcoder-lang') !== 'pt') {
+      w.localStorage.setItem('lawcoder-lang', 'pt');
+      f.contentWindow.location.reload();
+      return;   // o proximo onload cai no else
+    }
+    setTimeout(() => {
+      const d = f.contentDocument;
+      console.log('LANG_ANTES:' + d.documentElement.getAttribute('data-lang'));
+      d.getElementById('landingLangBtn').click();
+      setTimeout(() => {
+        console.log('LANG_DEPOIS:' + d.documentElement.getAttribute('data-lang'));
+      }, 2500);
+    }, 5000);
+  };
 </script>
 EOF
 google-chrome --headless=new --hide-scrollbars --window-size=1280,860 \
-  --virtual-time-budget=12000 --screenshot=$SP/t7-en.png \
-  "http://localhost:4322/t7-toggle.html" 2>/dev/null && echo ok
+  --virtual-time-budget=16000 --enable-logging=stderr --v=0 \
+  --screenshot=$SP/t7-en.png --dump-dom "http://localhost:4322/t7-toggle.html" 2>&1 \
+  | grep -oE 'LANG_(ANTES|DEPOIS):[a-z]*'
 ```
 
-Leia `$SP/t7-en.png`. Esperado: a manchete em 3D agora em **inglês** ("LEGAL TOOLS / BUILT / BY YOU"), com "BY YOU" de face vermelha, remontando.
+Esperado: `LANG_ANTES:pt` seguido de `LANG_DEPOIS:en` — **nessa ordem**. Se vier `LANG_ANTES:en`, o `localStorage` não pegou e a captura não prova nada.
+
+Leia `$SP/t7-en.png`. Esperado: a manchete em 3D em **inglês** ("LEGAL TOOLS / BUILT / BY YOU"), com "BY YOU" de face vermelha, remontando.
 
 - [ ] **Step 5: Commit**
 
