@@ -1354,6 +1354,42 @@ E dentro de `destroy()`, antes de `renderer.dispose();`:
             ro.disconnect();
 ```
 
+- [ ] **Step 3a: Corrigir o `t0` do `pause()`/`resume()`** *(achado do review do Task 5)*
+
+`pause()`/`resume()` não compensam o tempo pausado. Se a aba for escondida **durante** a montagem (~2s) e voltar depois, `el = now - t0` fica enorme, `p` satura em 1 para todas as letras, e a manchete **pula pronta** num único frame — o visitante perde exatamente a coisa que o hero existe para mostrar. Este task é quem liga `pause`/`resume` ao `visibilitychange`, então é aqui que isso deixa de ser latente.
+
+Em `site/js/hero3d.js`, no `pause()`, registre quando parou; no `resume()`, empurre o `t0` pelo tempo parado:
+
+```js
+        pause() {
+            if (paused || destroyed) return;
+            paused = true;
+            pausedAt = performance.now();
+            cancelAnimationFrame(raf);
+        },
+        resume() {
+            if (!paused || destroyed) return;
+            paused = false;
+            // Empurra o inicio da montagem pelo tempo parado, senao ela
+            // salta pronta em vez de retomar a cascata de onde parou.
+            if (t0 && pausedAt) t0 += performance.now() - pausedAt;
+            pausedAt = 0;
+            raf = requestAnimationFrame(frame);
+        },
+```
+
+E declare `let pausedAt = 0;` junto de `let paused = false;`.
+
+- [ ] **Step 3b: Endurecer o `catch` do `boot3d()`** *(achado do review do Task 6)*
+
+O `catch` desfaz `hero3d` e chama `destroy()`, mas **não remove a classe `hero--3d`**. Se uma exceção ocorrer depois de a classe ter sido aplicada, o `h1` fica em `opacity: 0` permanente **sem canvas nenhuma** — o buraco exato que o design inteiro existe para impedir. Hoje o caminho é inatingível, mas depende de um detalhe interno do `hero3d.js` continuar verdadeiro, e este task muda esse arquivo.
+
+Em `site/js/landing.js`, dentro do `catch` de `boot3d()`, antes do `console.warn`:
+
+```js
+            hero.classList.remove('hero--3d');   // sem isto, falha tardia = h1 invisivel e sem canvas
+```
+
 - [ ] **Step 3: Reagir na landing — reverter no contexto perdido, pausar fora de vista**
 
 Em `site/js/landing.js`, dentro de `boot3d()`, logo após `stage.querySelector('canvas').classList.add('is-live');`, adicione:
@@ -1412,16 +1448,37 @@ Force a perda de contexto com a extensão `WEBGL_lose_context` e confirme que o 
 </script>
 ```
 
+Sem iframe (CORS não daria acesso ao DOM cross-origin) e sem tempo virtual (mataria o rAF). O Playwright dirige a própria página:
+
 ```bash
 cd ~/agenciaspace/lawcoder
 SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
-google-chrome --headless=new --hide-scrollbars --window-size=1280,860 \
-  --virtual-time-budget=12000 --enable-logging=stderr --v=0 \
-  --screenshot=$SP/t8-lost.png --dump-dom "http://localhost:4322/t8.html" 2>&1 \
-  | grep -o 'CTX_TEST:[^"<]*' | head -1
+cat > $SP/ctx-lost.py <<'PYEOF'
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b = p.chromium.launch()
+    pg = b.new_page(viewport={'width': 1280, 'height': 860})
+    pg.goto('http://localhost:4321/index.html', wait_until='load')
+    pg.wait_for_timeout(5000)
+    print('ANTES  hero--3d=', pg.evaluate("document.querySelector('.hero').classList.contains('hero--3d')"),
+          'canvas=', pg.locator('.hero-canvas').count())
+    pg.evaluate("""() => {
+        const cv = document.querySelector('.hero-canvas');
+        const gl = cv.getContext('webgl2') || cv.getContext('webgl');
+        gl.getExtension('WEBGL_lose_context').loseContext();
+    }""")
+    pg.wait_for_timeout(1500)
+    print('DEPOIS hero--3d=', pg.evaluate("document.querySelector('.hero').classList.contains('hero--3d')"),
+          'canvas=', pg.locator('.hero-canvas').count())
+    pg.screenshot(path='%s/t8-lost.png' % '/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad')
+    b.close()
+PYEOF
+python3 $SP/ctx-lost.py
 ```
 
-Esperado: `CTX_TEST: hero--3d=false canvas=false`. Leia `$SP/t8-lost.png`: a manchete deve estar **de volta em CSS**, legível — nunca um retângulo vazio.
+Esperado: `ANTES hero--3d= True canvas= 1` e `DEPOIS hero--3d= False canvas= 0`.
+
+Leia `$SP/t8-lost.png`: a manchete deve estar **de volta em CSS**, legível — nunca um retângulo vazio. Este é o gate do task: no celular o navegador derruba o contexto WebGL sob pressão de memória, e sem isso sobra um buraco onde estava a manchete.
 
 - [ ] **Step 6: Commit**
 
