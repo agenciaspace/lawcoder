@@ -9,6 +9,9 @@ const BLACK = 0x0d0d0d;
 const RED = 0xe63012;
 const DEPTH = 14;   // profundidade da extrusao, em unidades do SVG
 const FOV = 35;     // baixo: achata a perspectiva, mantem leitura grafica
+const ASSEMBLE_MS = 1200;   // duracao total da montagem
+const STAGGER_MS = 26;      // cascata por letra
+const TILT_MAX = 0.14;      // ~8 graus de resposta ao mouse
 
 const svgCache = new Map();
 
@@ -21,6 +24,18 @@ async function loadSvg(lang) {
     const data = loader.parse(await res.text());
     svgCache.set(lang, data);
     return data;
+}
+
+const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+/* Offsets derivados do indice, nao aleatorios: brutalismo e ordem, nao caos.
+   Le como algo sendo colocado, nao como poeira se juntando. */
+function seedOffset(i) {
+    return {
+        z: -180 - (i % 5) * 45,
+        ry: (((i % 3) - 1) * 0.42),
+        rx: (((i % 4) - 1.5) * 0.2),
+    };
 }
 
 export async function initHero3d(mount, { lang }) {
@@ -87,6 +102,16 @@ export async function initHero3d(mount, { lang }) {
         const box = new THREE.Box3().setFromObject(g);
         const center = box.getCenter(new THREE.Vector3());
         g.children.forEach((m) => m.position.sub(center));
+
+        // Alvo final de cada letra + estado inicial da montagem.
+        g.children.forEach((m, i) => {
+            m.userData.home = m.position.clone();
+            const o = seedOffset(i);
+            m.userData.seed = o;
+            m.position.z = m.userData.home.z + o.z;
+            m.rotation.y = o.ry;
+            m.rotation.x = o.rx;
+        });
         g.userData.size = box.getSize(new THREE.Vector3());
 
         // Agora sim: SVG tem Y para baixo, three tem Y para cima.
@@ -120,7 +145,63 @@ export async function initHero3d(mount, { lang }) {
         camera.updateProjectionMatrix();
     }
 
+    let t0 = 0;
+    let assembling = true;
+    let paused = false;
+    const pointer = { x: 0, y: 0 };   // alvo, -1..1
+    const tilt = { x: 0, y: 0 };      // atual (lerp)
+
     function render() { renderer.render(scene, camera); }
+
+    function frame(now) {
+        if (destroyed) return;
+        raf = requestAnimationFrame(frame);
+        if (!t0) t0 = now;
+
+        if (group) {
+            if (assembling) {
+                const el = now - t0;
+                let done = true;
+                group.children.forEach((m, i) => {
+                    const p = Math.min(Math.max((el - i * STAGGER_MS) / ASSEMBLE_MS, 0), 1);
+                    if (p < 1) done = false;
+                    const e = easeOutCubic(p);
+                    const o = m.userData.seed;
+                    m.position.z = m.userData.home.z + o.z * (1 - e);
+                    m.rotation.y = o.ry * (1 - e);
+                    m.rotation.x = o.rx * (1 - e);
+                });
+                if (done) assembling = false;
+            }
+
+            // Repouso: acompanha o mouse com lerp, limitado.
+            tilt.x += (pointer.y * TILT_MAX - tilt.x) * 0.06;
+            tilt.y += (pointer.x * TILT_MAX - tilt.y) * 0.06;
+            group.rotation.x = tilt.x;
+            group.rotation.y = tilt.y;
+
+            group.position.y = scrollY;   // sobe de leve conforme rola
+        }
+        render();
+    }
+
+    function onPointer(e) {
+        const r = mount.getBoundingClientRect();
+        pointer.x = ((e.clientX - r.left) / r.width) * 2 - 1;
+        pointer.y = ((e.clientY - r.top) / r.height) * 2 - 1;
+    }
+    window.addEventListener('pointermove', onPointer, { passive: true });
+
+    let scrollY = 0;
+    function onScroll() {
+        // Espelha o fator do parallax do .hero-h1 em landing.js (-y * 0.12),
+        // convertido para unidades da cena via a altura da caixa do mount.
+        const y = Math.min(window.scrollY, window.innerHeight);
+        const r = mount.getBoundingClientRect();
+        const unitsPerPx = group ? group.userData.size.y / Math.max(1, r.height) : 0;
+        scrollY = y * 0.12 * unitsPerPx;
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     await build(lang);
     mount.appendChild(canvas);
@@ -129,12 +210,30 @@ export async function initHero3d(mount, { lang }) {
     // que existe pixel na tela.
     render();
     await new Promise((r) => requestAnimationFrame(() => r()));
+    raf = requestAnimationFrame(frame);
 
     return {
-        async setLang(l) { if (!destroyed) { await build(l); render(); } },
+        async setLang(l) {
+            if (destroyed) return;
+            await build(l);
+            t0 = 0;
+            assembling = true;   // remonta no novo idioma
+        },
+        pause() {
+            if (paused || destroyed) return;
+            paused = true;
+            cancelAnimationFrame(raf);
+        },
+        resume() {
+            if (!paused || destroyed) return;
+            paused = false;
+            raf = requestAnimationFrame(frame);
+        },
         destroy() {
             destroyed = true;
             cancelAnimationFrame(raf);
+            window.removeEventListener('pointermove', onPointer);
+            window.removeEventListener('scroll', onScroll);
             disposeGroup();
             renderer.dispose();
             canvas.remove();
