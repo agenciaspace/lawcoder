@@ -116,15 +116,15 @@ Crie `tools/assert-dist.sh`:
 # produção fica sem — silenciosamente, porque o fallback é a página atual.
 set -euo pipefail
 
+# Cada task acrescenta os arquivos que ele introduz. Nao liste aqui nada
+# que ainda nao existe: o guarda deve falhar por build:copy incompleto,
+# nunca por arquivo que ainda nao foi escrito.
 REQUIRED=(
   "site/dist/index.html"
   "site/dist/js/landing.js"
-  "site/dist/js/hero3d.js"
+  "site/dist/css/landing.css"
   "site/dist/js/vendor/three.module.js"
   "site/dist/js/vendor/SVGLoader.js"
-  "site/dist/assets/headline-pt.svg"
-  "site/dist/assets/headline-en.svg"
-  "site/dist/css/landing.css"
 )
 
 fail=0
@@ -156,30 +156,20 @@ chmod +x tools/assert-dist.sh
 cd ~/agenciaspace/lawcoder && npm run build >/dev/null 2>&1; ./tools/assert-dist.sh
 ```
 
-Esperado: **FALHA**, com `FALTA site/dist/js/hero3d.js` e os demais, e exit code 1. Isso confirma que o guarda funciona. (`hero3d.js` e os SVGs ainda nem existem — é esperado.)
+Esperado: **FALHA**, com `FALTA site/dist/js/vendor/three.module.js` e `FALTA site/dist/js/vendor/SVGLoader.js`, e exit code 1. Os arquivos existem em `site/js/vendor/` mas o `build:copy` ainda não os copia — que é exatamente a classe de bug que este guarda existe pra pegar.
 
 - [ ] **Step 6: Atualizar o `build:copy` e adicionar `build:assert`**
 
-Em `package.json`, substitua o script `build:copy` e adicione `build:assert`. O `build:copy` passa a copiar os diretórios novos:
+Em `package.json`, substitua o script `build:copy` e adicione `build:assert`. O `build:copy` passa a criar `site/dist/js/vendor` e copiar o vendor:
 
 ```json
-"build:copy": "mkdir -p site/dist/css site/dist/js/vendor site/dist/assets && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/js/hero3d.js site/dist/js/hero3d.js && cp site/js/vendor/three.module.js site/dist/js/vendor/three.module.js && cp site/js/vendor/SVGLoader.js site/dist/js/vendor/SVGLoader.js && cp site/assets/headline-pt.svg site/dist/assets/headline-pt.svg && cp site/assets/headline-en.svg site/dist/assets/headline-en.svg && cp site/css/variables.css site/dist/css/variables.css",
+"build:copy": "mkdir -p site/dist/css site/dist/js/vendor && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/js/vendor/three.module.js site/dist/js/vendor/three.module.js && cp site/js/vendor/SVGLoader.js site/dist/js/vendor/SVGLoader.js && cp site/css/variables.css site/dist/css/variables.css",
 "build:assert": "npm run build && ./tools/assert-dist.sh",
 ```
 
-- [ ] **Step 7: Criar stubs para destravar o assert**
+**Não** adicione `hero3d.js` nem os SVGs aqui — eles não existem ainda. Os Tasks 2 e 4 acrescentam cada um os seus, junto com a linha correspondente no `assert-dist.sh`.
 
-O `build:copy` agora referencia arquivos que só existem nos tasks seguintes. Crie stubs mínimos para o build não quebrar (serão sobrescritos):
-
-```bash
-cd ~/agenciaspace/lawcoder
-mkdir -p site/assets
-printf '// stub — implementado no Task 4\nexport async function initHero3d() { return null; }\n' > site/js/hero3d.js
-printf '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"></svg>\n' > site/assets/headline-pt.svg
-cp site/assets/headline-pt.svg site/assets/headline-en.svg
-```
-
-- [ ] **Step 8: Rodar o teste e ver ele passar**
+- [ ] **Step 7: Rodar o teste e ver ele passar**
 
 ```bash
 cd ~/agenciaspace/lawcoder && npm run build:assert
@@ -187,22 +177,22 @@ cd ~/agenciaspace/lawcoder && npm run build:assert
 
 Esperado: **PASSA** — todas as linhas `ok`, terminando em `dist completo.` e exit 0.
 
-- [ ] **Step 9: Confirmar que o `.gitignore` não engole o vendor**
+- [ ] **Step 8: Confirmar que o `.gitignore` não engole o vendor**
 
 O `.gitignore` tem `dist/`. Confirme que os arquivos novos **serão** versionados:
 
 ```bash
 cd ~/agenciaspace/lawcoder
-git check-ignore -v site/js/vendor/three.module.js site/assets/headline-pt.svg tools/assert-dist.sh || echo "nenhum ignorado — ok"
+git check-ignore -v site/js/vendor/three.module.js tools/assert-dist.sh || echo "nenhum ignorado — ok"
 ```
 
 Esperado: `nenhum ignorado — ok`. Se algum aparecer como ignorado, ajuste o `.gitignore` com uma exceção (`!site/js/vendor/`).
 
-- [ ] **Step 10: Commit**
+- [ ] **Step 9: Commit**
 
 ```bash
 cd ~/agenciaspace/lawcoder
-git add site/js/vendor/ tools/assert-dist.sh package.json site/js/hero3d.js site/assets/
+git add site/js/vendor/ tools/assert-dist.sh package.json
 git commit -m "chore: vendoriza three.js pinado + guarda de build:copy
 
 O build:copy e uma lista literal de cp: arquivo esquecido nela funciona
@@ -218,8 +208,8 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 
 **Files:**
 - Create: `tools/gen-headline-svg.mjs`, `tools/BarlowCondensed-Black.ttf`
-- Overwrite: `site/assets/headline-pt.svg`, `site/assets/headline-en.svg`
-- Modify: `package.json` (devDependency `opentype.js` + script `gen:headline`)
+- Create: `site/assets/headline-pt.svg`, `site/assets/headline-en.svg`
+- Modify: `package.json` (devDependency `opentype.js`, script `gen:headline`, `build:copy`), `tools/assert-dist.sh`
 
 **Interfaces:**
 - Consumes: nada.
@@ -277,9 +267,7 @@ const HEADLINES = {
   ],
 };
 
-const font = await opentype.loadSync
-  ? opentype.loadSync(FONT)
-  : await opentype.load(FONT);
+const font = opentype.loadSync(FONT);
 
 function buildSvg(lines) {
   const paths = [];
@@ -363,19 +351,34 @@ google-chrome --headless=new --hide-scrollbars --window-size=1200,500 \
 
 Leia `/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad/headline-pt.png` com a ferramenta Read. Esperado: três linhas, "FERRAMENTAS" e "JURÍDICAS" pretas, "FEITAS POR VOCÊ" vermelha, sem letra faltando e sem sobreposição.
 
-- [ ] **Step 8: Rodar o assert de build**
+- [ ] **Step 8: Registrar os SVGs no `build:copy` e no guarda**
+
+Os SVGs são novos: sem isto eles funcionam local e somem em produção. Em `package.json`, no `build:copy`, acrescente `site/dist/assets` ao `mkdir -p` e as duas cópias:
+
+```json
+"build:copy": "mkdir -p site/dist/css site/dist/js/vendor site/dist/assets && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/js/vendor/three.module.js site/dist/js/vendor/three.module.js && cp site/js/vendor/SVGLoader.js site/dist/js/vendor/SVGLoader.js && cp site/assets/headline-pt.svg site/dist/assets/headline-pt.svg && cp site/assets/headline-en.svg site/dist/assets/headline-en.svg && cp site/css/variables.css site/dist/css/variables.css",
+```
+
+E em `tools/assert-dist.sh`, acrescente ao array `REQUIRED`:
+
+```bash
+  "site/dist/assets/headline-pt.svg"
+  "site/dist/assets/headline-en.svg"
+```
+
+- [ ] **Step 9: Rodar o assert de build**
 
 ```bash
 cd ~/agenciaspace/lawcoder && npm run build:assert
 ```
 
-Esperado: PASSA (os SVGs reais substituíram os stubs).
+Esperado: PASSA, com as duas linhas novas `ok site/dist/assets/headline-*.svg`.
 
-- [ ] **Step 9: Commit**
+- [ ] **Step 10: Commit**
 
 ```bash
 cd ~/agenciaspace/lawcoder
-git add tools/gen-headline-svg.mjs tools/BarlowCondensed-Black.ttf site/assets/ package.json package-lock.json
+git add tools/gen-headline-svg.mjs tools/BarlowCondensed-Black.ttf site/assets/ tools/assert-dist.sh package.json package-lock.json
 git commit -m "feat: gerador offline dos SVGs da manchete do hero
 
 Um <path> por letra, fill vermelho na linha do <em> (espelha o CSS).
@@ -499,7 +502,8 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 Ao fim deste task a cena renderiza a manchete parada, nas cores certas, encaixada na caixa. Sem montagem, sem mouse, sem portão — ainda não está ligada na página (o Task 6 liga).
 
 **Files:**
-- Overwrite: `site/js/hero3d.js` (substitui o stub do Task 1)
+- Create: `site/js/hero3d.js`
+- Modify: `package.json` (`build:copy`), `tools/assert-dist.sh`
 
 **Interfaces:**
 - Consumes: `site/js/vendor/three.module.js`, `site/js/vendor/SVGLoader.js`, `site/assets/headline-{pt,en}.svg`.
@@ -507,7 +511,7 @@ Ao fim deste task a cena renderiza a manchete parada, nas cores certas, encaixad
 
 - [ ] **Step 1: Escrever a cena**
 
-Substitua **todo** o conteúdo de `site/js/hero3d.js`:
+Crie `site/js/hero3d.js`:
 
 ```js
 /* Hero 3D — a manchete do hero como geometria extrudada.
@@ -591,14 +595,19 @@ export async function initHero3d(mount, { lang }) {
             g.add(mesh);
         });
 
-        // SVG tem Y para baixo; three tem Y para cima.
-        g.scale.y = -1;
-
-        // Centraliza no proprio centro geometrico.
+        // Centraliza ANTES de inverter o Y. A ordem importa: com scale.y=-1
+        // aplicado, getCenter() devolve o centro em espaco de MUNDO (y ja
+        // negado), e subtrair isso de m.position — que e LOCAL — deslocaria
+        // a manchete para longe do centro em vez de para ele. Sem scale, os
+        // dois espacos coincidem e a subtracao e correta.
         const box = new THREE.Box3().setFromObject(g);
         const center = box.getCenter(new THREE.Vector3());
         g.children.forEach((m) => m.position.sub(center));
         g.userData.size = box.getSize(new THREE.Vector3());
+
+        // Agora sim: SVG tem Y para baixo, three tem Y para cima.
+        // Inverter um grupo ja centrado na origem mantem ele centrado.
+        g.scale.y = -1;
 
         scene.add(g);
         group = g;
@@ -707,11 +716,33 @@ google-chrome --headless=new --virtual-time-budget=6000 --enable-logging=stderr 
 
 Esperado: `MESHES: 33` (PT). Se vier `0`, o SVG não carregou; se vier `1`, os paths foram fundidos e o stagger não vai funcionar.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 6: Registrar o `hero3d.js` no `build:copy` e no guarda**
+
+Em `package.json`, no `build:copy`, acrescente a cópia logo após a do `app.js`:
+
+```
+&& cp site/js/hero3d.js site/dist/js/hero3d.js
+```
+
+E em `tools/assert-dist.sh`, acrescente ao array `REQUIRED`:
+
+```bash
+  "site/dist/js/hero3d.js"
+```
+
+Rode o guarda:
+
+```bash
+cd ~/agenciaspace/lawcoder && npm run build:assert
+```
+
+Esperado: PASSA, com a linha nova `ok site/dist/js/hero3d.js`.
+
+- [ ] **Step 7: Commit**
 
 ```bash
 cd ~/agenciaspace/lawcoder
-git add site/js/hero3d.js
+git add site/js/hero3d.js tools/assert-dist.sh package.json
 git commit -m "feat: cena 3D da manchete do hero (estatica)
 
 Faces herdam a cor do fill do SVG; laterais recebem a cor oposta —
