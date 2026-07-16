@@ -2,6 +2,8 @@
     const html = document.documentElement;
     html.classList.add('js'); // progressive enhancement: sem JS, reveals não escondem nada
     const btn  = document.getElementById('landingLangBtn');
+    let hero3d = null;   // instancia da cena 3D, ou null. Declarado aqui em
+                         // cima porque setLang() a referencia e roda na init.
 
     /* ── Idioma (PT/EN) ── */
     function detectLang() {
@@ -120,5 +122,57 @@
         window.addEventListener('scroll', () => {
             if (!pTick) { requestAnimationFrame(parallax); pTick = true; }
         }, { passive: true });
+    }
+
+    /* ═══════════════ HERO 3D ═══════════════ */
+
+    /* Portao: so carrega o Three.js se tudo abaixo passar.
+       Ausencia de dado NUNCA reprova — deviceMemory e hardwareConcurrency
+       nao existem no Safari, e reprovar por ausencia derrubaria o 3D em
+       todo iPhone, que e justamente onde ele roda bem. */
+    function canRun3d() {
+        if (reduce) return false;
+        const c = navigator.connection;
+        if (c && c.saveData === true) return false;
+        if (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 4) return false;
+        if (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency < 4) return false;
+        try {
+            const cv = document.createElement('canvas');
+            if (!(cv.getContext('webgl2') || cv.getContext('webgl'))) return false;
+        } catch (_) { return false; }
+        return true;
+    }
+
+    async function boot3d() {
+        const stage = document.getElementById('heroH1Stage');
+        if (!stage || !hero || !canRun3d()) return;
+        try {
+            const mod = await import('./hero3d.js');
+            const api = await mod.initHero3d(stage, {
+                lang: html.getAttribute('data-lang') || 'pt',
+            });
+            if (!api) return;
+            hero3d = api;
+            // O h1 so sai de vista agora — depois do primeiro frame existir.
+            hero.classList.add('hero--3d');
+            stage.querySelector('canvas').classList.add('is-live');
+        } catch (err) {
+            // Qualquer falha: fica no hero CSS, que nunca desapareceu.
+            console.warn('[hero3d] desativado:', err && err.message);
+            if (hero3d) { try { hero3d.destroy(); } catch (_) {} hero3d = null; }
+        }
+    }
+
+    /* Depois do load: o 3D nunca disputa a primeira pintura.
+       requestIdleCallback aceita {timeout}; setTimeout aceita ms — nao da
+       pra passar o mesmo argumento pros dois. */
+    if (canRun3d()) {
+        window.addEventListener('load', () => {
+            if (window.requestIdleCallback) {
+                window.requestIdleCallback(boot3d, { timeout: 1500 });
+            } else {
+                window.setTimeout(boot3d, 200);   // Safari < 17.4
+            }
+        });
     }
 })();
