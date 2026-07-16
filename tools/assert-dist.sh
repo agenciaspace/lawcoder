@@ -13,6 +13,8 @@ REQUIRED=(
   "site/dist/css/landing.css"
   "site/dist/js/vendor/three.module.js"
   "site/dist/js/vendor/SVGLoader.js"
+  "site/dist/assets/headline-pt.svg"
+  "site/dist/assets/headline-en.svg"
 )
 
 fail=0
