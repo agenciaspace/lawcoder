@@ -1182,48 +1182,49 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>"
 - Consumes: `hero3d` e `setLang` do Task 6.
 - Produces: nada novo.
 
-- [ ] **Step 1: Escrever o teste do vazamento — e vê-lo falhar**
+- [ ] **Step 1: Provar que o `dispose()` não vaza**
 
-Antes de ligar o toggle, prove que o `dispose()` do Task 4 funciona. Crie `/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad/t7.html`:
+Antes de ligar o toggle, prove que o `dispose()` do Task 4 funciona. **Não use iframe entre portas nem `--virtual-time-budget`**, pelos dois motivos abaixo, que já custaram tempo nesta execução:
 
-```html
-<style>body{background:#f2ede4;margin:0}#stage{position:relative;width:900px;height:300px}</style>
-<div id="stage"></div>
-<script type="module">
-  import { initHero3d } from 'http://localhost:4321/js/hero3d.js';
-  const api = await initHero3d(document.getElementById('stage'), { lang: 'pt' });
-  const info = api._debug.renderer.info.memory;
-  const base = info.geometries;
-  for (let i = 0; i < 10; i++) await api.setLang(i % 2 ? 'pt' : 'en');
-  // Sem dispose, geometrias se acumulam a cada toggle.
-  console.log('LEAK_BASE:' + base + ' LEAK_AFTER:' + info.geometries);
-</script>
-```
+- Sob tempo virtual o rAF morre, e o `initHero3d` **espera** um `requestAnimationFrame` antes de resolver — o `await` penduraria para sempre e você culparia o `dispose()`.
+- `Access-Control-Allow-Origin` **não** dá acesso ao DOM de um iframe cross-origin: isso é same-origin policy, e header nenhum resolve.
 
-Sirva o `site/` com CORS — `python3 -m http.server` puro não manda o header, e o import de módulo entre portas falha (confirmado no Task 4b):
+A saída é não ter cross-origin: o Playwright dirige a própria página, e o `import()` dinâmico roda na origem dela. Script já testado:
 
 ```bash
 cd ~/agenciaspace/lawcoder
+npm run build >/dev/null 2>&1
 SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
-cat > $SP/cors-server.py <<'EOF'
-# uso: python3 cors-server.py <porta> <diretorio>
-import functools, http.server, sys
-class H(http.server.SimpleHTTPRequestHandler):
-    def end_headers(self):
-        self.send_header('Access-Control-Allow-Origin', '*')
-        super().end_headers()
-handler = functools.partial(H, directory=sys.argv[2])
-http.server.HTTPServer(('127.0.0.1', int(sys.argv[1])), handler).serve_forever()
-EOF
-(python3 $SP/cors-server.py 4321 site >/dev/null 2>&1 &) ; sleep 1
-(python3 -m http.server 4322 --directory $SP >/dev/null 2>&1 &) ; sleep 1
-google-chrome --headless=new --virtual-time-budget=15000 --enable-logging=stderr --v=0 \
-  --dump-dom "http://localhost:4322/t7.html" 2>&1 | grep -o 'LEAK_BASE:[0-9]* LEAK_AFTER:[0-9]*'
+(python3 -m http.server 4321 --directory site >/dev/null 2>&1 &) ; sleep 1
+cat > $SP/leak-check.py <<'PYEOF'
+from playwright.sync_api import sync_playwright
+with sync_playwright() as p:
+    b = p.chromium.launch()
+    pg = b.new_page(viewport={'width': 900, 'height': 300})
+    pg.goto('http://localhost:4321/index.html', wait_until='load')
+    r = pg.evaluate("""async () => {
+        document.body.innerHTML = '<div id="s" style="position:relative;width:900px;height:300px"></div>';
+        const m = await import('/js/hero3d.js');
+        const api = await m.initHero3d(document.getElementById('s'), { lang: 'pt' });
+        const info = api._debug.renderer.info.memory;
+        const base = info.geometries;
+        for (let i = 0; i < 10; i++) await api.setLang(i % 2 ? 'pt' : 'en');
+        const rightAfter = info.geometries;
+        await new Promise(r => setTimeout(r, 1500));   // deixa o rAF re-subir
+        return { base, rightAfter, settled: info.geometries,
+                 meshes: api._debug.group.children.length };
+    }""")
+    print(f"base={r['base']} logo_apos={r['rightAfter']} apos_1.5s={r['settled']} meshes={r['meshes']}")
+    b.close()
+PYEOF
+python3 $SP/leak-check.py
 ```
 
-Se não sair nada, cheque o console por erro de CORS antes de suspeitar do `dispose()`.
+Esperado (medido de verdade, não estimado): `base=33 logo_apos=0 apos_1.5s=33 meshes=33`.
 
-Esperado: `LEAK_AFTER` ≈ `LEAK_BASE` (± o número de letras — PT tem 33, EN tem 20, então após 10 toggles o valor final deve ser 33 ou 20, **não** ~250). Se `LEAK_AFTER` estiver na casa das centenas, o `disposeGroup()` está errado — **conserte antes de seguir**; cada toggle estaria vazando memória de GPU, e o botão de idioma convida a brincar.
+**O `0` não é bug e não é vazamento** — é um retrato tirado no meio da troca: o `setLang` descarta as geometrias antigas e não chama `render()`, então até o próximo frame do rAF nada está carregado na GPU. Depois de assentar, volta a 33 (ou 20, se o último toggle tiver caído em EN).
+
+O sintoma de vazamento é **acumulação**: `apos_1.5s` na casa das centenas (~250). Se vier isso, o `disposeGroup()` está errado — **conserte antes de seguir**. Cada toggle estaria vazando memória de GPU, e o botão de idioma convida a brincar.
 
 - [ ] **Step 2: Ligar o `setLang` da landing na cena**
 
@@ -1251,42 +1252,37 @@ Esperado: `sintaxe ok`.
 
 - [ ] **Step 4: Testar o toggle na página real**
 
-**Armadilha confirmada no Task 3:** este Chrome headless resolve `navigator.language` como `en-US` mesmo com `--lang=pt-BR`. Sem forçar, a página já **abre em inglês**, e clicar no toggle levaria a português — o teste "passaria" mostrando o oposto do que diz verificar. Force o estado inicial via `localStorage` em vez de confiar no default.
+**Armadilha confirmada no Task 3:** este Chrome headless resolve `navigator.language` como `en-US` mesmo com `--lang=pt-BR`. Sem forçar, a página já **abre em inglês**, e clicar no toggle levaria a português — o teste "passaria" mostrando o oposto do que diz verificar. Force o estado inicial via `localStorage` (com `add_init_script`, que roda antes do `landing.js`) em vez de confiar no default.
+
+Sem iframe: o Playwright dirige a própria página. Script já testado:
 
 ```bash
 cd ~/agenciaspace/lawcoder
 SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
-cat > $SP/t7-toggle.html <<'EOF'
-<iframe id="f" style="width:1280px;height:800px;border:0"></iframe>
-<script>
-  // Forca PT como estado inicial: o headless resolveria en-US sozinho.
-  const f = document.getElementById('f');
-  f.src = 'http://localhost:4321/index.html';
-  f.onload = () => {
-    const w = f.contentWindow;
-    if (w.localStorage.getItem('lawcoder-lang') !== 'pt') {
-      w.localStorage.setItem('lawcoder-lang', 'pt');
-      f.contentWindow.location.reload();
-      return;   // o proximo onload cai no else
-    }
-    setTimeout(() => {
-      const d = f.contentDocument;
-      console.log('LANG_ANTES:' + d.documentElement.getAttribute('data-lang'));
-      d.getElementById('landingLangBtn').click();
-      setTimeout(() => {
-        console.log('LANG_DEPOIS:' + d.documentElement.getAttribute('data-lang'));
-      }, 2500);
-    }, 5000);
-  };
-</script>
-EOF
-google-chrome --headless=new --hide-scrollbars --window-size=1280,860 \
-  --virtual-time-budget=16000 --enable-logging=stderr --v=0 \
-  --screenshot=$SP/t7-en.png --dump-dom "http://localhost:4322/t7-toggle.html" 2>&1 \
-  | grep -oE 'LANG_(ANTES|DEPOIS):[a-z]*'
+cat > $SP/toggle-check.py <<'PYEOF'
+import sys
+from playwright.sync_api import sync_playwright
+out = sys.argv[1]
+with sync_playwright() as p:
+    b = p.chromium.launch()
+    ctx = b.new_context(viewport={'width': 1280, 'height': 860})
+    ctx.add_init_script("localStorage.setItem('lawcoder-lang','pt')")
+    pg = ctx.new_page()
+    pg.goto('http://localhost:4321/index.html', wait_until='load')
+    pg.wait_for_timeout(4000)
+    print('LANG_ANTES:' + pg.get_attribute('html', 'data-lang'))
+    print('CANVAS_ANTES:', pg.locator('.hero-canvas').count())
+    pg.click('#landingLangBtn')
+    pg.wait_for_timeout(3000)
+    print('LANG_DEPOIS:' + pg.get_attribute('html', 'data-lang'))
+    print('CANVAS_DEPOIS:', pg.locator('.hero-canvas').count())
+    pg.screenshot(path=out)
+    b.close()
+PYEOF
+python3 $SP/toggle-check.py $SP/t7-en.png
 ```
 
-Esperado: `LANG_ANTES:pt` seguido de `LANG_DEPOIS:en` — **nessa ordem**. Se vier `LANG_ANTES:en`, o `localStorage` não pegou e a captura não prova nada.
+Esperado: `LANG_ANTES:pt`, `CANVAS_ANTES: 1`, `LANG_DEPOIS:en`, `CANVAS_DEPOIS: 1` — **nessa ordem**. Se vier `LANG_ANTES:en`, o `localStorage` não pegou e a captura não prova nada. Se `CANVAS_DEPOIS` for maior que 1, o `setLang` está criando uma canvas nova a cada troca em vez de reconstruir a geometria na existente.
 
 Leia `$SP/t7-en.png`. Esperado: a manchete em 3D em **inglês** ("LEGAL TOOLS / BUILT / BY YOU"), com "BY YOU" de face vermelha, remontando.
 
