@@ -157,9 +157,30 @@
             // O h1 so sai de vista agora — depois do primeiro frame existir.
             hero.classList.add('hero--3d');
             stage.querySelector('canvas').classList.add('is-live');
+
+            // Contexto perdido: o h1 volta, a canvas sai. Sem buraco.
+            stage.addEventListener('hero3d:lost', () => {
+                hero.classList.remove('hero--3d');
+                if (hero3d) { try { hero3d.destroy(); } catch (_) {} hero3d = null; }
+            });
+
+            // Um loop de RAF numa aba de fundo e bateria do visitante
+            // queimada a toa.
+            document.addEventListener('visibilitychange', () => {
+                if (!hero3d) return;
+                document.hidden ? hero3d.pause() : hero3d.resume();
+            });
+
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver((es) => {
+                    if (!hero3d) return;
+                    es[0].isIntersecting ? hero3d.resume() : hero3d.pause();
+                }, { threshold: 0 }).observe(hero);
+            }
         } catch (err) {
             // Qualquer falha: fica no hero CSS, que nunca desapareceu.
             console.warn('[hero3d] desativado:', err && err.message);
+            hero.classList.remove('hero--3d');   // sem isto, falha tardia = h1 invisivel e sem canvas
             if (hero3d) { try { hero3d.destroy(); } catch (_) {} hero3d = null; }
         }
     }

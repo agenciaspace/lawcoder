@@ -45,6 +45,7 @@ export async function initHero3d(mount, { lang }) {
 
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setClearAlpha(0);
+    let onLost = null;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(FOV, 1, 1, 4000);
@@ -148,6 +149,7 @@ export async function initHero3d(mount, { lang }) {
     let t0 = 0;
     let assembling = true;
     let paused = false;
+    let pausedAt = 0;
     const pointer = { x: 0, y: 0 };   // alvo, -1..1
     const tilt = { x: 0, y: 0 };      // atual (lerp)
 
@@ -212,6 +214,18 @@ export async function initHero3d(mount, { lang }) {
     await new Promise((r) => requestAnimationFrame(() => r()));
     raf = requestAnimationFrame(frame);
 
+    const ro = new ResizeObserver(() => { fit(); render(); });
+    ro.observe(mount);
+
+    // Contexto perdido (comum no mobile sob pressao de memoria):
+    // avisa o chamador para reverter ao hero CSS.
+    onLost = (e) => {
+        e.preventDefault();
+        cancelAnimationFrame(raf);
+        canvas.dispatchEvent(new CustomEvent('hero3d:lost', { bubbles: true }));
+    };
+    canvas.addEventListener('webglcontextlost', onLost);
+
     return {
         async setLang(l) {
             if (destroyed) return;
@@ -222,11 +236,16 @@ export async function initHero3d(mount, { lang }) {
         pause() {
             if (paused || destroyed) return;
             paused = true;
+            pausedAt = performance.now();
             cancelAnimationFrame(raf);
         },
         resume() {
             if (!paused || destroyed) return;
             paused = false;
+            // Empurra o inicio da montagem pelo tempo parado, senao ela
+            // salta pronta em vez de retomar a cascata de onde parou.
+            if (t0 && pausedAt) t0 += performance.now() - pausedAt;
+            pausedAt = 0;
             raf = requestAnimationFrame(frame);
         },
         destroy() {
@@ -234,6 +253,8 @@ export async function initHero3d(mount, { lang }) {
             cancelAnimationFrame(raf);
             window.removeEventListener('pointermove', onPointer);
             window.removeEventListener('scroll', onScroll);
+            canvas.removeEventListener('webglcontextlost', onLost);
+            ro.disconnect();
             disposeGroup();
             renderer.dispose();
             canvas.remove();
