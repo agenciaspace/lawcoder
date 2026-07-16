@@ -35,6 +35,8 @@ Todo task herda implicitamente estas regras:
   - `text-transform: uppercase` → renderizam em CAIXA ALTA.
 - Já existe uma camada de movimento em CSS com `.is-visible` em ancestrais agnósticos de idioma, e `landing.js` aplica parallax via `transform` inline no `.hero-h1`.
 - O dev server serve `site/` direto (`npx serve site`), **não** `site/dist/`. Por isso um arquivo esquecido no `build:copy` funciona local e quebra em produção sem erro nenhum.
+- **`tools/assert-dist.sh` só verifica que o arquivo EXISTE, não que ele carrega.** Foi assim que a falta do `three.core.js` atravessou o review do Task 1 inteiro: o `three.module.js` importa `./three.core.js` na linha 7, o arquivo não estava lá, o guarda deu `ok`, e nada quebrou até o Task 4 realmente importar o módulo. **Um `build:assert` verde não é evidência de que o JS funciona** — só de que o `cp` aconteceu. Quem prova é carregar a cena.
+- **Armadilha de verificação (confirmada no Task 4b):** importar módulo ES entre portas diferentes no headless **falha por CORS**. Se a página de teste está numa porta e o `site/` noutra, o servidor do `site/` precisa mandar `Access-Control-Allow-Origin: *`. É artefato do teste, não do produto — em produção é mesma origem. `python3 -m http.server` puro não manda o header.
 - **Armadilha de verificação (confirmada no Task 3):** este Chrome headless resolve `navigator.language` como `en-US` mesmo com `--lang=pt-BR`. Toda captura da landing sem forçar idioma mostra o hero em **inglês**, não em português. É pré-existente, não um bug do 3D. Ao verificar qualquer coisa dependente de idioma, force o estado com `localStorage.setItem('lawcoder-lang', 'pt')` e recarregue — nunca confie no default. Um teste que assume PT e recebe EN pode "passar" mostrando a coisa errada.
 
 ## File Structure
@@ -1146,11 +1148,28 @@ Antes de ligar o toggle, prove que o `dispose()` do Task 4 funciona. Crie `/tmp/
 </script>
 ```
 
+Sirva o `site/` com CORS — `python3 -m http.server` puro não manda o header, e o import de módulo entre portas falha (confirmado no Task 4b):
+
 ```bash
 cd ~/agenciaspace/lawcoder
+SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
+cat > $SP/cors-server.py <<'EOF'
+# uso: python3 cors-server.py <porta> <diretorio>
+import functools, http.server, sys
+class H(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        super().end_headers()
+handler = functools.partial(H, directory=sys.argv[2])
+http.server.HTTPServer(('127.0.0.1', int(sys.argv[1])), handler).serve_forever()
+EOF
+(python3 $SP/cors-server.py 4321 site >/dev/null 2>&1 &) ; sleep 1
+(python3 -m http.server 4322 --directory $SP >/dev/null 2>&1 &) ; sleep 1
 google-chrome --headless=new --virtual-time-budget=15000 --enable-logging=stderr --v=0 \
   --dump-dom "http://localhost:4322/t7.html" 2>&1 | grep -o 'LEAK_BASE:[0-9]* LEAK_AFTER:[0-9]*'
 ```
+
+Se não sair nada, cheque o console por erro de CORS antes de suspeitar do `dispose()`.
 
 Esperado: `LEAK_AFTER` ≈ `LEAK_BASE` (± o número de letras — PT tem 33, EN tem 20, então após 10 toggles o valor final deve ser 33 ou 20, **não** ~250). Se `LEAK_AFTER` estiver na casa das centenas, o `disposeGroup()` está errado — **conserte antes de seguir**; cada toggle estaria vazando memória de GPU, e o botão de idioma convida a brincar.
 
