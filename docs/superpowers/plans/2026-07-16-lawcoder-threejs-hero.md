@@ -35,6 +35,34 @@ Todo task herda implicitamente estas regras:
   - `text-transform: uppercase` → renderizam em CAIXA ALTA.
 - Já existe uma camada de movimento em CSS com `.is-visible` em ancestrais agnósticos de idioma, e `landing.js` aplica parallax via `transform` inline no `.hero-h1`.
 - O dev server serve `site/` direto (`npx serve site`), **não** `site/dist/`. Por isso um arquivo esquecido no `build:copy` funciona local e quebra em produção sem erro nenhum.
+- **O `--virtual-time-budget` do Chrome headless MATA o `requestAnimationFrame` (confirmado no Task 5, medido: 1 tick onde deveriam ser ~120).** Qualquer captura de coisa animada feita com ele é inútil — e falha do jeito pior, produzindo duas imagens byte-idênticas que parecem "a animação não roda". `setTimeout` e `setInterval` continuam andando sob tempo virtual; só o rAF morre. **Para qualquer verificação que dependa de animação, use o script de captura abaixo** (Playwright do Python, 1.60.0, já instalado na máquina — não é dependência do projeto):
+
+  ```bash
+  SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
+  cat > $SP/shot.py <<'EOF'
+  # uso: python3 shot.py <url> <saida.png> <espera_ms> [largura] [altura] [reduce]
+  import sys
+  from playwright.sync_api import sync_playwright
+  url, out, wait = sys.argv[1], sys.argv[2], int(sys.argv[3])
+  w = int(sys.argv[4]) if len(sys.argv) > 4 else 1280
+  h = int(sys.argv[5]) if len(sys.argv) > 5 else 860
+  reduce = len(sys.argv) > 6 and sys.argv[6] == 'reduce'
+  with sync_playwright() as p:
+      b = p.chromium.launch()
+      ctx = b.new_context(viewport={'width': w, 'height': h},
+                          reduced_motion='reduce' if reduce else 'no-preference')
+      pg = ctx.new_page()
+      logs = []
+      pg.on('console', lambda m: logs.append(m.text))
+      pg.goto(url, wait_until='load')
+      pg.wait_for_timeout(wait)
+      pg.screenshot(path=out, full_page=(h > 2000))
+      b.close()
+  for l in logs:
+      print('CONSOLE:', l)
+  EOF
+  ```
+  Testado: `python3 $SP/shot.py <url> <png> 2000` devolve 120 ticks de rAF onde o `--virtual-time-budget` devolve 1. Ele também captura o console (prefixo `CONSOLE:`) e aceita `reduce` como último argumento no lugar do `--force-prefers-reduced-motion`.
 - **`tools/assert-dist.sh` só verifica que o arquivo EXISTE, não que ele carrega.** Foi assim que a falta do `three.core.js` atravessou o review do Task 1 inteiro: o `three.module.js` importa `./three.core.js` na linha 7, o arquivo não estava lá, o guarda deu `ok`, e nada quebrou até o Task 4 realmente importar o módulo. **Um `build:assert` verde não é evidência de que o JS funciona** — só de que o `cp` aconteceu. Quem prova é carregar a cena.
 - **Armadilha de verificação (confirmada no Task 4b):** importar módulo ES entre portas diferentes no headless **falha por CORS**. Se a página de teste está numa porta e o `site/` noutra, o servidor do `site/` precisa mandar `Access-Control-Allow-Origin: *`. É artefato do teste, não do produto — em produção é mesma origem. `python3 -m http.server` puro não manda o header.
 - **Armadilha de verificação (confirmada no Task 3):** este Chrome headless resolve `navigator.language` como `en-US` mesmo com `--lang=pt-BR`. Toda captura da landing sem forçar idioma mostra o hero em **inglês**, não em português. É pré-existente, não um bug do 3D. Ao verificar qualquer coisa dependente de idioma, force o estado com `localStorage.setItem('lawcoder-lang', 'pt')` e recarregue — nunca confie no default. Um teste que assume PT e recebe EN pode "passar" mostrando a coisa errada.
