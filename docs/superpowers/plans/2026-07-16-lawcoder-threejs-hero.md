@@ -1089,39 +1089,63 @@ Esperado: `sintaxe ok`.
 
 - [ ] **Step 4: Ver o 3D na landing real**
 
+Use o `shot.py` (relógio real). O `--virtual-time-budget` **não serve aqui**: ele congela o rAF e a manchete apareceria eternamente desmontada.
+
 ```bash
 cd ~/agenciaspace/lawcoder
 SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
-google-chrome --headless=new --hide-scrollbars --window-size=1280,860 \
-  --virtual-time-budget=8000 --screenshot=$SP/t6-3d.png \
-  "http://localhost:4321/index.html" 2>/dev/null && echo ok
+(python3 -m http.server 4321 --directory site >/dev/null 2>&1 &) ; sleep 1
+python3 $SP/shot.py "http://localhost:4321/index.html" $SP/t6-3d.png 4000
 ```
 
-Leia `$SP/t6-3d.png`. Esperado: o hero com a manchete em 3D montada, cores certas, **no mesmo lugar** onde estava o texto, com a legenda em mono abaixo.
+Leia `$SP/t6-3d.png`. Esperado: o hero com a manchete em 3D **montada**, cores certas, **no mesmo lugar** onde estava o texto, com a legenda em mono abaixo. (O headless resolve o idioma como `en-US`, então espere a manchete em inglês — isso é normal.)
 
 - [ ] **Step 5: Testar o fallback por reduced-motion**
 
 ```bash
 cd ~/agenciaspace/lawcoder
 SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
-google-chrome --headless=new --force-prefers-reduced-motion --hide-scrollbars \
-  --window-size=1280,860 --virtual-time-budget=8000 --screenshot=$SP/t6-reduce.png \
-  "http://localhost:4321/index.html" 2>/dev/null && echo ok
+python3 $SP/shot.py "http://localhost:4321/index.html" $SP/t6-reduce.png 4000 1280 860 reduce
 ```
 
 Leia `$SP/t6-reduce.png`. Esperado: o hero **em CSS**, idêntico ao de hoje. Nenhuma canvas.
+
+Confirme também que o Three.js **nem foi baixado** — este é o requisito real, não só "a canvas não apareceu":
+
+```bash
+cd ~/agenciaspace/lawcoder
+SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
+cat > $SP/net-check.py <<'PYEOF'
+import sys
+from playwright.sync_api import sync_playwright
+reduce = len(sys.argv) > 1 and sys.argv[1] == 'reduce'
+with sync_playwright() as p:
+    b = p.chromium.launch()
+    ctx = b.new_context(reduced_motion='reduce' if reduce else 'no-preference')
+    pg = ctx.new_page()
+    urls = []
+    pg.on('request', lambda r: urls.append(r.url))
+    pg.goto('http://localhost:4321/index.html', wait_until='load')
+    pg.wait_for_timeout(4000)
+    b.close()
+hits = [u for u in urls if 'three.bundle' in u or 'hero3d' in u]
+print('BAIXOU_3D:', bool(hits), hits)
+PYEOF
+echo "--- com reduced-motion (deve ser False) ---"; python3 $SP/net-check.py reduce
+echo "--- sem reduced-motion (deve ser True) ---"; python3 $SP/net-check.py
+```
+
+Esperado: `BAIXOU_3D: False []` com reduced-motion, e `BAIXOU_3D: True [...]` sem. Se vier `True` com reduced-motion, o portão está barrando a renderização mas **não** o download — 148KB gastos à toa em quem pediu explicitamente menos movimento.
 
 - [ ] **Step 6: Provar que o Three.js não bloqueia a primeira pintura**
 
 ```bash
 cd ~/agenciaspace/lawcoder
 SP=/tmp/claude-1000/-home-leon/b6b95e26-c7ae-4ea8-8350-47b25c080878/scratchpad
-google-chrome --headless=new --hide-scrollbars --window-size=1280,860 \
-  --virtual-time-budget=250 --screenshot=$SP/t6-early.png \
-  "http://localhost:4321/index.html" 2>/dev/null && echo ok
+python3 $SP/shot.py "http://localhost:4321/index.html" $SP/t6-early.png 0
 ```
 
-Leia `$SP/t6-early.png`. Esperado: a manchete **já visível em CSS** aos 250ms — nunca um buraco. É a regra central do design; se aqui aparecer vazio, o `h1` está sendo escondido cedo demais e o task falhou.
+Leia `$SP/t6-early.png`. Esperado: a manchete **já visível em CSS** — nunca um buraco. É a regra central do design; se aqui aparecer vazio, o `h1` está sendo escondido cedo demais e o task falhou.
 
 - [ ] **Step 7: Confirmar que o `h1` continua no DOM (SEO)**
 
