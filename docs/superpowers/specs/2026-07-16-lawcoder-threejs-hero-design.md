@@ -121,13 +121,21 @@ canvas tem seu próprio parallax — o do `h1` em CSS fica irrelevante quando el
 **Legenda:** linha em mono, pequena, abaixo da canvas. É ela que converte a cena em argumento.
 Bilíngue, e visível também no fallback CSS (o argumento não depende do 3D ter carregado).
 
-Texto a implementar (confirmado: "Como Pedir Para a IA Criar Coisas" **é** o módulo 09):
+Texto (confirmado: "Como Pedir Para a IA Criar Coisas" **é** o módulo 09):
 
-- PT: `// não sei escrever 3D. pedi. — módulo 09`
-- EN: `// i don't know 3D. i asked. — module 09`
+- PT: `// esta página foi feita pedindo. — módulo 09`
+- EN: `// this page was built by asking. — module 09`
 
-Este é o texto **default**, não um placeholder: a implementação segue com ele. O Leon pode
-reescrever na voz dele depois — é troca de string, não muda o design.
+**Correção (Task 9).** A versão original era `// não sei escrever 3D. pedi.` e o raciocínio
+acima — "visível também no fallback, porque o argumento não depende do 3D ter carregado" —
+**estava errado**. Visto no fallback real (WebGL desligado, ou `prefers-reduced-motion`,
+que não é caso raro), a legenda aparecia embaixo de um título completamente chapado,
+afirmando "não sei 3D, pedi" sobre algo que não estava ali. O argumento *era* sobre o
+artefato; sem artefato, virava afirmação órfã.
+
+O texto novo desloca a afirmação da cena para **a página**, que existe nos dois estados.
+Continua verdadeiro com o 3D vivo (a manchete extrudada faz parte da página) e sem ele.
+Segue sendo troca de string — o Leon pode reescrever na voz dele.
 
 ## 3. Integração e ciclo de vida
 
