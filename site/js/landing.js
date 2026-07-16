@@ -19,6 +19,7 @@
             ? 'LawCoder — AI in Practice for Lawyers'
             : 'LawCoder — IA Prática para Advogados';
         btn.textContent = l === 'en' ? 'PT' : 'EN';
+        if (hero3d) hero3d.setLang(l);
         localStorage.setItem('lawcoder-lang', l);
     }
 
