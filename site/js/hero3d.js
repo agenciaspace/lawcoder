@@ -2,8 +2,8 @@
    Regras da marca em 3D: bevelEnabled:false (sem radius), fosco (sem brilho),
    fundo transparente (o creme da pagina atravessa).
    A cor da face frontal vem do fill do SVG; a lateral e a cor oposta. */
-import * as THREE from './vendor/three.module.js';
-import { SVGLoader } from './vendor/SVGLoader.js';
+import * as THREE from './vendor/three.bundle.js';
+const { SVGLoader } = THREE;
 
 const BLACK = 0x0d0d0d;
 const RED = 0xe63012;
