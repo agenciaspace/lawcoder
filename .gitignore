@@ -4,6 +4,5 @@ site/.claude/
 site/.vercel/
 node_modules/
 dist/
-site/js/vendor/three.bundle.js
 *.png
 *.jpg

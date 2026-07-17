@@ -4,17 +4,21 @@
 # produção fica sem — silenciosamente, porque o fallback é a página atual.
 set -euo pipefail
 
-# Cada task acrescenta os arquivos que ele introduz. Nao liste aqui nada
-# que ainda nao existe: o guarda deve falhar por build:copy incompleto,
-# nunca por arquivo que ainda nao foi escrito.
+# Ao adicionar um arquivo novo servido em producao, acrescente-o aqui E no
+# build:copy. Nao liste nada que ainda nao exista: o guarda deve falhar por
+# build:copy incompleto, nunca por arquivo que ainda nao foi escrito.
+#
+# Limite conhecido: isto verifica que o arquivo EXISTE, nao que ele carrega.
+# Um JS quebrado passa por aqui. Para prova de funcionamento, carregue a pagina.
 REQUIRED=(
   "site/dist/index.html"
+  "site/dist/curso.html"
+  "site/dist/404.html"
   "site/dist/js/landing.js"
+  "site/dist/js/app.js"
   "site/dist/css/landing.css"
-  "site/dist/js/vendor/three.bundle.js"
-  "site/dist/assets/headline-pt.svg"
-  "site/dist/assets/headline-en.svg"
-  "site/dist/js/hero3d.js"
+  "site/dist/css/styles.css"
+  "site/dist/css/variables.css"
 )
 
 fail=0

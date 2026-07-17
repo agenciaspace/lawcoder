@@ -2,21 +2,16 @@
   "name": "lawcoder",
   "private": true,
   "scripts": {
-    "build": "npm run build:js && npm run build:css && npm run build:copy",
-    "build:js": "esbuild tools/three-entry.mjs --bundle --format=esm --minify --legal-comments=none --outfile=site/js/vendor/three.bundle.js",
+    "build": "npm run build:css && npm run build:copy",
     "build:css": "npx postcss site/css/landing.css --use postcss-import --no-map -o site/dist/css/landing.css && npx csso-cli site/dist/css/landing.css --output site/dist/css/landing.css && npx postcss site/css/styles.css --use postcss-import --no-map -o site/dist/css/styles.css && npx csso-cli site/dist/css/styles.css --output site/dist/css/styles.css",
-    "build:copy": "mkdir -p site/dist/css site/dist/js/vendor site/dist/assets && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/js/hero3d.js site/dist/js/hero3d.js && cp site/js/vendor/three.bundle.js site/dist/js/vendor/three.bundle.js && cp site/assets/headline-pt.svg site/dist/assets/headline-pt.svg && cp site/assets/headline-en.svg site/dist/assets/headline-en.svg && cp site/css/variables.css site/dist/css/variables.css",
+    "build:copy": "mkdir -p site/dist/css site/dist/js && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/css/variables.css site/dist/css/variables.css",
     "build:assert": "npm run build && ./tools/assert-dist.sh",
-    "dev": "npx serve site",
-    "gen:headline": "node tools/gen-headline-svg.mjs"
+    "dev": "npx serve site"
   },
   "devDependencies": {
     "csso-cli": "^4.0.0",
-    "esbuild": "^0.28.1",
-    "opentype.js": "^2.0.0",
     "postcss": "^8.0.0",
     "postcss-cli": "^11.0.0",
-    "postcss-import": "^16.0.0",
-    "three": "0.185.1"
+    "postcss-import": "^16.0.0"
   }
 }
