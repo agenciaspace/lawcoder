@@ -19,6 +19,7 @@ REQUIRED=(
   "site/dist/css/landing.css"
   "site/dist/css/styles.css"
   "site/dist/css/variables.css"
+  "site/dist/assets/leon-hatori.jpg"
 )
 
 fail=0

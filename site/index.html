@@ -18,106 +18,195 @@
     <meta name="twitter:description" content="Sem programar, aprenda a criar apps e automações para o seu dia a dia jurídico usando IA. Entenda como funciona antes de começar — curso 100% gratuito.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/landing.css">
 </head>
 <body>
 
 <!-- ── Top Bar ── -->
 <header class="topbar">
-    <div class="topbar-brand">LAW<span>CODER</span></div>
-    <div class="topbar-right">
-        <button class="lang-btn" id="landingLangBtn">EN</button>
-        <a href="curso.html" class="cta-top" data-show="pt">Curso Grátis →</a>
-        <a href="curso.html" class="cta-top" data-show="en">Free Course →</a>
+    <div class="topbar-in">
+        <div class="logo"><span class="law">Law</span><span class="code">coder</span></div>
+        <div class="topbar-right">
+            <nav class="nav-inline">
+                <a href="#problema" data-show="pt">O problema</a>
+                <a href="#problema" data-show="en">The problem</a>
+                <a href="#como-funciona" data-show="pt">Como funciona</a>
+                <a href="#como-funciona" data-show="en">How it works</a>
+                <a href="#projetos" data-show="pt">Projetos</a>
+                <a href="#projetos" data-show="en">Projects</a>
+                <a href="#modulos" data-show="pt">Módulos</a>
+                <a href="#modulos" data-show="en">Modules</a>
+                <a href="#planos" data-show="pt">Planos</a>
+                <a href="#planos" data-show="en">Pricing</a>
+            </nav>
+            <button class="lang-btn" id="landingLangBtn">EN</button>
+            <a href="curso.html" class="btn btn-brand" data-show="pt">Curso Grátis →</a>
+            <a href="curso.html" class="btn btn-brand" data-show="en">Free Course →</a>
+        </div>
     </div>
 </header>
 
 <!-- ── Hero — promessa do resultado, sem empurrar pro curso ── -->
-<section class="hero">
-    <div class="hero-left">
-        <div class="hero-eyebrow" data-show="pt">// Para quem perde horas com tarefas repetitivas</div>
-        <div class="hero-eyebrow" data-show="en">// For anyone losing hours to repetitive work</div>
+<div class="hero-wrap">
+    <canvas class="hero-ascii" id="heroAscii" aria-hidden="true"></canvas>
+    <section class="hero">
+        <div class="hero-left reveal">
+            <div class="pill">
+                <b>$0</b>
+                <span data-show="pt">Para quem perde horas com tarefas repetitivas</span>
+                <span data-show="en">For anyone losing hours to repetitive work</span>
+            </div>
 
-        <h1 class="hero-h1" data-show="pt">Ferramentas<br>Jurídicas<em>Feitas Por Você</em></h1>
-        <h1 class="hero-h1" data-show="en">Legal Tools<br>Built<em>By You</em></h1>
+            <h1 class="hero-h1" data-show="pt">Ferramentas Jurídicas <em>Feitas Por Você</em></h1>
+            <h1 class="hero-h1" data-show="en">Legal Tools <em>Built By You</em></h1>
 
-        <p class="hero-desc" data-show="pt">Sem programar, você cria apps e automações para o seu dia a dia jurídico — usando as mesmas IAs que os desenvolvedores usam. Primeiro entenda <strong>como funciona</strong>. Depois, se quiser, comece.</p>
-        <p class="hero-desc" data-show="en">With no coding, you build apps and automations for your daily legal work — using the same AI tools developers use. First understand <strong>how it works</strong>. Then, if you want, start.</p>
+            <p class="hero-desc" data-show="pt">Sem programar, você cria apps e automações para o seu dia a dia jurídico — usando as mesmas IAs que os desenvolvedores usam. Primeiro entenda <strong>como funciona</strong>. Depois, se quiser, comece.</p>
+            <p class="hero-desc" data-show="en">With no coding, you build apps and automations for your daily legal work — using the same AI tools developers use. First understand <strong>how it works</strong>. Then, if you want, start.</p>
 
-        <div class="hero-cta-group">
-            <a href="#o-que-e" class="btn-hero btn-hero-primary" data-show="pt">Entenda Como Funciona ↓</a>
-            <a href="#o-que-e" class="btn-hero btn-hero-primary" data-show="en">See How It Works ↓</a>
-            <a href="curso.html" class="btn-hero btn-hero-ghost" data-show="pt">Ir Direto ao Curso</a>
-            <a href="curso.html" class="btn-hero btn-hero-ghost" data-show="en">Skip to the Course</a>
+            <div class="hero-cta-group">
+                <a href="#o-que-e" class="btn btn-brand btn-lg" data-show="pt">Entenda Como Funciona ↓</a>
+                <a href="#o-que-e" class="btn btn-brand btn-lg" data-show="en">See How It Works ↓</a>
+                <a href="curso.html" class="btn btn-ghost btn-lg" data-show="pt">Ir Direto ao Curso</a>
+                <a href="curso.html" class="btn btn-ghost btn-lg" data-show="en">Skip to the Course</a>
+            </div>
+
+            <div class="hero-note" data-show="pt">Completamente gratuito · Sem cartão de crédito · Sem cadastro obrigatório</div>
+            <div class="hero-note" data-show="en">Completely free · No credit card · No mandatory signup</div>
+        </div>
+    </section>
+
+    <!-- vitrine: os 11 módulos reais do curso (nenhum mockup inventado) -->
+    <div class="hero-shot reveal">
+        <div class="window">
+            <div class="window-bar">
+                <span class="wd"></span><span class="wd"></span><span class="wd"></span>
+                <span class="window-title" data-show="pt">lawcoder · 11 módulos · 2 projetos</span>
+                <span class="window-title" data-show="en">lawcoder · 11 modules · 2 projects</span>
+            </div>
+            <div class="mods">
+                <div class="mod wide">
+                    <span class="mod-n">00</span>
+                    <span class="mod-t" data-show="pt">Panorama das Ferramentas de IA</span>
+                    <span class="mod-t" data-show="en">The AI Tools Landscape</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">01</span>
+                    <span class="mod-t" data-show="pt">O Que São Assistentes Inteligentes</span>
+                    <span class="mod-t" data-show="en">What Are AI Assistants</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">02</span>
+                    <span class="mod-t" data-show="pt">Setup Rápido: Sua Primeira Ferramenta</span>
+                    <span class="mod-t" data-show="en">Quick Setup: Your First Tool</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">03</span>
+                    <span class="mod-t" data-show="pt">O Terminal É Só Um Chat de Texto</span>
+                    <span class="mod-t" data-show="en">The Terminal Is Just a Text Chat</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">04</span>
+                    <span class="mod-t" data-show="pt">Ferramentas de Linha de Comando</span>
+                    <span class="mod-t" data-show="en">Command-Line AI Tools</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">05</span>
+                    <span class="mod-t" data-show="pt">Editores de Código com IA</span>
+                    <span class="mod-t" data-show="en">AI-Powered Code Editors</span>
+                </div>
+                <div class="mod proj">
+                    <span class="mod-n">06</span>
+                    <span class="mod-t" data-show="pt">Projeto 1: Seu Primeiro App</span>
+                    <span class="mod-t" data-show="en">Project 1: Your First App</span>
+                </div>
+                <div class="mod proj">
+                    <span class="mod-n">07</span>
+                    <span class="mod-t" data-show="pt">Projeto 2: Assistente Automático</span>
+                    <span class="mod-t" data-show="en">Project 2: Automated Assistant</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">08</span>
+                    <span class="mod-t" data-show="pt">Automações no Seu Dia a Dia</span>
+                    <span class="mod-t" data-show="en">Automations in Your Daily Practice</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">09</span>
+                    <span class="mod-t" data-show="pt">Como Pedir Para a IA Criar Coisas</span>
+                    <span class="mod-t" data-show="en">How to Ask AI to Build Things</span>
+                </div>
+                <div class="mod">
+                    <span class="mod-n">10</span>
+                    <span class="mod-t" data-show="pt">Segurança, Sigilo e LGPD</span>
+                    <span class="mod-t" data-show="en">Security, Confidentiality &amp; LGPD</span>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="hero-right">
-        <div class="hero-stats-grid">
-            <div class="stat-block">
-                <div class="stat-num">11</div>
-                <div class="stat-label" data-show="pt">Módulos</div>
-                <div class="stat-label" data-show="en">Modules</div>
-            </div>
-            <div class="stat-block">
-                <div class="stat-num">2</div>
-                <div class="stat-label" data-show="pt">Projetos Reais</div>
-                <div class="stat-label" data-show="en">Real Projects</div>
-            </div>
-            <div class="stat-block">
-                <div class="stat-num">0</div>
-                <div class="stat-label" data-show="pt">Código Necessário</div>
-                <div class="stat-label" data-show="en">Coding Required</div>
-            </div>
-            <div class="stat-block">
-                <div class="stat-num">∞</div>
-                <div class="stat-label" data-show="pt">Possibilidades</div>
-                <div class="stat-label" data-show="en">Possibilities</div>
-            </div>
+</div>
+
+<!-- ── Faixa escura: os números ── -->
+<div class="strip">
+    <div class="strip-in reveal-stagger">
+        <div class="strip-item">
+            <b>11</b>
+            <span data-show="pt">módulos</span>
+            <span data-show="en">modules</span>
         </div>
-        <div class="hero-free-badge">
-            <div class="badge-icon">$0</div>
-            <div class="badge-text" data-show="pt"><strong>Completamente Gratuito</strong>Sem cartão de crédito · Sem cadastro obrigatório</div>
-            <div class="badge-text" data-show="en"><strong>Completely Free</strong>No credit card · No mandatory signup</div>
+        <div class="strip-item">
+            <b>2</b>
+            <span data-show="pt">projetos reais</span>
+            <span data-show="en">real projects</span>
+        </div>
+        <div class="strip-item">
+            <b>0</b>
+            <span data-show="pt">código necessário</span>
+            <span data-show="en">coding required</span>
+        </div>
+        <div class="strip-item hi">
+            <b>∞</b>
+            <span data-show="pt">possibilidades</span>
+            <span data-show="en">possibilities</span>
         </div>
     </div>
-</section>
+</div>
 
 <!-- ── O problema ── -->
 <section class="section" id="problema">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// O problema</div>
-        <div class="section-label" data-show="en">// The problem</div>
-        <h2 class="section-h2" data-show="pt">Você Virou Refém<em>da Tarefa Manual</em></h2>
-        <h2 class="section-h2" data-show="en">You Became a Hostage<em>to Manual Work</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// O problema</div>
+            <div class="section-label" data-show="en">// The problem</div>
+            <h2 class="section-h2" data-show="pt">Você Virou Refém <em>da Tarefa Manual</em></h2>
+            <h2 class="section-h2" data-show="en">You Became a Hostage <em>to Manual Work</em></h2>
+            <p class="section-intro" data-show="pt">Todo dia, horas do seu tempo somem em coisas que um computador deveria fazer sozinho. E toda vez que você precisa de uma ferramenta, depende de alguém — ou de um software caro que quase serve.</p>
+            <p class="section-intro" data-show="en">Every day, hours of your time vanish into things a computer should do on its own. And whenever you need a tool, you depend on someone else — or on expensive software that almost fits.</p>
+        </div>
 
-        <p class="section-intro" data-show="pt">Todo dia, horas do seu tempo somem em coisas que um computador deveria fazer sozinho. E toda vez que você precisa de uma ferramenta, depende de alguém — ou de um software caro que quase serve.</p>
-        <p class="section-intro" data-show="en">Every day, hours of your time vanish into things a computer should do on its own. And whenever you need a tool, you depend on someone else — or on expensive software that almost fits.</p>
-
-        <div class="problem-grid">
+        <div class="problem-grid reveal-stagger">
             <div class="problem-item">
-                <span class="problem-icon">⏳</span>
+                <span class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2h12M6 22h12M8 2v4.5L12 11l4-4.5V2M8 22v-4.5L12 13l4 4.5V22"/></svg></span>
                 <h3 data-show="pt">Prazos na mão</h3>
                 <h3 data-show="en">Deadlines by hand</h3>
                 <p data-show="pt">Calcular prazos processuais contando dias úteis e feriados, um por um, toda semana.</p>
                 <p data-show="en">Counting business days and holidays for case deadlines, one by one, every week.</p>
             </div>
             <div class="problem-item">
-                <span class="problem-icon">📄</span>
+                <span class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></span>
                 <h3 data-show="pt">Documentos repetidos</h3>
                 <h3 data-show="en">Repetitive documents</h3>
                 <p data-show="pt">Copiar, colar e adaptar os mesmos modelos mil vezes, com risco de erro a cada uma.</p>
                 <p data-show="en">Copy, paste and adapt the same templates a thousand times, risking an error each time.</p>
             </div>
             <div class="problem-item">
-                <span class="problem-icon">🔌</span>
+                <span class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2v5M15 2v5M7 7h10v4a5 5 0 0 1-10 0V7zM12 16v6"/></svg></span>
                 <h3 data-show="pt">Refém da TI</h3>
                 <h3 data-show="en">Hostage to IT</h3>
                 <p data-show="pt">Toda ferramenta que você imagina depende de alguém de tecnologia — que nunca tem tempo.</p>
                 <p data-show="en">Every tool you can imagine depends on a tech person — who never has time.</p>
             </div>
             <div class="problem-item">
-                <span class="problem-icon">💸</span>
+                <span class="problem-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11M15 8.8c-.7-.9-1.8-1.3-3-1.3-1.6 0-2.9.8-2.9 2.3 0 1.4 1.2 1.9 2.9 2.3 1.8.4 3 1 3 2.4 0 1.5-1.4 2.3-3 2.3-1.2 0-2.3-.5-3-1.4"/></svg></span>
                 <h3 data-show="pt">Software caro</h3>
                 <h3 data-show="en">Expensive software</h3>
                 <p data-show="pt">Sistemas jurídicos genéricos e caros que nunca fazem exatamente o que você precisa.</p>
@@ -128,15 +217,17 @@
 </section>
 
 <!-- ── O que é isto, exatamente? ── -->
-<section class="section explain-section" id="o-que-e">
+<section class="section" id="o-que-e">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// O que é isto, exatamente?</div>
-        <div class="section-label" data-show="en">// What is this, exactly?</div>
-        <h2 class="section-h2" data-show="pt">Você Descreve.<em>A IA Constrói.</em></h2>
-        <h2 class="section-h2" data-show="en">You Describe.<em>The AI Builds.</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// O que é isto, exatamente?</div>
+            <div class="section-label" data-show="en">// What is this, exactly?</div>
+            <h2 class="section-h2" data-show="pt">Você Descreve. <em>A IA Constrói.</em></h2>
+            <h2 class="section-h2" data-show="en">You Describe. <em>The AI Builds.</em></h2>
+        </div>
 
         <div class="explain-body">
-            <div class="explain-text reveal-left">
+            <div class="explain-text reveal">
                 <p data-show="pt"><strong>Isto não é um curso de programação.</strong> Você não vai decorar linguagens nem virar desenvolvedor. Vai aprender a <strong>usar IAs como o Claude Code e o Cursor</strong> — ferramentas que entendem português e escrevem o código por você.</p>
                 <p data-show="en"><strong>This is not a programming course.</strong> You won't memorize languages or become a developer. You'll learn to <strong>use AI like Claude Code and Cursor</strong> — tools that understand plain language and write the code for you.</p>
                 <p data-show="pt">Você vira o <strong>arquiteto</strong>: descreve o que precisa, do jeito que explicaria para um estagiário. A IA vira o <strong>operário</strong>: monta a ferramenta, cria os arquivos e faz funcionar.</p>
@@ -144,7 +235,7 @@
                 <p data-show="pt">O resultado é seu, roda no seu computador e faz <strong>exatamente</strong> o que você pediu.</p>
                 <p data-show="en">The result is yours, runs on your computer and does <strong>exactly</strong> what you asked for.</p>
             </div>
-            <div class="terminal reveal-right" aria-hidden="true">
+            <div class="terminal reveal" aria-hidden="true">
                 <div class="terminal-head">
                     <span class="terminal-dot"></span>
                     <span class="terminal-dot"></span>
@@ -155,8 +246,8 @@
                     <div class="term-line"><span class="term-prompt">$</span> claude</div>
                     <div class="term-line term-user" data-show="pt"><span class="term-caret">›</span> Crie um app que calcula prazos processuais em dias úteis, pulando feriados nacionais, com exportação em PDF.</div>
                     <div class="term-line term-user" data-show="en"><span class="term-caret">›</span> Build an app that computes case deadlines in business days, skipping national holidays, with PDF export.</div>
-                    <div class="term-line term-ai" data-show="pt">⣾ Criando <b>calculadora-prazos</b>…</div>
-                    <div class="term-line term-ai" data-show="en">⣾ Creating <b>deadline-calculator</b>…</div>
+                    <div class="term-line term-ai" data-show="pt"><span class="term-spinner"></span> Criando <b>calculadora-prazos</b>…</div>
+                    <div class="term-line term-ai" data-show="en"><span class="term-spinner"></span> Creating <b>deadline-calculator</b>…</div>
                     <div class="term-line term-ok">✓ index.html&nbsp;&nbsp;✓ script.js&nbsp;&nbsp;✓ feriados.json</div>
                     <div class="term-line term-done" data-show="pt">✓ Pronto! Seu app está funcionando.</div>
                     <div class="term-line term-done" data-show="en">✓ Done! Your app is up and running.</div>
@@ -169,12 +260,14 @@
 <!-- ── Como funciona na prática ── -->
 <section class="section" id="como-funciona">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// Como funciona na prática</div>
-        <div class="section-label" data-show="en">// How it works in practice</div>
-        <h2 class="section-h2" data-show="pt">Do Problema ao App<em>em 4 Passos</em></h2>
-        <h2 class="section-h2" data-show="en">From Problem to App<em>in 4 Steps</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// Como funciona na prática</div>
+            <div class="section-label" data-show="en">// How it works in practice</div>
+            <h2 class="section-h2" data-show="pt">Do Problema ao App <em>em 4 Passos</em></h2>
+            <h2 class="section-h2" data-show="en">From Problem to App <em>in 4 Steps</em></h2>
+        </div>
 
-        <div class="steps-grid">
+        <div class="steps-grid reveal-stagger">
             <div class="step-item">
                 <div class="step-num">01</div>
                 <h3 data-show="pt">Descreva o problema</h3>
@@ -208,18 +301,20 @@
 </section>
 
 <!-- ── O que você vai construir (mockups) ── -->
-<section class="section build-section" id="projetos">
+<section class="section" id="projetos">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// O que você vai construir</div>
-        <div class="section-label" data-show="en">// What you'll build</div>
-        <h2 class="section-h2" data-show="pt">Dois Projetos Reais,<em>Do Seu Jeito</em></h2>
-        <h2 class="section-h2" data-show="en">Two Real Projects,<em>Your Way</em></h2>
-        <p class="section-intro" data-show="pt">Você não termina o curso com teoria. Termina com estas duas ferramentas prontas, funcionando — e sabendo criar outras.</p>
-        <p class="section-intro" data-show="en">You don't finish the course with theory. You finish with these two working tools — and the ability to build more.</p>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// O que você vai construir</div>
+            <div class="section-label" data-show="en">// What you'll build</div>
+            <h2 class="section-h2" data-show="pt">Dois Projetos Reais, <em>Do Seu Jeito</em></h2>
+            <h2 class="section-h2" data-show="en">Two Real Projects, <em>Your Way</em></h2>
+            <p class="section-intro" data-show="pt">Você não termina o curso com teoria. Termina com estas duas ferramentas prontas, funcionando — e sabendo criar outras.</p>
+            <p class="section-intro" data-show="en">You don't finish the course with theory. You finish with these two working tools — and the ability to build more.</p>
+        </div>
 
         <!-- Projeto 1 -->
         <div class="build-row">
-            <div class="build-text reveal-left">
+            <div class="build-text reveal">
                 <div class="build-tag">// <span data-show="pt">Projeto 01 · App Web</span><span data-show="en">Project 01 · Web App</span></div>
                 <h3 data-show="pt">Calculadora de Prazos</h3>
                 <h3 data-show="en">Deadline Calculator</h3>
@@ -236,7 +331,7 @@
                     <li data-show="en">PDF export of the result</li>
                 </ul>
             </div>
-            <div class="mockup reveal-right" aria-hidden="true">
+            <div class="reveal" aria-hidden="true">
                 <div class="mockup-window">
                     <div class="mockup-bar"><span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span></div>
                     <div class="mockup-app">
@@ -268,7 +363,7 @@
 
         <!-- Projeto 2 -->
         <div class="build-row build-row-rev">
-            <div class="build-text reveal-right">
+            <div class="build-text reveal">
                 <div class="build-tag">// <span data-show="pt">Projeto 02 · Automação</span><span data-show="en">Project 02 · Automation</span></div>
                 <h3 data-show="pt">Assistente de Processos</h3>
                 <h3 data-show="en">Case Assistant</h3>
@@ -285,7 +380,7 @@
                     <li data-show="en">JSON summary with statistics</li>
                 </ul>
             </div>
-            <div class="mockup reveal-left" aria-hidden="true">
+            <div class="reveal" aria-hidden="true">
                 <div class="terminal">
                     <div class="terminal-head">
                         <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
@@ -313,12 +408,14 @@
 <!-- ── A jornada (módulos) ── -->
 <section class="section" id="modulos">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// A jornada completa</div>
-        <div class="section-label" data-show="en">// The full journey</div>
-        <h2 class="section-h2" data-show="pt">Do Zero ao Seu<em>Primeiro Projeto</em></h2>
-        <h2 class="section-h2" data-show="en">From Zero to Your<em>First Project</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// A jornada completa</div>
+            <div class="section-label" data-show="en">// The full journey</div>
+            <h2 class="section-h2" data-show="pt">Do Zero ao Seu <em>Primeiro Projeto</em></h2>
+            <h2 class="section-h2" data-show="en">From Zero to Your <em>First Project</em></h2>
+        </div>
 
-        <div class="modules-grid">
+        <div class="modules-grid reveal-stagger">
             <div class="module-item featured">
                 <div class="module-num">00</div>
                 <h3 data-show="pt">Panorama das Ferramentas de IA</h3>
@@ -412,7 +509,7 @@
             <div class="module-item">
                 <div class="module-num">10</div>
                 <h3 data-show="pt">Segurança, Sigilo e LGPD</h3>
-                <h3 data-show="en">Security, Confidentiality & LGPD</h3>
+                <h3 data-show="en">Security, Confidentiality &amp; LGPD</h3>
                 <p data-show="pt">O que nunca enviar para IAs online e como proteger dados de clientes.</p>
                 <p data-show="en">What never to send to online AI and how to protect client data.</p>
                 <span class="module-type" data-show="pt">Conceito · 20 min</span>
@@ -425,43 +522,45 @@
 <!-- ── Pra quem é ── -->
 <section class="section" id="pra-quem">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// É pra você?</div>
-        <div class="section-label" data-show="en">// Is this for you?</div>
-        <h2 class="section-h2" data-show="pt">Para Qualquer<em>Profissional Jurídico</em></h2>
-        <h2 class="section-h2" data-show="en">For Every<em>Legal Professional</em></h2>
-        <p class="section-intro" data-show="pt">Se você trabalha com direito e cansou de tarefas manuais, é pra você. Não precisa de nenhuma base técnica — só vontade de resolver seus próprios problemas.</p>
-        <p class="section-intro" data-show="en">If you work in law and are tired of manual tasks, this is for you. No technical background needed — just the will to solve your own problems.</p>
-        <div class="forwho-grid">
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// É pra você?</div>
+            <div class="section-label" data-show="en">// Is this for you?</div>
+            <h2 class="section-h2" data-show="pt">Para Qualquer <em>Profissional Jurídico</em></h2>
+            <h2 class="section-h2" data-show="en">For Every <em>Legal Professional</em></h2>
+            <p class="section-intro" data-show="pt">Se você trabalha com direito e cansou de tarefas manuais, é pra você. Não precisa de nenhuma base técnica — só vontade de resolver seus próprios problemas.</p>
+            <p class="section-intro" data-show="en">If you work in law and are tired of manual tasks, this is for you. No technical background needed — just the will to solve your own problems.</p>
+        </div>
+        <div class="forwho-grid reveal-stagger">
             <div class="forwho-item">
-                <span class="forwho-icon">⚖️</span>
+                <span class="forwho-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v16M8 21h8M5 5h14M5 5l-2.5 7a2.5 2.5 0 0 0 5 0L5 5M19 5l-2.5 7a2.5 2.5 0 0 0 5 0L19 5"/></svg></span>
                 <h3 data-show="pt">Advogados</h3>
                 <h3 data-show="en">Attorneys</h3>
                 <p data-show="pt">Automatize cálculos, gere documentos e organize processos com apps próprios.</p>
                 <p data-show="en">Automate calculations, generate documents, and organize cases with your own apps.</p>
             </div>
             <div class="forwho-item">
-                <span class="forwho-icon">📋</span>
+                <span class="forwho-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 2h6v3H9zM9 11h6M9 15h4"/></svg></span>
                 <h3 data-show="pt">Estagiários</h3>
                 <h3 data-show="en">Law Clerks</h3>
                 <p data-show="pt">Destaque-se com habilidades que 99% dos seus colegas ainda não têm.</p>
                 <p data-show="en">Stand out with skills that 99% of your peers don't have yet.</p>
             </div>
             <div class="forwho-item">
-                <span class="forwho-icon">🏢</span>
+                <span class="forwho-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 21v-3.5h6V21M8 7h2M14 7h2M8 11h2M14 11h2"/></svg></span>
                 <h3 data-show="pt">Dept. Jurídico</h3>
                 <h3 data-show="en">In-House Legal</h3>
                 <p data-show="pt">Crie ferramentas internas sem depender de TI — do jeito que você precisa.</p>
                 <p data-show="en">Build internal tools without depending on IT — exactly the way you need them.</p>
             </div>
             <div class="forwho-item">
-                <span class="forwho-icon">📁</span>
+                <span class="forwho-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg></span>
                 <h3 data-show="pt">Secretários</h3>
                 <h3 data-show="en">Legal Secretaries</h3>
                 <p data-show="pt">Elimine tarefas repetitivas e ganhe horas no seu dia.</p>
                 <p data-show="en">Eliminate repetitive tasks and gain hours in your day.</p>
             </div>
             <div class="forwho-item">
-                <span class="forwho-icon">🏛️</span>
+                <span class="forwho-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21v-8.5M9.5 21v-8.5M14.5 21v-8.5M19 21v-8.5M2.5 10.5 12 3.5l9.5 7H2.5z"/></svg></span>
                 <h3 data-show="pt">Gestores de Escritório</h3>
                 <h3 data-show="en">Firm Managers</h3>
                 <p data-show="pt">Automatize processos administrativos e acompanhe tudo em sistemas próprios.</p>
@@ -472,14 +571,16 @@
 </section>
 
 <!-- ── Dúvidas / objeções ── -->
-<section class="section faq-section" id="duvidas">
+<section class="section" id="duvidas">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// Dúvidas honestas</div>
-        <div class="section-label" data-show="en">// Honest questions</div>
-        <h2 class="section-h2" data-show="pt">O Que Você Deve<em>Estar Pensando</em></h2>
-        <h2 class="section-h2" data-show="en">What You're Probably<em>Thinking</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// Dúvidas honestas</div>
+            <div class="section-label" data-show="en">// Honest questions</div>
+            <h2 class="section-h2" data-show="pt">O Que Você Deve <em>Estar Pensando</em></h2>
+            <h2 class="section-h2" data-show="en">What You're Probably <em>Thinking</em></h2>
+        </div>
 
-        <div class="faq-list">
+        <div class="faq-list reveal-stagger">
             <details class="faq-item">
                 <summary data-show="pt">Preciso saber programar?</summary>
                 <summary data-show="en">Do I need to know how to code?</summary>
@@ -515,26 +616,26 @@
 </section>
 
 <!-- ── Quem ensina (bio real a preencher) ── -->
-<section class="section instructor-section" id="instrutor">
+<section class="section" id="instrutor">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// Quem ensina</div>
-        <div class="section-label" data-show="en">// Who teaches</div>
-        <h2 class="section-h2" data-show="pt">Feito Por Quem<em>Usa no Dia a Dia</em></h2>
-        <h2 class="section-h2" data-show="en">Made By Someone Who<em>Uses It Daily</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// Quem ensina</div>
+            <div class="section-label" data-show="en">// Who teaches</div>
+            <h2 class="section-h2" data-show="pt">Feito Por Quem <em>Usa no Dia a Dia</em></h2>
+            <h2 class="section-h2" data-show="en">Made By Someone Who <em>Uses It Daily</em></h2>
+        </div>
 
-        <div class="instructor-card reveal-block">
-            <div class="instructor-avatar">
-                <!-- TODO: trocar pela foto real do instrutor (ou manter iniciais) -->
-                <span>LC</span>
+        <div class="instructor-card reveal">
+            <div class="instructor-avatar instructor-avatar-photo">
+                <img src="assets/leon-hatori.jpg" alt="Retrato ilustrado de Leon Hatori" width="480" height="480" loading="lazy" decoding="async">
             </div>
             <div class="instructor-body">
-                <!-- TODO: SUBSTITUIR pela bio real — me envie o texto -->
-                <div class="instructor-name" data-show="pt">[Nome do instrutor]</div>
-                <div class="instructor-name" data-show="en">[Instructor name]</div>
-                <div class="instructor-role" data-show="pt">[Cargo / credenciais — ex: Advogado &amp; criador do LawCoder]</div>
-                <div class="instructor-role" data-show="en">[Role / credentials — e.g. Lawyer &amp; creator of LawCoder]</div>
-                <p class="instructor-bio" data-show="pt">[Bio do instrutor: quem é, o que faz, por que criou o LawCoder, o que já construiu com IA. Envie o texto que eu insiro aqui.]</p>
-                <p class="instructor-bio" data-show="en">[Instructor bio: who they are, what they do, why they created LawCoder, what they've built with AI. Send the text and I'll insert it here.]</p>
+                <!-- Bio extraida do LinkedIn publico (/in/leonhatori) em jul/2026 — revisar com o Leon -->
+                <div class="instructor-name">Leon Hatori</div>
+                <div class="instructor-role" data-show="pt">Global Legal Operations Leader · fundador do Lawcoder</div>
+                <div class="instructor-role" data-show="en">Global Legal Operations Leader · founder of Lawcoder</div>
+                <p class="instructor-bio" data-show="pt">Há quase 20 anos na interseção entre tecnologia e direito: 9 anos de TI na IBM, projetos em lawtechs como Looplex e Linte, CEO da Lawing e — hoje — Global Legal Operations Leader na Monks, desenhando programas globais de contratos, automação e dados jurídicos. No Lawcoder, ensina exatamente o que aplica no dia a dia: como profissionais do direito constroem as próprias ferramentas com IA.</p>
+                <p class="instructor-bio" data-show="en">Nearly 20 years at the intersection of technology and law: 9 years in IT at IBM, projects at legal tech companies like Looplex and Linte, CEO of Lawing and — today — Global Legal Operations Leader at Monks, designing global contract, automation and legal data programs. At Lawcoder, he teaches exactly what he applies every day: how legal professionals build their own tools with AI.</p>
             </div>
         </div>
     </div>
@@ -543,12 +644,14 @@
 <!-- ── Por que é gratuito ── -->
 <section class="section why-free">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// Por que é gratuito</div>
-        <div class="section-label" data-show="en">// Why it's free</div>
-        <h2 class="section-h2" data-show="pt">Conhecimento<em>Não Tem Preço</em></h2>
-        <h2 class="section-h2" data-show="en">Knowledge<em>Has No Price</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// Por que é gratuito</div>
+            <div class="section-label" data-show="en">// Why it's free</div>
+            <h2 class="section-h2" data-show="pt">Conhecimento <em>Não Tem Preço</em></h2>
+            <h2 class="section-h2" data-show="en">Knowledge <em>Has No Price</em></h2>
+        </div>
         <div class="why-free-body">
-            <div class="why-free-text">
+            <div class="why-free-text reveal">
                 <p data-show="pt">A IA está transformando o mercado jurídico mais rápido do que a maioria das pessoas percebe. Advogados que souberem usar essas ferramentas terão uma vantagem competitiva enorme.</p>
                 <p data-show="pt">Criamos o LawCoder para <strong>democratizar esse conhecimento</strong>. Você não precisa de bootcamps caros nem de formação em tecnologia. Precisa de um guia claro e prático.</p>
                 <p data-show="pt">O curso é gratuito porque acreditamos que <strong>ferramentas de criação devem estar acessíveis a todos</strong>, especialmente para quem trabalha com acesso à justiça.</p>
@@ -556,34 +659,36 @@
                 <p data-show="en">We created LawCoder to <strong>democratize this knowledge</strong>. You don't need expensive bootcamps or a technology background. You need a clear, practical guide.</p>
                 <p data-show="en">The course is free because we believe <strong>creation tools should be accessible to everyone</strong>, especially those working in access to justice.</p>
             </div>
-            <div class="why-free-quote">
+            <div class="why-free-quote reveal">
                 <blockquote data-show="pt">"Você não vai virar programador. Vai virar alguém que cria soluções para seus próprios problemas."</blockquote>
                 <blockquote data-show="en">"You won't become a developer. You'll become someone who creates solutions to their own problems."</blockquote>
-                <cite>— LawCoder</cite>
+                <cite>— Leon Hatori</cite>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ── Ferramentas ── -->
-<section class="section" style="background:#fff;">
+<section class="section">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// Ferramentas que você vai dominar</div>
-        <div class="section-label" data-show="en">// Tools you'll master</div>
-        <h2 class="section-h2" data-show="pt">As Melhores<em>Ferramentas</em></h2>
-        <h2 class="section-h2" data-show="en">The Best<em>Tools</em></h2>
-        <div class="tools-row">
-            <a href="https://claude.ai/download" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/anthropic/e63012" alt="Claude">Claude Code</a>
-            <a href="https://www.cursor.com/downloads" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/cursor/0d0d0d" alt="Cursor">Cursor</a>
-            <a href="https://github.com/openai/codex" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/openai/0d0d0d" alt="Codex">Codex CLI</a>
-            <a href="https://windsurf.com/download" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/codeium/0d0d0d" alt="Windsurf">Windsurf</a>
-            <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/github/0d0d0d" alt="Copilot">GitHub Copilot</a>
-            <a href="https://www.python.org/downloads/" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/python/0d0d0d" alt="Python">Python</a>
-            <a href="https://n8n.io" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/n8n/e63012" alt="n8n">n8n</a>
-            <a href="https://www.make.com/en/register" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/make/0d0d0d" alt="Make">Make</a>
-            <a href="https://zapier.com/sign-up" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/zapier/e63012" alt="Zapier">Zapier</a>
-            <a href="https://vercel.com/signup" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/vercel/0d0d0d" alt="Vercel">Vercel</a>
-            <a href="https://app.netlify.com/signup" target="_blank" rel="noopener" class="tool-chip"><img src="https://cdn.simpleicons.org/netlify/0d0d0d" alt="Netlify">Netlify</a>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// Ferramentas que você vai dominar</div>
+            <div class="section-label" data-show="en">// Tools you'll master</div>
+            <h2 class="section-h2" data-show="pt">As Melhores <em>Ferramentas</em></h2>
+            <h2 class="section-h2" data-show="en">The Best <em>Tools</em></h2>
+        </div>
+        <div class="tools-row reveal-stagger">
+            <a href="https://claude.ai/download" target="_blank" rel="noopener" class="tool-chip">Claude Code</a>
+            <a href="https://www.cursor.com/downloads" target="_blank" rel="noopener" class="tool-chip">Cursor</a>
+            <a href="https://github.com/openai/codex" target="_blank" rel="noopener" class="tool-chip">Codex CLI</a>
+            <a href="https://windsurf.com/download" target="_blank" rel="noopener" class="tool-chip">Windsurf</a>
+            <a href="https://github.com/features/copilot" target="_blank" rel="noopener" class="tool-chip">GitHub Copilot</a>
+            <a href="https://www.python.org/downloads/" target="_blank" rel="noopener" class="tool-chip">Python</a>
+            <a href="https://n8n.io" target="_blank" rel="noopener" class="tool-chip">n8n</a>
+            <a href="https://www.make.com/en/register" target="_blank" rel="noopener" class="tool-chip">Make</a>
+            <a href="https://zapier.com/sign-up" target="_blank" rel="noopener" class="tool-chip">Zapier</a>
+            <a href="https://vercel.com/signup" target="_blank" rel="noopener" class="tool-chip">Vercel</a>
+            <a href="https://app.netlify.com/signup" target="_blank" rel="noopener" class="tool-chip">Netlify</a>
         </div>
     </div>
 </section>
@@ -591,22 +696,26 @@
 <!-- ── Escolha seu caminho (pricing — agora no fim, depois de convencer) ── -->
 <section class="section" id="planos">
     <div class="section-inner">
-        <div class="section-label" data-show="pt">// Pronto para começar?</div>
-        <div class="section-label" data-show="en">// Ready to start?</div>
-        <h2 class="section-h2" data-show="pt">Grátis para Todos,<em>Premium se Quiser</em></h2>
-        <h2 class="section-h2" data-show="en">Free for Everyone,<em>Premium if You Want</em></h2>
+        <div class="section-head reveal">
+            <div class="section-label" data-show="pt">// Pronto para começar?</div>
+            <div class="section-label" data-show="en">// Ready to start?</div>
+            <h2 class="section-h2" data-show="pt">Grátis para Todos, <em>Premium se Quiser</em></h2>
+            <h2 class="section-h2" data-show="en">Free for Everyone, <em>Premium if You Want</em></h2>
+        </div>
 
-        <div class="pricing-grid">
-            <div class="pricing-col pricing-col-free">
-                <span class="pricing-tag pricing-tag-free" data-show="pt">// Sempre Grátis</span>
-                <span class="pricing-tag pricing-tag-free" data-show="en">// Always Free</span>
+        <div class="pricing-grid reveal-stagger">
+            <div class="pricing-col">
+                <span class="stamp" data-show="pt">Gratuito</span>
+                <span class="stamp" data-show="en">Free</span>
+                <span class="pricing-tag" data-show="pt">// Sempre Grátis</span>
+                <span class="pricing-tag" data-show="en">// Always Free</span>
                 <div class="pricing-price pricing-price-free">R$0</div>
-                <div class="pricing-price-label pricing-price-label-free" data-show="pt">Acesso permanente · Sem cadastro</div>
-                <div class="pricing-price-label pricing-price-label-free" data-show="en">Permanent access · No signup</div>
-                <div class="pricing-title pricing-title-free" data-show="pt">O Curso Completo</div>
-                <div class="pricing-title pricing-title-free" data-show="en">The Full Course</div>
-                <p class="pricing-subtitle pricing-subtitle-free" data-show="pt">Auto-guiado, no seu ritmo, com todo o conteúdo disponível imediatamente.</p>
-                <p class="pricing-subtitle pricing-subtitle-free" data-show="en">Self-paced, at your own speed, with all content available immediately.</p>
+                <div class="pricing-price-label" data-show="pt">Acesso permanente · Sem cadastro</div>
+                <div class="pricing-price-label" data-show="en">Permanent access · No signup</div>
+                <div class="pricing-title" data-show="pt">O Curso Completo</div>
+                <div class="pricing-title" data-show="en">The Full Course</div>
+                <p class="pricing-subtitle" data-show="pt">Auto-guiado, no seu ritmo, com todo o conteúdo disponível imediatamente.</p>
+                <p class="pricing-subtitle" data-show="en">Self-paced, at your own speed, with all content available immediately.</p>
                 <ul class="pricing-features">
                     <li data-show="pt">Aula inaugural + 10 módulos em vídeo + roteiros</li>
                     <li data-show="en">Opening lesson + 10 video modules + scripts</li>
@@ -617,23 +726,23 @@
                     <li data-show="pt">Automações com n8n, Make, Zapier</li>
                     <li data-show="en">Automations with n8n, Make, Zapier</li>
                     <li data-show="pt">Módulo de segurança e LGPD</li>
-                    <li data-show="en">Security & data protection module</li>
+                    <li data-show="en">Security &amp; data protection module</li>
                 </ul>
                 <a href="curso.html" class="pricing-cta pricing-cta-free" data-show="pt">Começar Agora →</a>
                 <a href="curso.html" class="pricing-cta pricing-cta-free" data-show="en">Start Now →</a>
             </div>
 
             <div class="pricing-col pricing-col-paid">
-                <span class="pricing-tag pricing-tag-paid" data-show="pt">// Setup Completo</span>
-                <span class="pricing-tag pricing-tag-paid" data-show="en">// Complete Setup</span>
-                <div class="pricing-price pricing-price-paid" data-show="pt">R$497</div>
-                <div class="pricing-price pricing-price-paid" data-show="en">$97</div>
-                <div class="pricing-price-label pricing-price-label-paid" data-show="pt">Sessão única · Scripts vitalícios</div>
-                <div class="pricing-price-label pricing-price-label-paid" data-show="en">Single session · Lifetime scripts</div>
-                <div class="pricing-title pricing-title-paid" data-show="pt">Mentoria 1-1</div>
-                <div class="pricing-title pricing-title-paid" data-show="en">1-1 Mentoring</div>
-                <p class="pricing-subtitle pricing-subtitle-paid" data-show="pt">Saia da sessão com tudo instalado, configurado e funcionando — sem frustração.</p>
-                <p class="pricing-subtitle pricing-subtitle-paid" data-show="en">Leave the session with everything installed, configured and running — no frustration.</p>
+                <span class="pricing-tag" data-show="pt">// Setup Completo</span>
+                <span class="pricing-tag" data-show="en">// Complete Setup</span>
+                <div class="pricing-price" data-show="pt">R$497</div>
+                <div class="pricing-price" data-show="en">$97</div>
+                <div class="pricing-price-label" data-show="pt">Sessão única · Scripts vitalícios</div>
+                <div class="pricing-price-label" data-show="en">Single session · Lifetime scripts</div>
+                <div class="pricing-title" data-show="pt">Mentoria 1-1</div>
+                <div class="pricing-title" data-show="en">1-1 Mentoring</div>
+                <p class="pricing-subtitle" data-show="pt">Saia da sessão com tudo instalado, configurado e funcionando — sem frustração.</p>
+                <p class="pricing-subtitle" data-show="en">Leave the session with everything installed, configured and running — no frustration.</p>
                 <ul class="pricing-features">
                     <li data-show="pt"><strong>Scripts prontos</strong> para Mac, Windows e Linux</li>
                     <li data-show="en"><strong>Ready scripts</strong> for Mac, Windows and Linux</li>
@@ -656,11 +765,11 @@
 <!-- ── Mentoring detail ── -->
 <section class="mentoring-section" id="mentoria">
     <div class="mentoring-inner">
-        <div class="mentoring-text">
+        <div class="mentoring-text reveal">
             <div class="section-label" data-show="pt">// Quer sair do zero hoje?</div>
             <div class="section-label" data-show="en">// Want to start from zero today?</div>
-            <h2 class="section-h2" data-show="pt">Setup Completo<em>Em 1 Hora</em></h2>
-            <h2 class="section-h2" data-show="en">Full Setup<em>In 1 Hour</em></h2>
+            <h2 class="section-h2" data-show="pt">Setup Completo <em>Em 1 Hora</em></h2>
+            <h2 class="section-h2" data-show="en">Full Setup <em>In 1 Hour</em></h2>
             <p data-show="pt">O maior obstáculo não é aprender — é instalar e configurar. Terminais, variáveis de ambiente, chaves de API, conflitos de versão. São horas de frustração que podem travar qualquer um.</p>
             <p data-show="pt">A mentoria existe para eliminar exatamente esse problema. Você recebe <strong>scripts prontos</strong> para o seu sistema operacional e, ao vivo, a gente executa tudo junto.</p>
             <p data-show="en">The biggest obstacle isn't learning — it's installing and configuring. Terminals, environment variables, API keys, version conflicts. Hours of frustration that can stop anyone.</p>
@@ -677,11 +786,10 @@
                 <li data-show="en"><strong>1 hour live 1-1</strong> — Video call session, screen share, answering questions in real time.</li>
             </ul>
 
-            <div class="scripts-badge" data-show="pt">$ ./install-lawcoder.sh — Mac · Windows · Linux</div>
-            <div class="scripts-badge" data-show="en">$ ./install-lawcoder.sh — Mac · Windows · Linux</div>
+            <div class="scripts-badge">$ ./install-lawcoder.sh — Mac · Windows · Linux</div>
         </div>
 
-        <div class="mentoring-card">
+        <div class="mentoring-card reveal">
             <div class="mentoring-card-header">
                 <div class="mentoring-card-tag" data-show="pt">// Mentoria 1-1 · Ao Vivo</div>
                 <div class="mentoring-card-tag" data-show="en">// 1-1 Mentoring · Live Session</div>
@@ -689,12 +797,10 @@
                 <div class="mentoring-card-title" data-show="en">Complete Setup</div>
             </div>
             <div class="mentoring-card-body">
-                <div class="mentoring-price-block">
-                    <div class="mentoring-price" data-show="pt">R$497</div>
-                    <div class="mentoring-price" data-show="en">$97</div>
-                    <div class="mentoring-price-sub" data-show="pt">Sessão única · Scripts vitalícios</div>
-                    <div class="mentoring-price-sub" data-show="en">Single session · Lifetime scripts</div>
-                </div>
+                <div class="mentoring-price" data-show="pt">R$497</div>
+                <div class="mentoring-price" data-show="en">$97</div>
+                <div class="mentoring-price-sub" data-show="pt">Sessão única · Scripts vitalícios</div>
+                <div class="mentoring-price-sub" data-show="en">Single session · Lifetime scripts</div>
                 <ul class="mentoring-card-features">
                     <li data-show="pt">Scripts prontos para <strong>Mac, Windows e Linux</strong></li>
                     <li data-show="en">Ready scripts for <strong>Mac, Windows and Linux</strong></li>
@@ -717,10 +823,10 @@
 </section>
 
 <!-- ── Dual CTA ── -->
-<section class="cta-section">
+<section class="cta-section reveal-stagger">
     <div class="cta-col cta-col-free">
-        <h2 data-show="pt">Comece<br>Agora</h2>
-        <h2 data-show="en">Start<br>Now</h2>
+        <h2 data-show="pt">Comece Agora</h2>
+        <h2 data-show="en">Start Now</h2>
         <p data-show="pt">11 módulos. 2 projetos reais. Zero técnico necessário. Completamente gratuito, para sempre.</p>
         <p data-show="en">11 modules. 2 real projects. Zero technical knowledge. Completely free, forever.</p>
         <a href="curso.html" class="btn-cta btn-cta-white" data-show="pt">Acessar o Curso →</a>
@@ -729,8 +835,8 @@
         <div class="cta-note" data-show="en">// no signup · no card · free forever</div>
     </div>
     <div class="cta-col cta-col-paid">
-        <h2 data-show="pt">Quero Suporte<br>Personalizado</h2>
-        <h2 data-show="en">I Want<br>Personal Support</h2>
+        <h2 data-show="pt">Quero Suporte Personalizado</h2>
+        <h2 data-show="en">I Want Personal Support</h2>
         <p data-show="pt">Scripts prontos + 1h ao vivo. Saia com tudo instalado, configurado e funcionando.</p>
         <p data-show="en">Ready scripts + 1h live. Leave with everything installed, configured and running.</p>
         <a href="https://wa.me/5511947519397?text=Oi!%20Quero%20agendar%20a%20mentoria%20LawCoder%20%E2%80%94%20R%24497" target="_blank" class="btn-cta btn-cta-wa" data-show="pt">Agendar Mentoria — R$497</a>
@@ -742,7 +848,7 @@
 
 <!-- ── Footer ── -->
 <footer class="footer">
-    <div class="footer-brand" id="footerBrand">LAW<span>CODER</span></div>
+    <div class="logo"><span class="law">Law</span><span class="code">coder</span></div>
     <div class="footer-note" data-show="pt">// PARA_ADVOGADOS · GRATUITO · 2026</div>
     <div class="footer-note" data-show="en">// FOR_LAWYERS · FREE · 2026</div>
 </footer>
