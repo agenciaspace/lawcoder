@@ -1,0 +1,52 @@
+name: Vagas Bot (lawcoders)
+
+# Feed de vagas de Legal Ops / Legal Tech no grupo 💼 Vagas da comunidade.
+# Por padrão NÃO posta: roda em dry-run se os secrets não existirem.
+# Para postar de verdade, configure os secrets (ver scripts/vagas-bot/README.md)
+# e mude SEND para "1" abaixo (ou use o input do workflow_dispatch).
+
+on:
+  schedule:
+    - cron: "0 12 * * 1-5"   # 09:00 BRT, dias úteis
+    - cron: "0 21 * * 1-5"   # 18:00 BRT, dias úteis
+  workflow_dispatch:
+    inputs:
+      send:
+        description: "Postar de verdade? (1 = sim, 0 = dry-run)"
+        default: "0"
+
+permissions:
+  contents: write   # p/ commitar o data/seen.json atualizado
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install -r scripts/vagas-bot/requirements.txt
+
+      - name: Rodar bot
+        working-directory: scripts/vagas-bot
+        env:
+          # SEND=1 só se o input pedir; senão dry-run.
+          SEND: ${{ github.event.inputs.send || '0' }}
+          UAZAPI_HOST: ${{ secrets.UAZAPI_HOST }}
+          UAZAPI_TOKEN: ${{ secrets.UAZAPI_TOKEN }}
+          VAGAS_GROUP_JID: ${{ secrets.VAGAS_GROUP_JID }}
+        run: python bot.py
+
+      - name: Commitar dedup atualizado
+        run: |
+          if ! git diff --quiet scripts/vagas-bot/data/seen.json; then
+            git config user.name "vagas-bot"
+            git config user.email "bot@lawcoders.app"
+            git add scripts/vagas-bot/data/seen.json
+            git commit -m "chore(vagas-bot): atualiza dedup [skip ci]"
+            git push
+          fi

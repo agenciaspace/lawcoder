@@ -6,5 +6,11 @@ node_modules/
 dist/
 *.png
 *.jpg
-!site/assets/
-!site/assets/**
+!site/assets/logo/*.png
+!site/assets/logo/png/
+!site/assets/logo/png/*.png
+!site/assets/leon-hatori.jpg
+!site/assets/favicon.svg
+!site/assets/og-image.jpg
+!site/robots.txt
+!site/sitemap.xml

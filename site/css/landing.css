@@ -70,6 +70,16 @@ html[data-lang="en"] [data-show]:not([data-show="en"]){display:none!important}
 .nav-inline a{color:var(--ink-2);text-decoration:none;font-size:14.5px;font-weight:450}
 .nav-inline a:hover{color:var(--ink)}
 .nav-inline a.is-active{color:var(--brand)}
+/* ── Comunidade gratuita (CTA WhatsApp) ── */
+.cta-community{font-family:var(--m);font-size:11.5px;font-weight:600;letter-spacing:1.2px;
+  text-transform:uppercase;color:#25D366;text-decoration:none;padding:6px 12px;
+  border:1.5px solid #25D366;border-radius:7px;background:transparent;transition:all .15s;
+  white-space:nowrap}
+.cta-community:hover{background:#25D366;color:#0d0d0d}
+.footer-community{display:inline-block;font-family:var(--m);font-size:11.5px;font-weight:500;
+  color:#25D366;text-decoration:none;margin-top:8px;transition:color .15s}
+.footer-community:hover{color:#2ee676}
+@media(max-width:640px){.cta-community{display:none!important}}
 .lang-btn{background:none;border:1px solid var(--line);border-radius:7px;padding:6px 11px;
   font-family:var(--m);font-size:12px;color:var(--ink-2);cursor:pointer;transition:all .15s}
 .lang-btn:hover{border-color:#d5cec6;color:var(--ink)}
