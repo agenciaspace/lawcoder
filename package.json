@@ -4,7 +4,7 @@
   "scripts": {
     "build": "npm run build:css && npm run build:copy",
     "build:css": "npx postcss site/css/landing.css --use postcss-import --no-map -o site/dist/css/landing.css && npx csso-cli site/dist/css/landing.css --output site/dist/css/landing.css && npx postcss site/css/styles.css --use postcss-import --no-map -o site/dist/css/styles.css && npx csso-cli site/dist/css/styles.css --output site/dist/css/styles.css",
-    "build:copy": "mkdir -p site/dist/css site/dist/js site/dist/assets && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/css/variables.css site/dist/css/variables.css && cp site/assets/leon-hatori.jpg site/dist/assets/leon-hatori.jpg",
+    "build:copy": "mkdir -p site/dist/css site/dist/js site/dist/assets && cp site/index.html site/dist/index.html && cp site/curso.html site/dist/curso.html && cp site/404.html site/dist/404.html && cp site/js/landing.js site/dist/js/landing.js && cp site/js/app.js site/dist/js/app.js && cp site/css/variables.css site/dist/css/variables.css && cp site/robots.txt site/dist/robots.txt && cp site/sitemap.xml site/dist/sitemap.xml && cp site/assets/leon-hatori.jpg site/dist/assets/leon-hatori.jpg && cp site/assets/favicon.svg site/dist/assets/favicon.svg && cp site/assets/favicon-32.png site/dist/assets/favicon-32.png && cp site/assets/apple-touch-icon.png site/dist/assets/apple-touch-icon.png && cp site/assets/og-image.jpg site/dist/assets/og-image.jpg",
     "build:assert": "npm run build && ./tools/assert-dist.sh",
     "dev": "npx serve site"
   },

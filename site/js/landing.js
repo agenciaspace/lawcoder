@@ -62,6 +62,25 @@
         targets.forEach(t => t.classList.add('is-visible'));
     }
 
+    /* ── Scrollspy: destaca nav link da secao visivel ── */
+    const navLinks = document.querySelectorAll('.nav-inline a');
+    if (!reduce && 'IntersectionObserver' in window && navLinks.length) {
+        const sections = Array.from(navLinks).map(a => {
+            const id = a.getAttribute('href');
+            return id ? document.querySelector(id) : null;
+        }).filter(Boolean);
+        const spyIo = new IntersectionObserver((entries) => {
+            let active = '';
+            entries.forEach(e => {
+                if (e.isIntersecting) active = e.target.id;
+            });
+            navLinks.forEach(a => {
+                a.classList.toggle('is-active', a.getAttribute('href') === '#' + active);
+            });
+        }, { threshold: 0.25, rootMargin: '0px 0px -20% 0px' });
+        sections.forEach(s => spyIo.observe(s));
+    }
+
     /* ═══════════════ HERO: campo ASCII vivo ═══════════════
        Ondas lentas de glifos mono + perturbacao do mouse + um
        feixe de scan laranja que "le" o campo periodicamente.

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://curso-cli-agenticas-juridico.vercel.app/sitemap.xml

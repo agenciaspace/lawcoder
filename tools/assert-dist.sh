@@ -14,12 +14,18 @@ REQUIRED=(
   "site/dist/index.html"
   "site/dist/curso.html"
   "site/dist/404.html"
+  "site/dist/robots.txt"
+  "site/dist/sitemap.xml"
   "site/dist/js/landing.js"
   "site/dist/js/app.js"
   "site/dist/css/landing.css"
   "site/dist/css/styles.css"
   "site/dist/css/variables.css"
   "site/dist/assets/leon-hatori.jpg"
+  "site/dist/assets/favicon.svg"
+  "site/dist/assets/favicon-32.png"
+  "site/dist/assets/apple-touch-icon.png"
+  "site/dist/assets/og-image.jpg"
 )
 
 fail=0
